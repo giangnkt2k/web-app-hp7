@@ -10,9 +10,6 @@ export default defineNuxtConfig({
   experimental: {
     externalVue: true,
   },
-  nitro: {
-    preset: "firebase",
-  },
   typescript: {
     shim: false,
   },
