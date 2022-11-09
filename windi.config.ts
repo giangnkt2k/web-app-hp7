@@ -11,4 +11,5 @@ export default defineConfig({
       },
     },
   },
+  plugins: [require("windicss/plugin/aspect-ratio")],
 });

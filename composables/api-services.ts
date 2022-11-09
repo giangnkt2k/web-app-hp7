@@ -1,4 +1,5 @@
-import { ApiRoutes, IBaseResponse } from "~~/types/api";
+import { ApiRoutes, IBaseResponse, IPaginatedData } from "~~/types/api";
+import { ISlideItem } from "~~/types/hero-slide";
 import { IStock } from "~~/types/stock";
 
 export const useApiServices = () => {
@@ -36,8 +37,15 @@ export const useApiServices = () => {
     });
   };
 
+  const carouselsService = () => {
+    return $api.get<IBaseResponse<IPaginatedData<ISlideItem[]>>>(
+      ApiRoutes.CAROUSELS
+    );
+  };
+
   return {
     loginService,
     searchStockService,
+    carouselsService,
   };
 };
