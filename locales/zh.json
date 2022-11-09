@@ -1,4 +1,14 @@
 {
     "hello": "hello",
-    "api.error.general": "Connection error. This issue will be fixed soon"
+    "api.error.general": "Connection error. This issue will be fixed soon",
+    "login_username": "用户名",
+    "register_repassword": "输入密码",
+    "register_mess_haveAcc": "你是不是已经有一个账号？ 登录",
+    "register_mess_institutionCode": "公司代码",
+    "register": "登记",
+    "register_mess_institutionCode_require": "公司代码输入",
+    "register_mess_rePassword_require": "需要重新输入密码",
+    "register_mess_password_require": "密码需要填写",
+    "register_mess_login_require": "用户名需要填写"
+
 }
