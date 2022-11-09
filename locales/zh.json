@@ -1,4 +1,8 @@
 {
     "hello": "hello",
-    "api.error.general": "Connection error. This issue will be fixed soon"
+    "api.error.general": "Connection error. This issue will be fixed soon",
+    "page.search.search-button.label": "Search",
+    "page.search.search-field.placeholder": "Search by stock name...",
+    "stock-list.finished-text": "All stocks have been loaded",
+    "stock-list.loading-text": "Loading stock..."
 }
