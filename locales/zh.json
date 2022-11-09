@@ -4,5 +4,8 @@
     "page.search.search-button.label": "Search",
     "page.search.search-field.placeholder": "Search by stock name...",
     "stock-list.finished-text": "All stocks have been loaded",
-    "stock-list.loading-text": "Loading stock..."
+    "stock-list.loading-text": "Loading stock...",
+    "stock-list.headers.name": "Name/Code",
+    "stock-list.headers.price": "Price",
+    "stock-list.headers.change": "Chg%"
 }

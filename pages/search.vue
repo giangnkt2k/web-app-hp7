@@ -11,19 +11,23 @@ const isFinished = ref(false);
 const stocks = ref<IStock[]>([]);
 
 const search = async (page?: number) => {
+  isFinished.value = false;
   isLoading.value = true;
   currentPage.value = page ?? currentPage.value;
 
   const response = await searchStockService(searchKey.value, currentPage.value);
 
-  stocks.value.push(...response.data.data);
+  if (response.data.data) {
+    stocks.value.push(...response.data.data);
 
-  if (response.data.data.length < 20) {
+    if (response.data.data.length < 20) {
+      isFinished.value = true;
+    }
+    isLoading.value = false;
+    currentPage.value++;
+  } else {
     isFinished.value = true;
   }
-
-  isLoading.value = false;
-  currentPage.value++;
 };
 </script>
 

@@ -8,7 +8,7 @@ defineProps<Props>();
 <template>
   <van-search v-bind="$props">
     <template #action>
-      <div class="text-white font-meidum">
+      <div class="text-white font-medium">
         {{ $t("page.search.search-button.label") }}
       </div>
     </template>
