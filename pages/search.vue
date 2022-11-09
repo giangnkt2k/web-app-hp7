@@ -4,7 +4,7 @@ import { IStock } from "~~/types/stock";
 const route = useRoute();
 const { searchStockService } = useApiServices();
 
-const searchKey = ref<string>(route.query.query?.toString() || "");
+const { searchKey } = useSearch();
 const currentPage = ref(1);
 const isLoading = ref(false);
 const isFinished = ref(false);
@@ -29,19 +29,28 @@ const search = async (page?: number) => {
     isFinished.value = true;
   }
 };
+
+if (route.query.query?.toString()) {
+  searchKey.value = route.query.query?.toString();
+}
+
+watch(
+  () => route.query.query,
+  () => {
+    stocks.value = [];
+    search(1);
+  }
+);
+
+onBeforeUnmount(() => {
+  searchKey.value = "";
+});
 </script>
 
 <template>
   <div>
     <van-sticky>
-      <SearchBar
-        v-model="searchKey"
-        show-action
-        :placeholder="$t('page.search.search-field.placeholder')"
-        background="var(--van-primary-color)"
-        shape="round"
-        @search="search(1)"
-      />
+      <SearchBar />
     </van-sticky>
 
     <StockList

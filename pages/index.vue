@@ -1,10 +1,9 @@
-<script lang="ts" setup>
-const config = useRuntimeConfig();
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div>Page: {{ $t("hello") }}</div>
-  <van-button type="primary"> {{ config.public.API_ENDPOINT }}</van-button>
+  <div>
+    <SearchBar />
+  </div>
 </template>
 
 <style scoped></style>

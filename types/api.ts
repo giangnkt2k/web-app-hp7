@@ -1,6 +1,6 @@
 export enum ApiRoutes {
-  LOGIN = "/login",
-  SEARCH_STOCK = "/stocks/searchStocks",
+  LOGIN = "/api/login",
+  SEARCH_STOCK = "/api/stocks/searchStocks",
 }
 
 export interface IBaseResponse<DataType> {
