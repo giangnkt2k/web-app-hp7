@@ -11,27 +11,27 @@
       <h1>{{ $t("login") }}</h1>
       <van-form @submit="onSubmit">
         <van-cell-group inset>
-          <van-field v-model="username" name="Username" placeholder="Username"
-          :rules="[{ required: true, message: 'Username is required' }]"
+          <van-field v-model="username" name="Username" :placeholder="$t('login_username')"
+          :rules="[{ required: true, message: $t('login_validate_require_username') }]"
           :label="$t('login_username')" />
-          <van-fiel
+          <van-field
             v-model="password"
             type="password"
             name="Password"
-            label="Password"
-            placeholder="Password"
-            :rules="[{ required: true, message: 'Password is required' }]"
+            :label="$t('login_passwoerd')"
+            :placeholder="$t('login_passwoerd')"
+            :rules="[{ required: true, message: $t('login_validate_password') }]"
           />
         </van-cell-group>
         <div style="margin: 16px">
           <van-button round block type="primary" native-type="submit">
-            Submit
+            {{ $t('login') }}
           </van-button>
         </div>
       </van-form>
       <van-grid :border="false" :column-num="2">
         <van-grid-item text="" />
-        <van-grid-item to="/register" text="没有账号？去注册" />
+        <van-grid-item to="/register" :text="$t('login_register')" />
       </van-grid>
     </div>
   </div>
