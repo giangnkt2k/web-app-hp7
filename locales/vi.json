@@ -1,3 +1,9 @@
 {
-    "hello": "xin chào"
+    "hello": "xin chào",
+    "login_username":"Tên đăng nhập",
+    "login_password":"Mật khẩu",
+    "login_validate_require_username": "Tên người dùng không được bỏ trống",
+    "login_validate_password": "Mật khẩu không được để trống",
+    "login": "Login",
+    "login_register": "Không có tài khoản? Đăng kí"
 }

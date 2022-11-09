@@ -1,3 +1,9 @@
 {
-  "hello": "hello"
+  "hello": "hello",
+  "login_username":"Username",
+  "login_password": "Password",
+  "login_validate_require_username": "Username is required",
+  "login_validate_password": "Password is required",
+  "login": "Login",
+  "login_register": "No account? to register"
 }
