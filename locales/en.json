@@ -1,3 +1,4 @@
 {
-  "hello": "hello"
+  "hello": "hello",
+  "api.error.general": "Connection error. This issue will be fixed soon"
 }
