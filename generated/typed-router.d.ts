@@ -13,11 +13,20 @@ import type {
 } from 'vue-router';
 import type { TypedRouteList } from './__routes';
 
-export type RouteListDecl = { index: 'index'; register: 'register' };
+export type RouteListDecl = {
+  index: 'index';
+  register: 'register';
+  search: 'search';
+  stockStockCode: 'stock-stockCode';
+};
 
 export type TypedRouteParams = {
   index: never;
   register: never;
+  search: never;
+  'stock-stockCode': {
+    stockCode: string | number;
+  };
 };
 
 type TypedRouteParamsStructure = {
