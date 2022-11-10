@@ -44,6 +44,8 @@ getChinaIndexes()
       {{ $t('home.news') }}
     </v-title>
     <NewsList />
+
+    <TheBottomNavigation />
   </div>
 </template>
 

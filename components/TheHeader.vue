@@ -6,7 +6,7 @@ type Props = {
   title?: string
 }
 
-const props = withDefaults(defineProps<Props>(), { backTo: '/' })
+const props = withDefaults(defineProps<Props>(), { backTo: '/', title: '' })
 
 const router = useRouter()
 const route = useRoute()

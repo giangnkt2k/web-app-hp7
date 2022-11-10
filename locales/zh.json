@@ -27,5 +27,10 @@
     "news-list.loading-text": "加载新闻...",
     "the-navbar.back": "返回",
     "page.news.title": "新闻资讯",
-    "page.search.title": "搜索"
+    "page.search.title": "搜索",
+    "bottom-bar.home": "首页",
+    "bottom-bar.market": "行情",
+    "bottom-bar.watch-list": "自选",
+    "bottom-bar.position": "持仓",
+    "bottom-bar.profile": "我的"
 }
