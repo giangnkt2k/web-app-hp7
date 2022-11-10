@@ -1,168 +1,166 @@
 @font-face {
-    font-family: iconfont;
+    font-family: vicon;
     src: url(/fonts/iconfont.27265643.woff2) format("woff2"), url(/fonts/iconfont.f7d615f9.woff) format("woff"), url(/fonts/iconfont.c2cfcc33.ttf) format("truetype")
 }
 
-.iconfont {
-    font-family: iconfont !important;
-    font-size: 16px;
+.vicon {
+    font-family: vicon !important;
     font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale
+    @apply text-base antialiased;
 }
 
-.icon-service:before {
+.vicon-service:before {
     content: "\e649"
 }
 
-.icon-arrow-down:before {
+.vicon-arrow-down:before {
     content: "\e602"
 }
 
-.icon-arrow-up:before {
+.vicon-arrow-up:before {
     content: "\e609"
 }
 
-.icon-heartbeat:before {
+.vicon-heartbeat:before {
     content: "\e641"
 }
 
-.icon-heart:before {
+.vicon-heart:before {
     content: "\e8ee"
 }
 
-.icon-bookmark-add:before {
+.vicon-bookmark-add:before {
     content: "\e636"
 }
 
-.icon-heart1:before {
+.vicon-heart1:before {
     content: "\e64e"
 }
 
-.icon-IPOfuck:before {
+.vicon-IPOfuck:before {
     content: "\e947"
 }
 
-.icon-detail:before {
+.vicon-detail:before {
     content: "\e66c"
 }
 
-.icon-about:before {
+.vicon-about:before {
     content: "\e648"
 }
 
-.icon-data:before {
+.vicon-data:before {
     content: "\e65c"
 }
 
-.icon-money:before {
+.vicon-money:before {
     content: "\e643"
 }
 
-.icon-shuju:before {
+.vicon-shuju:before {
     content: "\e66d"
 }
 
-.icon-sun:before {
+.vicon-sun:before {
     content: "\e668"
 }
 
-.icon-transaction:before {
+.vicon-transaction:before {
     content: "\e604"
 }
 
-.icon-refund-the-deposit:before {
+.vicon-refund-the-deposit:before {
     content: "\e689"
 }
 
-.icon-refund-the-deposit1:before {
+.vicon-refund-the-deposit1:before {
     content: "\e69f"
 }
 
-.icon-cloud-upload:before {
+.vicon-cloud-upload:before {
     content: "\e7d9"
 }
 
-.icon-cloud-download:before {
+.vicon-cloud-download:before {
     content: "\e7da"
 }
 
-.icon-idcard:before {
+.vicon-idcard:before {
     content: "\e7de"
 }
 
-.icon-Pound-Rise:before {
+.vicon-Pound-Rise:before {
     content: "\e6e1"
 }
 
-.icon-Dollar-Fall:before {
+.vicon-Dollar-Fall:before {
     content: "\e6ea"
 }
 
-.icon-Global-Network:before {
+.vicon-Global-Network:before {
     content: "\ecc7"
 }
 
-.icon-business_growth:before {
+.vicon-business_growth:before {
     content: "\ef19"
 }
 
-.icon-new:before {
+.vicon-new:before {
     content: "\e8ed"
 }
 
-.icon-password:before {
+.vicon-password:before {
     content: "\e75b"
 }
 
-.icon-viewlist:before {
+.vicon-viewlist:before {
     content: "\e76d"
 }
 
-.icon-notice:before {
+.vicon-notice:before {
     content: "\e603"
 }
 
-.icon-moon:before {
+.vicon-moon:before {
     content: "\e64d"
 }
 
-.icon-eye:before {
+.vicon-eye:before {
     content: "\e65f"
 }
 
-.icon-caiwuFinance1:before {
+.vicon-caiwuFinance1:before {
     content: "\e6e4"
 }
 
-.icon-customer-service:before {
+.vicon-customer-service:before {
     content: "\e66a"
 }
 
-.icon-no_eye:before {
+.vicon-no_eye:before {
     content: "\e6ad"
 }
 
-.icon-IDcard:before {
+.vicon-IDcard:before {
     content: "\e68a"
 }
 
-.icon-exchange:before {
+.vicon-exchange:before {
     content: "\e60a"
 }
 
-.icon-global-data:before {
+.vicon-global-data:before {
     content: "\e67d"
 }
 
-.icon-rmb-transfer:before {
+.vicon-rmb-transfer:before {
     content: "\e90c"
 }
 
-.icon-a-applyforcertification:before {
+.vicon-a-applyforcertification:before {
     content: "\e74b"
 }
 
-.icon-a-IDcardback-line:before {
+.vicon-a-IDcardback-line:before {
     content: "\e9ee"
 }

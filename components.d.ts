@@ -12,6 +12,8 @@ declare module '@vue/runtime-core' {
     VanCell: typeof import('vant/es')['Cell']
     VanCol: typeof import('vant/es')['Col']
     VanEmpty: typeof import('vant/es')['Empty']
+    VanGrid: typeof import('vant/es')['Grid']
+    VanGridItem: typeof import('vant/es')['GridItem']
     VanImage: typeof import('vant/es')['Image']
     VanList: typeof import('vant/es')['List']
     VanRow: typeof import('vant/es')['Row']

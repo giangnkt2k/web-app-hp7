@@ -8,5 +8,17 @@
     "stock-list.loading-text": "Loading stock...",
     "stock-list.headers.name": "Name/Code",
     "stock-list.headers.price": "Price",
-    "stock-list.headers.change": "Chg%"
+    "stock-list.headers.change": "Chg%",
+    "quick-access.items.big-deal": "大宗交易",
+    "quick-access.items.market": "市场行情",
+    "quick-access.items.ipo": "新股申购",
+    "quick-access.items.main-ranking": "主力排行",
+    "quick-access.items.north-fund": "北向资金",
+    "quick-access.items.watch-list": "自选股",
+    "quick-access.items.gain-list": "涨幅榜",
+    "quick-access.items.drop-list": "跌幅榜",
+    "quick-access.items.economic-data": "经济数据",
+    "quick-access.items.turnover-rate": "换手率",
+    "quick-access.items.amplitude-list": "振幅榜",
+    "quick-access.items.global-indexes": "全球指数"
 }

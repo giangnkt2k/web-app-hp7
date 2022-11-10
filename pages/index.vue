@@ -19,6 +19,7 @@ getCarousels()
   <div>
     <SearchBar />
     <HeroSlider :slides="slides" />
+    <QuickAccess />
   </div>
 </template>
 
