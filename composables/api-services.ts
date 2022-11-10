@@ -1,6 +1,8 @@
 import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
 import { ISlideItem } from '~~/types/hero-slide'
+import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
+import { IPositionResponse } from '~~/types/position'
 import { IStock } from '~~/types/stock'
 
 export const useApiServices = () => {
@@ -89,6 +91,14 @@ export const useApiServices = () => {
     return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.WATCH_LIST, { params: { page } })
   }
 
+  const positionsService = (page = 1) => {
+    return $api.get<IPositionResponse>(ApiRoutes.POSITIONS, { params: { page } })
+  }
+
+  const userNewSharesService = (page = 1) => {
+    return $api.get<IBaseResponse<IPaginatedData<INewShare[]>>>(ApiRoutes.USER_NEW_SHARES, { params: { page } })
+  }
+
   return {
     loginService,
     searchStockService,
@@ -97,6 +107,8 @@ export const useApiServices = () => {
     newsService,
     articleDetailsService,
     checkTokenService,
-    watchListService
+    watchListService,
+    positionsService,
+    userNewSharesService
   }
 }

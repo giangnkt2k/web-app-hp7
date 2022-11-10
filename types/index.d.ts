@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios'
+import dayjs from 'dayjs'
 import { Dialog, Notify, Toast } from 'vant'
 
 declare module 'nuxt/dist/app/nuxt' {
@@ -7,6 +8,7 @@ declare module 'nuxt/dist/app/nuxt' {
     $toast: typeof Toast;
     $dialog: typeof Dialog;
     $notify: typeof Notify;
+    $dayjs: typeof dayjs
   }
 }
 

@@ -6,7 +6,9 @@ export enum ApiRoutes {
   NEWS = '/api/financenews',
   ARTICLE_DETAILS = '/api/financenews/read',
   CHECK_TOKEN = '/api/checkToken',
-  WATCH_LIST = '/api/optionals/index'
+  WATCH_LIST = '/api/optionals/index',
+  POSITIONS = '/api/orders',
+  USER_NEW_SHARES = '/api/newshares/getMemberNewshareList'
 }
 
 export interface IBaseResponse<DataType> {
