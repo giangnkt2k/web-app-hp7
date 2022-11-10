@@ -1,1 +1,1 @@
-export const useSearchKey = () => useState("search-key", () => "");
+export const useSearchKey = () => useState('search-key', () => '')

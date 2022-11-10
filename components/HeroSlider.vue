@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { ISlideItem } from "~~/types/hero-slide";
+import { ISlideItem } from '~~/types/hero-slide'
 
 type Props = {
   slides: ISlideItem[];
 };
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 
 <template>

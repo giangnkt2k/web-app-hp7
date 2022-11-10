@@ -1,6 +1,6 @@
 export const useSearch = () => {
-  const searchKey = useSearchKey();
+  const searchKey = useSearchKey()
   return {
-    searchKey,
-  };
-};
+    searchKey
+  }
+}

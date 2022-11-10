@@ -1,7 +1,7 @@
-import { AxiosInstance } from "axios";
-import { Dialog, Notify, Toast } from "vant";
+import { AxiosInstance } from 'axios'
+import { Dialog, Notify, Toast } from 'vant'
 
-declare module "nuxt/dist/app/nuxt" {
+declare module 'nuxt/dist/app/nuxt' {
   export interface NuxtApp {
     $api: AxiosInstance;
     $toast: typeof Toast;
@@ -10,7 +10,7 @@ declare module "nuxt/dist/app/nuxt" {
   }
 }
 
-declare module "@vue/runtime-core" {
+declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $api: AxiosInstance;
   }

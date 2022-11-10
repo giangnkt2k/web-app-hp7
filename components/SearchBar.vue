@@ -1,17 +1,16 @@
 <script lang="ts" setup>
-import { SearchProps } from "vant";
 
-const { $typedRouter, $routesList } = useNuxtApp();
-const { searchKey } = useSearch();
+const { $typedRouter, $routesList } = useNuxtApp()
+const { searchKey } = useSearch()
 
 const onSearch = () => {
   $typedRouter.push({
     name: $routesList.search,
     query: {
-      query: searchKey.value,
-    },
-  });
-};
+      query: searchKey.value
+    }
+  })
+}
 </script>
 
 <template>
@@ -31,4 +30,6 @@ const onSearch = () => {
   </van-search>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>

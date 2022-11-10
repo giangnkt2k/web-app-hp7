@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IStock } from "~~/types/stock";
+import { IStock } from '~~/types/stock'
 
 type Props = {
   isLoading?: boolean;
@@ -9,21 +9,21 @@ type Props = {
 };
 
 type Emits = {
-  (event: "load"): void;
-  (event: "update:is-loading", value: boolean): void;
+  (event: 'load'): void;
+  (event: 'update:is-loading', value: boolean): void;
 };
 
-const props = withDefaults(defineProps<Props>(), { offsetTop: 54 });
-const emit = defineEmits<Emits>();
+const props = withDefaults(defineProps<Props>(), { offsetTop: 54 })
+const emit = defineEmits<Emits>()
 
 const isLoadingComputed = computed({
-  get() {
-    return !!props.isLoading;
+  get () {
+    return !!props.isLoading
   },
-  set(value) {
-    emit("update:is-loading", value);
-  },
-});
+  set (value) {
+    emit('update:is-loading', value)
+  }
+})
 </script>
 
 <template>
