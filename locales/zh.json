@@ -16,5 +16,11 @@
     "stock-list.loading-text": "Loading stock...",
     "stock-list.headers.name": "Name/Code",
     "stock-list.headers.price": "Price",
-    "stock-list.headers.change": "Chg%"
+    "stock-list.headers.change": "Chg%",
+    "login.title.username": "Username",
+    "login.title.password": "Password",
+    "login.validate.require.username": "Username is required",
+    "login.validate.password": "Password is required",
+    "login": "Login",
+    "login.register": "No account? to register"
 }

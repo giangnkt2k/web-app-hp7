@@ -9,6 +9,11 @@
     "register_mess_institutionCode_require": "Mã công ty cần phải điền",
     "register_mess_rePassword_require": "Cần phải điền lại mật khẩu",
     "register_mess_password_require": "Mật khẩu cần phải điền",
-    "register_mess_login_require": "Tên đăng nhập cần phải điền"
-
+    "register_mess_login_require": "Tên đăng nhập cần phải điền",
+    "login.title.username":"Tên đăng nhập",
+    "login.title.password":"Mật khẩu",
+    "login.validate.require.username": "Tên người dùng không được bỏ trống",
+    "login.validate.require.password": "Mật khẩu không được để trống",
+    "login": "Login",
+    "login.register": "Không có tài khoản? Đăng kí",
 }

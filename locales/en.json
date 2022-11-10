@@ -9,5 +9,11 @@
   "register_mess_institutionCode_require": "Institution code is required",
   "register_mess_rePassword_require": "Repeat password is required",
   "register_mess_password_require": "Password is required",
-  "register_mess_login_require": "Username is required"
+  "register_mess_login_require": "Username is required",
+  "login.title.username":"Username",
+  "login.title.password": "Password",
+  "login.validate.require.username": "Username is required",
+  "login.validate.require.password": "Password is required",
+  "login": "Login",
+  "login.register": "No account? to register",
 }
