@@ -4,7 +4,9 @@ export enum ApiRoutes {
   CAROUSELS = '/carousels',
   CHINA_INDEXES = '/api/stocks/getCnIndexes',
   NEWS = '/api/financenews',
-  ARTICLE_DETAILS = '/api/financenews/read'
+  ARTICLE_DETAILS = '/api/financenews/read',
+  CHECK_TOKEN = '/api/checkToken',
+  WATCH_LIST = '/api/optionals/index'
 }
 
 export interface IBaseResponse<DataType> {
@@ -22,4 +24,20 @@ export interface IPaginatedData<DataType> {
   current_page: number;
   last_page: number;
   data: DataType;
+}
+
+export interface IUserData {
+  id: number;
+  balance: string;
+  invite_code: string;
+  is_frozen: number;
+  loginname: string;
+  realname: string;
+  phone: string;
+  last_login: number;
+  last_login_ip: string;
+}
+
+export interface ILoginResponse extends IBaseResponse<IUserData> {
+  token: string
 }
