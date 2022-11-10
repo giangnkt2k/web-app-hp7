@@ -54,7 +54,7 @@ const onSubmit = () => {
   console.log("submmit");
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .logo {
   position: absolute;
   top: 20%;
@@ -68,10 +68,12 @@ const onSubmit = () => {
   top: 35%;
   left: 50%;
   transform: translateX(-50%);
-}
 
-.login__form h1 {
+  h1 {
   text-align: center;
   margin: 0.67em 0;
+  }
 }
+
+
 </style>

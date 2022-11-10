@@ -4,10 +4,6 @@
  * ---------------------
  * */
 
-export const routerPagesNames = {
-  index: 'index' as const,
-  login: 'login' as const,
-  register: 'register' as const,
-};
+export const routerPagesNames = { index: 'index' as const, login: 'login' as const };
 
-export type TypedRouteList = 'index' | 'login' | 'register';
+export type TypedRouteList = 'index' | 'login';
