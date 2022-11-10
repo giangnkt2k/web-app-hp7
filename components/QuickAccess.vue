@@ -14,19 +14,23 @@ const quickAccessItemsFirstPage = computed(() => [
   { icon: 'shuju', name: t('quick-access.items.economic-data') }
 ])
 
-const quickAccessItemsSecondPage = computed(() => [{ icon: 'exchange', name: t('quick-access.items.turnover-rate') },
-  { icon: 'heartbeat', name: t('quick-access.items.amplitude-list') }])
+const quickAccessItemsSecondPage = computed(() =>
+  [
+    { icon: 'exchange', name: t('quick-access.items.turnover-rate') },
+    { icon: 'heartbeat', name: t('quick-access.items.amplitude-list') }
+  ]
+)
 </script>
 
 <template>
   <van-swipe
     lazy-render
     indicator-color="var(--van-blue)"
-    class="pb-5 mb-2.5"
+    class="pb-5 mb-2.5 bg-white"
     :loop="false"
   >
     <van-swipe-item>
-      <van-grid :column-num="5" :border="false" :icon-size="24">
+      <van-grid :column-num="5" :border="false" :icon-size="24" clickable>
         <van-grid-item
           v-for="(item, index) in quickAccessItemsFirstPage"
           :key="index"
@@ -37,7 +41,7 @@ const quickAccessItemsSecondPage = computed(() => [{ icon: 'exchange', name: t('
       </van-grid>
     </van-swipe-item>
     <van-swipe-item>
-      <van-grid :column-num="5" :border="false" :icon-size="24">
+      <van-grid :column-num="5" :border="false" :icon-size="24" clickable>
         <van-grid-item v-for="(item, index) in quickAccessItemsSecondPage" :key="index" icon-prefix="vicon" :icon="item.icon" :text="item.name" />
       </van-grid>
     </van-swipe-item>

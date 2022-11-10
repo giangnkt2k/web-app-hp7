@@ -16,7 +16,7 @@ getCarousels()
 </script>
 
 <template>
-  <div>
+  <div class="bg-gray-100">
     <SearchBar />
     <HeroSlider :slides="slides" />
     <QuickAccess />

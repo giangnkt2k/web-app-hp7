@@ -41,6 +41,7 @@ const isLoadingComputed = computed({
         </van-col>
       </van-row>
     </van-sticky>
+
     <van-list
       v-model:loading="isLoadingComputed"
       :finished="isFinished"
