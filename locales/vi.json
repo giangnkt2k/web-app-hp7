@@ -1,10 +1,19 @@
 {
-    "hello": "xin chào",
+    "hello": "hello",
+    "api.error.general": "Connection error. This issue will be fixed soon",
+    "login_username": "Tên Đăng Nhập",
+    "register_repassword": "Nhập lại password",
+    "register_mess_haveAcc": "Bạn đã có tài khoản? Đăng nhập",
+    "register_mess_institutionCode": "Mã công ty",
+    "register": "Đăng kí",
+    "register_mess_institutionCode_require": "Mã công ty cần phải điền",
+    "register_mess_rePassword_require": "Cần phải điền lại mật khẩu",
+    "register_mess_password_require": "Mật khẩu cần phải điền",
+    "register_mess_login_require": "Tên đăng nhập cần phải điền",
     "login.title.username":"Tên đăng nhập",
     "login.title.password":"Mật khẩu",
     "login.validate.require.username": "Tên người dùng không được bỏ trống",
     "login.validate.require.password": "Mật khẩu không được để trống",
     "login": "Login",
-    "login.register": "Không có tài khoản? Đăng kí",
-    "api.error.general": "Connection error. This issue will be fixed soon"
+    "login.register": "Không có tài khoản? Đăng kí"
 }

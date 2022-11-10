@@ -1,10 +1,19 @@
 {
   "hello": "hello",
+  "api.error.general": "Connection error. This issue will be fixed soon",
+  "login_username": "Username",
+  "register_repassword": "Repeat password",
+  "register_mess_haveAcc": "Already have an account? Log in",
+  "register_mess_institutionCode": "Institution code",
+  "register": "Register",
+  "register_mess_institutionCode_require": "Institution code is required",
+  "register_mess_rePassword_require": "Repeat password is required",
+  "register_mess_password_require": "Password is required",
+  "register_mess_login_require": "Username is required",
   "login.title.username":"Username",
   "login.title.password": "Password",
   "login.validate.require.username": "Username is required",
   "login.validate.require.password": "Password is required",
   "login": "Login",
-  "login.register": "No account? to register",
-  "api.error.general": "Connection error. This issue will be fixed soon"
+  "login.register": "No account? to register"
 }
