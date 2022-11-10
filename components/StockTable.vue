@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IStock } from "~~/types/stock";
+import { IStock } from '~~/types/stock'
 
 type Props = {
   isLoading?: boolean;
@@ -9,21 +9,21 @@ type Props = {
 };
 
 type Emits = {
-  (event: "load"): void;
-  (event: "update:is-loading", value: boolean): void;
+  (event: 'load'): void;
+  (event: 'update:is-loading', value: boolean): void;
 };
 
-const props = withDefaults(defineProps<Props>(), { offsetTop: 54 });
-const emit = defineEmits<Emits>();
+const props = withDefaults(defineProps<Props>(), { offsetTop: 54 })
+const emit = defineEmits<Emits>()
 
 const isLoadingComputed = computed({
-  get() {
-    return !!props.isLoading;
+  get () {
+    return !!props.isLoading
   },
-  set(value) {
-    emit("update:is-loading", value);
-  },
-});
+  set (value) {
+    emit('update:is-loading', value)
+  }
+})
 </script>
 
 <template>
@@ -41,6 +41,7 @@ const isLoadingComputed = computed({
         </van-col>
       </van-row>
     </van-sticky>
+
     <van-list
       v-model:loading="isLoadingComputed"
       :finished="isFinished"
@@ -48,7 +49,7 @@ const isLoadingComputed = computed({
       :loading-text="$t('stock-list.loading-text')"
       @load="$emit('load')"
     >
-      <StockListItem v-for="stock in stocks" :key="stock.FS" :stock="stock" />
+      <StockTableItem v-for="stock in stocks" :key="stock.FS" :stock="stock" />
     </van-list>
   </div>
 </template>

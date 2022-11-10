@@ -1,13 +1,12 @@
 <script lang="ts" setup>
-const theme = {
-  primaryColor: "#ffe100",
-};
 </script>
 
 <template>
-  <van-config-provider :theme-vars="theme">
+  <div
+    class="max-w-500px mx-auto"
+  >
     <slot />
-  </van-config-provider>
+  </div>
 </template>
 
 <style scoped></style>

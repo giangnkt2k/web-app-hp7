@@ -1,0 +1,166 @@
+@font-face {
+    font-family: vicon;
+    src: url(/fonts/iconfont.27265643.woff2) format("woff2"), url(/fonts/iconfont.f7d615f9.woff) format("woff"), url(/fonts/iconfont.c2cfcc33.ttf) format("truetype")
+}
+
+.vicon {
+    font-family: vicon !important;
+    font-style: normal;
+    @apply text-base antialiased;
+}
+
+.vicon-service:before {
+    content: "\e649"
+}
+
+.vicon-arrow-down:before {
+    content: "\e602"
+}
+
+.vicon-arrow-up:before {
+    content: "\e609"
+}
+
+.vicon-heartbeat:before {
+    content: "\e641"
+}
+
+.vicon-heart:before {
+    content: "\e8ee"
+}
+
+.vicon-bookmark-add:before {
+    content: "\e636"
+}
+
+.vicon-heart1:before {
+    content: "\e64e"
+}
+
+.vicon-IPOfuck:before {
+    content: "\e947"
+}
+
+.vicon-detail:before {
+    content: "\e66c"
+}
+
+.vicon-about:before {
+    content: "\e648"
+}
+
+.vicon-data:before {
+    content: "\e65c"
+}
+
+.vicon-money:before {
+    content: "\e643"
+}
+
+.vicon-shuju:before {
+    content: "\e66d"
+}
+
+.vicon-sun:before {
+    content: "\e668"
+}
+
+.vicon-transaction:before {
+    content: "\e604"
+}
+
+.vicon-refund-the-deposit:before {
+    content: "\e689"
+}
+
+.vicon-refund-the-deposit1:before {
+    content: "\e69f"
+}
+
+.vicon-cloud-upload:before {
+    content: "\e7d9"
+}
+
+.vicon-cloud-download:before {
+    content: "\e7da"
+}
+
+.vicon-idcard:before {
+    content: "\e7de"
+}
+
+.vicon-Pound-Rise:before {
+    content: "\e6e1"
+}
+
+.vicon-Dollar-Fall:before {
+    content: "\e6ea"
+}
+
+.vicon-Global-Network:before {
+    content: "\ecc7"
+}
+
+.vicon-business_growth:before {
+    content: "\ef19"
+}
+
+.vicon-new:before {
+    content: "\e8ed"
+}
+
+.vicon-password:before {
+    content: "\e75b"
+}
+
+.vicon-viewlist:before {
+    content: "\e76d"
+}
+
+.vicon-notice:before {
+    content: "\e603"
+}
+
+.vicon-moon:before {
+    content: "\e64d"
+}
+
+.vicon-eye:before {
+    content: "\e65f"
+}
+
+.vicon-caiwuFinance1:before {
+    content: "\e6e4"
+}
+
+.vicon-customer-service:before {
+    content: "\e66a"
+}
+
+.vicon-no_eye:before {
+    content: "\e6ad"
+}
+
+.vicon-IDcard:before {
+    content: "\e68a"
+}
+
+.vicon-exchange:before {
+    content: "\e60a"
+}
+
+.vicon-global-data:before {
+    content: "\e67d"
+}
+
+.vicon-rmb-transfer:before {
+    content: "\e90c"
+}
+
+.vicon-a-applyforcertification:before {
+    content: "\e74b"
+}
+
+.vicon-a-IDcardback-line:before {
+    content: "\e9ee"
+}
