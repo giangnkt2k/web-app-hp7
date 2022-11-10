@@ -1,4 +1,10 @@
 {
-    "hello": "hello",
+    "hello": "xin chào",
+    "login.title.username":"Tên đăng nhập",
+    "login.title.password":"Mật khẩu",
+    "login.validate.require.username": "Tên người dùng không được bỏ trống",
+    "login.validate.require.password": "Mật khẩu không được để trống",
+    "login": "Login",
+    "login.register": "Không có tài khoản? Đăng kí",
     "api.error.general": "Connection error. This issue will be fixed soon"
 }
