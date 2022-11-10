@@ -10,7 +10,7 @@ defineProps<Props>()
 
 <template>
   <div class="p-3">
-    <div class="rounded-xl overflow-hidden aspect-w-401 aspect-h-203">
+    <div class="rounded-xl overflow-hidden aspect-w-2 aspect-h-1">
       <div>
         <van-swipe
           :autoplay="3000"

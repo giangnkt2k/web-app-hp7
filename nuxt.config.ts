@@ -17,7 +17,7 @@ export default defineNuxtConfig({
   },
 
   // CSS files
-  css: ['~/assets/scss/app.scss'],
+  css: ['~/assets/scss/app.scss', '~/assets/scss/icons.scss'],
 
   modules: [
     'nuxt-windicss',
