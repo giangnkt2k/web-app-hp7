@@ -16,7 +16,7 @@ const active = computed(() => route.name?.toString())
       <van-tabbar-item name="watch-list" icon-prefix="vicon" icon="bookmark-add">
         {{ $t('bottom-bar.watch-list') }}
       </van-tabbar-item>
-      <van-tabbar-item name="position" icon="cluster-o">
+      <van-tabbar-item :name="$routesList.position" icon="cluster-o">
         {{ $t('bottom-bar.position') }}
       </van-tabbar-item>
       <van-tabbar-item name="profile" icon="manager-o">
