@@ -1,9 +1,9 @@
 <template>
-  <div class="login">
+  <div class="register">
     <div class="logo">
       <img width="100" height="100" src="/img/logo.jpg" />
     </div>
-    <div class="login__form">
+    <div class="register__form">
       <h1 class="font-bold text-2xl">{{ $t("register") }}</h1>
       <van-form @submit="onSubmit">
         <van-cell-group inset>
@@ -82,7 +82,7 @@ const onSubmit = () => {
   transform: translateX(-50%);
 }
 
-.login__form {
+.register__form {
   width: 100%;
   position: absolute;
   top: 35%;
