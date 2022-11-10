@@ -7,7 +7,7 @@
       <h1 class="font-bold text-2xl">
         {{ $t("login") }}
       </h1>
-      <van-form @submit="onSubmit">
+      <van-form :disabled="isLoggingIn" @submit="onSubmit">
         <van-cell-group inset>
           <van-field
             v-model="username"
@@ -33,7 +33,7 @@
           />
         </van-cell-group>
         <div class="m-16px">
-          <van-button round block type="primary" native-type="submit">
+          <van-button round block type="primary" native-type="submit" :loading="isLoggingIn">
             {{ $t("login") }}
           </van-button>
         </div>
@@ -50,12 +50,21 @@
   </div>
 </template>
 <script lang="ts" setup>
+const { $typedRouter, $routesList } = useNuxtApp()
+const { loginService } = useApiServices()
+const accessToken = useAccessToken()
+
 const username = ref('')
-
 const password = ref('')
+const isLoggingIn = ref(false)
 
-const onSubmit = () => {
-  // TODO: implement login API
+const onSubmit = async () => {
+  isLoggingIn.value = true
+  const response = await loginService(username.value, password.value)
+  accessToken.value = response.data.token
+
+  await $typedRouter.push({ name: $routesList.index })
+  isLoggingIn.value = false
 }
 </script>
 <style lang="scss" scoped>

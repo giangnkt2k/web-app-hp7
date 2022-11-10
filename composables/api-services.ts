@@ -1,4 +1,4 @@
-import { ApiRoutes, IBaseResponse, IPaginatedData } from '~~/types/api'
+import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
 import { ISlideItem } from '~~/types/hero-slide'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IStock } from '~~/types/stock'
@@ -6,6 +6,17 @@ import { IStock } from '~~/types/stock'
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
   const { showApiError, t } = useUtility()
+  const accessToken = useAccessToken()
+
+  //   Request intercept
+  $api.interceptors.request.use((config) => {
+    config.headers = {
+      authorization: accessToken.value || 'undefined',
+      ...config.headers
+    }
+
+    return config
+  })
 
   // Response Interceptor
   $api.interceptors.response.use(
@@ -27,7 +38,7 @@ export const useApiServices = () => {
   )
 
   const loginService = (username: string, password: string) => {
-    return $api.post(ApiRoutes.LOGIN, { loginname: username, password })
+    return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { loginname: username, password })
   }
 
   const searchStockService = (keyword: string, page = 1) => {
@@ -70,12 +81,22 @@ export const useApiServices = () => {
     })
   }
 
+  const checkTokenService = () => {
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.CHECK_TOKEN, {})
+  }
+
+  const watchListService = (page = 1) => {
+    return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.WATCH_LIST, { params: { page } })
+  }
+
   return {
     loginService,
     searchStockService,
     carouselsService,
     chinaIndexesService,
     newsService,
-    articleDetailsService
+    articleDetailsService,
+    checkTokenService,
+    watchListService
   }
 }
