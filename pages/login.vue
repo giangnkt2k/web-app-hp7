@@ -4,7 +4,9 @@
       <img width="100" height="100" src="/img/logo.jpg">
     </div>
     <div class="login__form">
-      <h1 class="font-bold text-2xl">{{ $t("login") }}</h1>
+      <h1 class="font-bold text-2xl">
+        {{ $t("login") }}
+      </h1>
       <van-form @submit="onSubmit">
         <van-cell-group inset>
           <van-field
@@ -37,22 +39,24 @@
         </div>
       </van-form>
       <van-row class="py-10px px-16px">
-        <van-col span="12"></van-col>
+        <van-col span="12" />
         <van-col span="12" class="text-xs text-right">
-          <nuxt-link :to="{name: $routesList.register}">{{ $t('login.register') }}</nuxt-link>
+          <nuxt-link :to="{name: $routesList.register}">
+            {{ $t('login.register') }}
+          </nuxt-link>
         </van-col>
       </van-row>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-const username = ref("");
- 
-const password = ref("");
+const username = ref('')
+
+const password = ref('')
 
 const onSubmit = () => {
-  console.log("submmit");
-};
+  // TODO: implement login API
+}
 </script>
 <style lang="scss" scoped>
 .logo {

@@ -1,10 +1,12 @@
 <template>
   <div class="register">
     <div class="logo">
-      <img width="100" height="100" src="/img/logo.jpg" />
+      <img width="100" height="100" src="/img/logo.jpg">
     </div>
     <div class="register__form">
-      <h1 class="font-bold text-2xl">{{ $t("register") }}</h1>
+      <h1 class="font-bold text-2xl">
+        {{ $t("register") }}
+      </h1>
       <van-form @submit="onSubmit">
         <van-cell-group inset>
           <van-field
@@ -54,25 +56,27 @@
         </div>
       </van-form>
       <van-row class="py-10px px-16px">
-        <van-col span="12"></van-col>
+        <van-col span="12" />
         <van-col span="12" class="text-xs text-right">
-          <nuxt-link :to="{ name: $routesList.login }">{{
-            $t("register.mess.haveAcc")
-          }}</nuxt-link>
+          <nuxt-link :to="{ name: $routesList.login }">
+            {{
+              $t("register.mess.haveAcc")
+            }}
+          </nuxt-link>
         </van-col>
       </van-row>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-const username = ref("");
-const password = ref("");
-const rePassword = ref("");
-const institutionCode = ref("");
+const username = ref('')
+const password = ref('')
+const rePassword = ref('')
+const institutionCode = ref('')
 
 const onSubmit = () => {
-  console.log("submmit");
-};
+  // TODO: implement register API
+}
 </script>
 <style lang="scss" scoped>
 .logo {
