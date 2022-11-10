@@ -21,22 +21,20 @@ const isPriceDown = computed(() => props.stock.ZF < 0)
       })
     "
   >
-    <van-row class="items-center w-full">
+    <van-row class="items-center">
       <van-col span="12" class="pl-4">
-        <div class="mb-1 font-bold">
+        <div class="mb-1">
           {{ stock.N }}
         </div>
         <div class="text-xs text-gray-400">
           {{ stock.FS }}
         </div>
       </van-col>
-      <van-col span="12" class="text-right pr-4">
-        <div>
-          {{ stock.P }}
-        </div>
-        <div class="text-success text-xs" :class="{ '!text-danger': isPriceDown }">
-          {{ stock.ZF }}%
-        </div>
+      <van-col span="6" class="text-right text-success" :class="{ '!text-danger': isPriceDown }">
+        {{ stock.P }}
+      </van-col>
+      <van-col span="6" class="text-right pr-4 text-success" :class="{ '!text-danger': isPriceDown }">
+        {{ stock.ZF }}%
       </van-col>
     </van-row>
   </van-cell>

@@ -1,9 +1,9 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="max-w-500px mx-auto">
+  <h3 class="text-base font-bold p-4 text-[#969799]">
     <slot />
-  </div>
+  </h3>
 </template>
 
 <style scoped></style>

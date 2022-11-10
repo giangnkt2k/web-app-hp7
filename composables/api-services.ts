@@ -1,5 +1,6 @@
 import { ApiRoutes, IBaseResponse, IPaginatedData } from '~~/types/api'
 import { ISlideItem } from '~~/types/hero-slide'
+import { IArticleDetails, INews } from '~~/types/news'
 import { IStock } from '~~/types/stock'
 
 export const useApiServices = () => {
@@ -44,9 +45,37 @@ export const useApiServices = () => {
     )
   }
 
+  const chinaIndexesService = () => {
+    return $api.get<IBaseResponse<IStock[]>>(
+      ApiRoutes.CHINA_INDEXES
+    )
+  }
+
+  const newsService = (page = 1) => {
+    return $api.get<IBaseResponse<{data: INews[]}>>(
+      ApiRoutes.NEWS,
+      {
+        params: {
+          page
+        }
+      }
+    )
+  }
+
+  const articleDetailsService = (id: string) => {
+    return $api.get<IBaseResponse<IArticleDetails>>(ApiRoutes.ARTICLE_DETAILS, {
+      params: {
+        id
+      }
+    })
+  }
+
   return {
     loginService,
     searchStockService,
-    carouselsService
+    carouselsService,
+    chinaIndexesService,
+    newsService,
+    articleDetailsService
   }
 }

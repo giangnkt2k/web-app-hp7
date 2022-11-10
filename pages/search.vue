@@ -1,14 +1,21 @@
 <script lang="ts" setup>
 import { IStock } from '~~/types/stock'
 
+definePageMeta({
+  pageTitle: 'page.search.title'
+})
+
 const route = useRoute()
 const { searchStockService } = useApiServices()
-
 const { searchKey } = useSearch()
+
+const searchHeader = ref<HTMLElement>()
 const currentPage = ref(1)
 const isLoading = ref(false)
 const isFinished = ref(false)
 const stocks = ref<IStock[]>([])
+
+const { height: searchHeaderHeight } = useElementBounding(searchHeader)
 
 const search = async (page?: number) => {
   isFinished.value = false
@@ -49,12 +56,20 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
-    <van-sticky>
+    <van-sticky ref="searchHeader">
+      <TheHeader />
       <SearchBar />
     </van-sticky>
 
     <van-empty v-if="isFinished && !stocks.length" :description="$t('page.search.empty')" />
-    <StockList v-else v-model:is-loading="isLoading" :stocks="stocks" :is-finished="isFinished" @load="search" />
+    <StockTable
+      v-else
+      v-model:is-loading="isLoading"
+      :stocks="stocks"
+      :is-finished="isFinished"
+      :offset-top="searchHeaderHeight"
+      @load="search"
+    />
   </div>
 </template>
 

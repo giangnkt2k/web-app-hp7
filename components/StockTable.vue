@@ -49,7 +49,7 @@ const isLoadingComputed = computed({
       :loading-text="$t('stock-list.loading-text')"
       @load="$emit('load')"
     >
-      <StockListItem v-for="stock in stocks" :key="stock.FS" :stock="stock" />
+      <StockTableItem v-for="stock in stocks" :key="stock.FS" :stock="stock" />
     </van-list>
   </div>
 </template>

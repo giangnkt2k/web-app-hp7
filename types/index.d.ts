@@ -15,3 +15,11 @@ declare module '@vue/runtime-core' {
     $api: AxiosInstance;
   }
 }
+
+declare module '#app' {
+  interface PageMeta {
+    pageTitle?: string
+  }
+}
+
+export {}

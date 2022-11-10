@@ -2,6 +2,9 @@ export enum ApiRoutes {
   LOGIN = '/api/login',
   SEARCH_STOCK = '/api/stocks/searchStocks',
   CAROUSELS = '/carousels',
+  CHINA_INDEXES = '/api/stocks/getCnIndexes',
+  NEWS = '/api/financenews',
+  ARTICLE_DETAILS = '/api/financenews/read'
 }
 
 export interface IBaseResponse<DataType> {
