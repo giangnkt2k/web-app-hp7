@@ -15,6 +15,7 @@ import type { TypedRouteList } from './__routes';
 
 export type RouteListDecl = {
   index: 'index';
+  login: 'login';
   register: 'register';
   search: 'search';
   stockStockCode: 'stock-stockCode';
@@ -22,6 +23,7 @@ export type RouteListDecl = {
 
 export type TypedRouteParams = {
   index: never;
+  login: never;
   register: never;
   search: never;
   'stock-stockCode': {

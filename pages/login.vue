@@ -74,6 +74,4 @@ const onSubmit = () => {
   margin: 0.67em 0;
   }
 }
-
-
 </style>

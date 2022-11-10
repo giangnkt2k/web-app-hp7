@@ -15,5 +15,5 @@
   "login.validate.require.username": "Username is required",
   "login.validate.require.password": "Password is required",
   "login": "Login",
-  "login.register": "No account? to register",
+  "login.register": "No account? to register"
 }

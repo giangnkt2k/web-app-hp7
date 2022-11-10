@@ -9,6 +9,7 @@ import { defineNuxtPlugin } from '#app';
 export default defineNuxtPlugin((nuxtApp) => {
   const routesList = {
     index: 'index',
+    login: 'login',
     register: 'register',
     search: 'search',
     stockStockCode: 'stock-stockCode',

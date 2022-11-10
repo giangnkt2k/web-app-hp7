@@ -25,6 +25,7 @@ export const useTypedRouter = (): {
 
   const routesList = {
     index: 'index',
+    login: 'login',
     register: 'register',
     search: 'search',
     stockStockCode: 'stock-stockCode',
