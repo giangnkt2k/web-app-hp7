@@ -1,4 +1,10 @@
 {
     "hello": "hello",
-    "api.error.general": "Connection error. This issue will be fixed soon"
+    "api.error.general": "Connection error. This issue will be fixed soon",
+    "login_username":"Username",
+    "login_password": "Password",
+    "login_validate_require_username": "Username is required",
+    "login_validate_password": "Password is required",
+    "login": "Login",
+    "login_register": "No account? to register"
 }
