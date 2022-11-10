@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="logo">
-      <img width="100" height="100" src="../assets/img/logo.jpg">
+      <img width="100" height="100" src="/img/logo.jpg">
     </div>
     <div class="login__form">
       <h1 class="font-bold text-2xl">{{ $t("login") }}</h1>
@@ -10,36 +10,36 @@
           <van-field
             v-model="username"
             name="Username"
-            :placeholder="$t('login_username')"
+            :placeholder="$t('login.title.username')"
             :rules="[
               {
                 required: true,
-                message: $t('login_validate_require_username'),
+                message: $t('login.validate.require.username'),
               },
             ]"
-            :label="$t('login_username')"
+            :label="$t('login.title.username')"
           />
           <van-field
             v-model="password"
             type="password"
             name="Password"
-            :label="$t('login_password')"
-            :placeholder="$t('login_password')"
+            :label="$t('login.title.password')"
+            :placeholder="$t('login.title.password')"
             :rules="[
-              { required: true, message: $t('login_validate_password') },
+              { required: true, message: $t('login.validate.require.password') },
             ]"
           />
         </van-cell-group>
-        <div style="margin: 16px">
+        <div class="m-16px">
           <van-button round block type="primary" native-type="submit">
             {{ $t("login") }}
           </van-button>
         </div>
       </van-form>
-      <van-row style="padding: 10px 16px;">
+      <van-row class="py-10px px-16px">
         <van-col span="12"></van-col>
         <van-col span="12" class="text-xs text-right">
-          <nuxt-link :to="{name: $routeList.register}">{{ $t('login_register') }}</nuxt-link>
+          <nuxt-link :to="{name: $routesList.register}">{{ $t('login.register') }}</nuxt-link>
         </van-col>
       </van-row>
     </div>

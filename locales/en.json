@@ -1,10 +1,10 @@
 {
   "hello": "hello",
-  "login_username":"Username",
-  "login_password": "Password",
-  "login_validate_require_username": "Username is required",
-  "login_validate_password": "Password is required",
+  "login.title.username":"Username",
+  "login.title.password": "Password",
+  "login.validate.require.username": "Username is required",
+  "login.validate.require.password": "Password is required",
   "login": "Login",
-  "login_register": "No account? to register",
+  "login.register": "No account? to register",
   "api.error.general": "Connection error. This issue will be fixed soon"
 }
