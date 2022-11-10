@@ -8,3 +8,4 @@ node_modules
 dist
 generated
 plugins/__typed-router.ts
+components.d.ts
