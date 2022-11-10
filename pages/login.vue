@@ -4,7 +4,7 @@
       <img width="100" height="100" src="../assets/img/logo.jpg">
     </div>
     <div class="login__form">
-      <h1>{{ $t("login") }}</h1>
+      <h1 class="font-bold text-2xl">{{ $t("login") }}</h1>
       <van-form @submit="onSubmit">
         <van-cell-group inset>
           <van-field
@@ -38,8 +38,8 @@
       </van-form>
       <van-row style="padding: 10px 16px;">
         <van-col span="12"></van-col>
-        <van-col span="12" style="text-align:right;">
-          <a href="#/register" class="">{{ $t('login_register') }}</a>
+        <van-col span="12" class="text-xs text-right">
+          <nuxt-link :to="{name: $routeList.register}">{{ $t('login_register') }}</nuxt-link>
         </van-col>
       </van-row>
     </div>
@@ -47,6 +47,7 @@
 </template>
 <script lang="ts" setup>
 const username = ref("");
+ 
 const password = ref("");
 
 const onSubmit = () => {
