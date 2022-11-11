@@ -3,7 +3,7 @@ import { ISlideItem } from '~~/types/hero-slide'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
-import { IStock } from '~~/types/stock'
+import { IStock, IStockDetailsResponse } from '~~/types/stock'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
@@ -36,6 +36,7 @@ export const useApiServices = () => {
       }
 
       showApiError(t('api.error.general'))
+      return null
     }
   )
 
@@ -65,7 +66,7 @@ export const useApiServices = () => {
   }
 
   const newsService = (page = 1) => {
-    return $api.get<IBaseResponse<{data: INews[]}>>(
+    return $api.get<IBaseResponse<{ data: INews[] }>>(
       ApiRoutes.NEWS,
       {
         params: {
@@ -99,6 +100,10 @@ export const useApiServices = () => {
     return $api.get<IBaseResponse<IPaginatedData<INewShare[]>>>(ApiRoutes.USER_NEW_SHARES, { params: { page } })
   }
 
+  const stockDetailsService = (stockCode: string) => {
+    return $api.get<IStockDetailsResponse>(ApiRoutes.STOCK_DETAILS, { params: { keyword: stockCode } })
+  }
+
   return {
     loginService,
     searchStockService,
@@ -109,6 +114,7 @@ export const useApiServices = () => {
     checkTokenService,
     watchListService,
     positionsService,
-    userNewSharesService
+    userNewSharesService,
+    stockDetailsService
   }
 }

@@ -71,5 +71,6 @@
     "new-share-list.share-won": "中签股数",
     "new-share-list.subscription-time": "申购时间",
     "new-share-list.funded": "已入资",
-    "page.home.title": "首页"
+    "page.home.title": "首页",
+    "page.stock-details.title": "详情"
 }
