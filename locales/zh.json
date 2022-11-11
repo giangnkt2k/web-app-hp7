@@ -1,5 +1,4 @@
 {
-    "hello": "hello",
     "register.title.repassword": "输入密码",
     "register.mess.haveAcc": "你是不是已经有一个账号？ 登录",
     "register.title.institutionCode": "公司代码",
@@ -71,5 +70,6 @@
     "new-share-list.subscription-amount": "认缴金额",
     "new-share-list.share-won": "中签股数",
     "new-share-list.subscription-time": "申购时间",
-    "new-share-list.funded": "已入资"
+    "new-share-list.funded": "已入资",
+    "page.home.title": "首页"
 }

@@ -2,6 +2,10 @@
 import { ISlideItem } from '~~/types/hero-slide'
 import { IStock } from '~~/types/stock'
 
+definePageMeta({
+  pageTitle: 'page.home.title'
+})
+
 const { carouselsService, chinaIndexesService, watchListService } = useApiServices()
 
 const slides = ref<ISlideItem[]>([])
