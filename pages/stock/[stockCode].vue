@@ -8,6 +8,7 @@ definePageMeta({
   pageTitle: 'page.stock-details.title'
 })
 
+const { $dayjs } = useNuxtApp()
 const { stockDetailsService, stockKlineDataService } = useApiServices()
 const route = useRoute()
 const { toMoneyFormat } = useUtility()
@@ -25,7 +26,7 @@ const klineData = computed<KLineData[]>(() => [...stockKlineData.value.map(data 
   high: data.H,
   low: data.L,
   open: data.O,
-  timestamp: data.Tick,
+  timestamp: $dayjs.unix(data.Tick).valueOf(),
   volume: data.V,
   turnover: data.A
 }))])
@@ -57,6 +58,10 @@ const init = () => {
 }
 
 init()
+
+onUnmounted(() => {
+  selectedTimeRange.value = '15M'
+})
 </script>
 
 <template>
