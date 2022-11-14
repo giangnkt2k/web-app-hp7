@@ -9,7 +9,8 @@ export enum ApiRoutes {
   WATCH_LIST = '/api/optionals/index',
   POSITIONS = '/api/orders',
   USER_NEW_SHARES = '/api/newshares/getMemberNewshareList',
-  STOCK_DETAILS = '/api/stocks/getStockInfo'
+  STOCK_DETAILS = '/api/stocks/getStockInfo',
+  STOCK_KLINE_DATA = '/api/stocks/getStockKLine'
 }
 
 export interface IBaseResponse<DataType> {

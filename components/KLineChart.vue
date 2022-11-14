@@ -7,6 +7,7 @@ type Props = {
   // TODO: Provide better typing
   chartOptions?: any;
   chartType?: ChartType;
+  isDrawable?: boolean
 };
 
 interface Emits {
@@ -70,8 +71,7 @@ onMounted(() => {
     klineInstace.value.createTechnicalIndicator('MA', false, {
       id: 'candle_pane'
     })
-    klineInstace.value.createTechnicalIndicator('VOL', false, { height: 120 })
-    klineInstace.value.createTechnicalIndicator('MACD', false, { height: 120 })
+    klineInstace.value.createTechnicalIndicator('VOL', false, { height: 50 })
     chartWidth.value = klineInstace.value.getWidth().content
   }
 })
@@ -124,13 +124,13 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="h-full w-full flex flex-col sm:flex-row sm:flex-wrap">
+  <div class="h-full w-full">
     <ChartToolbar
       v-model:time-range="selectedTimeRange"
       @reload="$emit('reload')"
     />
 
-    <div class="k-line-chart__side-toolbar flex sm:flex-col">
+    <div v-if="isDrawable" class="k-line-chart__side-toolbar flex sm:flex-col">
       <button
         class="k-line-chart__icon-wrapper"
         @click="createChartShape(DrawableShape.HORIZONTAL_STRAIGHT_LINE)"
@@ -341,7 +341,7 @@ onBeforeUnmount(() => {
 
     <div
       ref="kLineChartRef"
-      class="flex-grow w-full sm:w-auto sm:h-[calc(100vh-30px)]"
+      class="h-full"
     />
   </div>
 </template>

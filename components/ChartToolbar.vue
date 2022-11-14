@@ -16,55 +16,29 @@ defineEmits<Emits>()
 const timeRanges: IChartTimeRange[] = [
   {
     text: '1m',
-    value: 6000
+    value: '1M'
   },
   {
     text: '5m',
-    value: 30000
+    value: '5M'
   },
   {
     text: '15m',
-    value: 90000
-  },
-  {
-    text: '30m',
-    value: 180000
+    value: '15M'
   },
   {
     text: '1H',
-    value: 3600000
-  },
-  {
-    text: '2H',
-    value: 7200000
+    value: '1H'
   },
   {
     text: '1D',
-    value: 86400000
-  },
-  {
-    text: '1W',
-    value: 604800000
-  },
-  {
-    text: '1M',
-    value: 'month'
-  },
-  {
-    text: '1Y',
-    value: 'year'
+    value: 'D'
   }
 ]
 </script>
 
 <template>
   <div class="chart-toolbar">
-    <button
-      class="chart-toolbar__time-range border-r border-[#ebedf1] sticky right-0"
-      @click="$typedRouter.push({ name: $routesList.index })"
-    >
-      <mdicon name="home" />
-    </button>
     <div class="flex items-center flex-grow overflow-auto">
       <button
         class="chart-toolbar__time-range"
@@ -103,7 +77,7 @@ const timeRanges: IChartTimeRange[] = [
 }
 
 .chart-toolbar__time-range {
-  @apply py-2px px-1.5 hover:text-blue-600 text-sm leading-tight rounded-sm;
+  @apply py-1 px-2 hover:text-blue-600 text-sm leading-tight rounded-sm;
 }
 
 .chart-toolbar__time-range--active {

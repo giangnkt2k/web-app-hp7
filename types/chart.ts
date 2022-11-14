@@ -1,4 +1,4 @@
-export type ChartTimeRangeValue = number | 'month' | 'year' | 'line';
+export type ChartTimeRangeValue = 'D' | '1M' | '5M' | '15M' | '1H' | 'line';
 
 export interface IChartTimeRange {
   text: string;
