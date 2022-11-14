@@ -4,6 +4,7 @@ import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
 import { IStock } from '~~/types/stock'
+// import { HotIndustry } from '~~/types/host-industry'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()

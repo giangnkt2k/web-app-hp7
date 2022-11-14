@@ -9,7 +9,7 @@
         <IndexQuotes />
       </van-tab>
       <van-tab title="沪深" name="CnQuotation">
-        content of tab 2
+        <CnQuotation />
       </van-tab>
       <van-tab title="振幅榜" name="Amplitube">
         content of tab 3
