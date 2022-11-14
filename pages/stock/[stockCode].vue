@@ -61,7 +61,6 @@ init()
 
 <template>
   <div>
-    {{ canSell }}
     <van-sticky>
       <TheHeader />
     </van-sticky>
