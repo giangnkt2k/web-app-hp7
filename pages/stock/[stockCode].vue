@@ -181,6 +181,21 @@ init()
         {{ $t('page.stock-details.sell-5') }}: {{ stockDetails?.S5 }}
       </van-col>
     </van-row>
+
+    <van-sticky position="bottom">
+      <van-row class="p-2 bg-white shadow-light-900" gutter="12">
+        <van-col :span="canSell ? 12 : 24">
+          <van-button block class="!bg-success !text-white !rounded-md" size="small">
+            {{ $t('stock-details.button.buy') }}
+          </van-button>
+        </van-col>
+        <van-col v-if="canSell" span="12">
+          <van-button block class="!bg-danger !text-white !rounded-md">
+            {{ $t('stock-details.button.sell') }}
+          </van-button>
+        </van-col>
+      </van-row>
+    </van-sticky>
   </div>
 </template>
 
