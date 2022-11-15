@@ -59,16 +59,15 @@
           <van-cell icon="thumb-circle-o" title="My Subscription" is-link to="" />
           <van-cell icon="orders-o" title="Breakdown of funds" is-link to="" />
           <van-cell icon="peer-pay" title="Silver certificate transfer out" is-link to="" />
-          <van-cell icon="description" title="Deposit list" is-link to="" />
+          <van-cell icon="description" title="Deposit" is-link to="profile/deposit" />
           <van-cell icon="cash-on-deliver" title="List of withdrawals" is-link to="" />
           <van-cell icon="contact" title="Real-name authentication" is-link to="profile/kyc" />
           <van-cell icon="browsing-history-o" title="Login password" is-link to="" />
           <van-cell icon="browsing-history" title="Withdrawal password" is-link to="" />
         </van-cell-group>
       </div>
-
-      <TheBottomNavigation />
     </div>
+    <TheBottomNavigation />
   </div>
 </template>
 
