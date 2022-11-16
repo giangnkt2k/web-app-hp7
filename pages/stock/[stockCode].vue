@@ -3,18 +3,21 @@ import { KLineData } from 'klinecharts'
 import { ChartType } from '~~/types/chart'
 import { IPosition } from '~~/types/position'
 import { IStock, IStockKlineData } from '~~/types/stock'
+import { useUserInfor } from '~~/stores/userInfor'
 
 definePageMeta({
   pageTitle: 'page.stock-details.title'
 })
 
 const { $dayjs } = useNuxtApp()
-// const { stockDetailsService, stockKlineDataService, getCurrentLoginInformations } = useApiServices()
 const { stockDetailsService, stockKlineDataService } = useApiServices()
 
 const route = useRoute()
 const { toMoneyFormat } = useUtility()
 const selectedTimeRange = useSelectedTimeRange()
+
+const userStore = useUserInfor()
+const { UserInformation } = userStore
 
 const stockDetails = ref<IStock>()
 const userHold = ref<IPosition | null>(null)
@@ -23,7 +26,7 @@ const showPopUpBuy = ref(false)
 const quantityBuy = ref(100)
 const currentPrice = ref(0)
 const checkedQuantityBuy = ref([])
-const availibleToBuy = ref(0)
+const availibleToBuy = ref<any>(0)
 
 const stockCode = computed(() => route.params.stockCode.toString())
 const canSell = computed(() => !!userHold.value && (Number(userHold.value.count || 0) - Number(userHold.value.count_today || 0)) > 0)
@@ -63,9 +66,6 @@ const getStockDetails = async () => {
 const getStockKline = async () => {
   stockKlineData.value = []
   const response = await stockKlineDataService(stockCode.value, selectedTimeRange.value === 'line' ? '5M' : selectedTimeRange.value)
-  // const userInfor = await getCurrentLoginInformations()
-  // eslint-disable-next-line no-console
-  // console.log('we', userInfor)
   if (response.data?.data) {
     stockKlineData.value = response.data.data
   }
@@ -73,6 +73,10 @@ const getStockKline = async () => {
 
 const buyStock = () => {
   showPopUpBuy.value = true
+  const balanceUser = parseFloat((Object.assign({}, UserInformation)).balance)
+  availibleToBuy.value = 100 * (Math.floor(Math.floor(balanceUser / currentPrice.value).toFixed(2) / 100) || 0)
+  // eslint-disable-next-line no-console
+  console.log('userStore', Object.assign({}, UserInformation))
 }
 
 const init = () => {

@@ -50,9 +50,14 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { useUserInfor } from '~~/stores/userInfor'
+
 const { $typedRouter, $routesList } = useNuxtApp()
 const { loginService } = useApiServices()
 const accessToken = useAccessToken()
+
+const userStore = useUserInfor()
+const { setUserData } = userStore
 
 const username = ref('')
 const password = ref('')
@@ -62,7 +67,7 @@ const onSubmit = async () => {
   isLoggingIn.value = true
   const response = await loginService(username.value, password.value)
   accessToken.value = response.data.token
-
+  setUserData(response.data.data)
   await $typedRouter.push({ name: $routesList.index })
   isLoggingIn.value = false
 }
