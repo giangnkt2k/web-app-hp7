@@ -50,13 +50,13 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { useUserInfor } from '~~/stores/authentication'
+import { useAthenticationStore } from '~~/stores/authentication'
 
 const { $typedRouter, $routesList } = useNuxtApp()
 const { loginService } = useApiServices()
 const accessToken = useAccessToken()
 
-const userStore = useUserInfor()
+const userStore = useAthenticationStore()
 const { setUserData } = userStore
 
 const username = ref('')

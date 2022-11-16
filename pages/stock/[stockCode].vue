@@ -3,7 +3,7 @@ import { KLineData } from 'klinecharts'
 import { ChartType } from '~~/types/chart'
 import { IPosition } from '~~/types/position'
 import { IStock, IStockKlineData } from '~~/types/stock'
-import { useUserInfor } from '~~/stores/authentication'
+import { useAthenticationStore } from '~~/stores/authentication'
 
 definePageMeta({
   pageTitle: 'page.stock-details.title'
@@ -16,7 +16,7 @@ const route = useRoute()
 const { toMoneyFormat } = useUtility()
 const selectedTimeRange = useSelectedTimeRange()
 
-const userStore = useUserInfor()
+const userStore = useAthenticationStore()
 const { userInformation } = userStore
 
 const stockDetails = ref<IStock>()
@@ -25,7 +25,7 @@ const stockKlineData = ref<IStockKlineData[]>([])
 const showPopUpBuy = ref(false)
 const quantityBuy = ref(100)
 const currentPrice = ref(0)
-const checkedQuantityBuy = ref([])
+const checkedQuantityBuy = ref('')
 const availibleToBuy = ref(0)
 const isBuying = ref(false)
 
@@ -50,9 +50,24 @@ const ceilingPrice = computed(() =>
 const floorPrice = computed(() =>
   toMoneyFormat((stockDetails.value?.YC || 0 - (stockDetails.value?.YC || 0 * 0.1)) || 0, '0,0')
 )
-// const availibleToBuy = computed(() => {
 
-// })
+watch(
+  () => checkedQuantityBuy.value,
+  (value) => {
+    if (value === 'all') {
+      quantityBuy.value = parseInt(availibleToBuy.value)
+    }
+    if (value === 'half') {
+      quantityBuy.value = parseInt(availibleToBuy.value) / 2
+    }
+    if (value === '1/3') {
+      quantityBuy.value = parseInt(availibleToBuy.value) / 3
+    }
+    if (value === '1/4') {
+      quantityBuy.value = parseInt(availibleToBuy.value) / 4
+    }
+  }
+)
 
 const getStockDetails = async () => {
   const response = await stockDetailsService(stockCode.value)
@@ -75,7 +90,6 @@ const getStockKline = async () => {
 const buyStock = () => {
   showPopUpBuy.value = true
   const balanceUser = parseFloat((Object.assign({}, userInformation)).balance)
-  // 100 * Math.floor(Math.floor(n.value.balance_avail / o.value.price).toFixed(2) / 100) || 0)
   availibleToBuy.value = 100 * (Math.floor(parseFloat(Math.floor(balanceUser / parseFloat(currentPrice.value)).toFixed(2)) / 100)) || 0
 }
 
@@ -275,16 +289,16 @@ onUnmounted(() => {
             </div>
             <div class="van-cell van-field">
               <van-radio-group v-model="checkedQuantityBuy" direction="horizontal" :max="1">
-                <van-radio name="a">
+                <van-radio name="all">
                   {{ $t('stock-details.buy.fullPosition') }}
                 </van-radio>
-                <van-radio name="b">
+                <van-radio name="half">
                   {{ $t('stock-details.buy.halfWarehouse') }}
                 </van-radio>
-                <van-radio name="c">
+                <van-radio name="1/3">
                   1/3
                 </van-radio>
-                <van-radio name="d">
+                <van-radio name="1/4">
                   1/4
                 </van-radio>
               </van-radio-group>
