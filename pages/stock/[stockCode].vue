@@ -9,7 +9,9 @@ definePageMeta({
 })
 
 const { $dayjs } = useNuxtApp()
-const { stockDetailsService, stockKlineDataService, getCurrentLoginInformations } = useApiServices()
+// const { stockDetailsService, stockKlineDataService, getCurrentLoginInformations } = useApiServices()
+const { stockDetailsService, stockKlineDataService } = useApiServices()
+
 const route = useRoute()
 const { toMoneyFormat } = useUtility()
 const selectedTimeRange = useSelectedTimeRange()
@@ -61,9 +63,9 @@ const getStockDetails = async () => {
 const getStockKline = async () => {
   stockKlineData.value = []
   const response = await stockKlineDataService(stockCode.value, selectedTimeRange.value === 'line' ? '5M' : selectedTimeRange.value)
-  const userInfor = await getCurrentLoginInformations()
+  // const userInfor = await getCurrentLoginInformations()
   // eslint-disable-next-line no-console
-  console.log('we', userInfor)
+  // console.log('we', userInfor)
   if (response.data?.data) {
     stockKlineData.value = response.data.data
   }

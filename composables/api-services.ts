@@ -14,7 +14,8 @@ export const useApiServices = () => {
   //   Request intercept
   $api.interceptors.request.use((config) => {
     config.headers = {
-      Authorization: `Bearer ${accessToken.value || 'undefined'}`,
+      // Authorization: `Bearer ${accessToken.value || 'undefined'}`,
+      authorization: accessToken.value || 'undefined',
       ...config.headers
     }
 
