@@ -3,7 +3,7 @@ import { KLineData } from 'klinecharts'
 import { ChartType } from '~~/types/chart'
 import { IPosition } from '~~/types/position'
 import { IStock, IStockKlineData } from '~~/types/stock'
-import { useUserInfor } from '~~/stores/userInfor'
+import { useUserInfor } from '~~/stores/authentication'
 
 definePageMeta({
   pageTitle: 'page.stock-details.title'
@@ -17,7 +17,7 @@ const { toMoneyFormat } = useUtility()
 const selectedTimeRange = useSelectedTimeRange()
 
 const userStore = useUserInfor()
-const { UserInformation } = userStore
+const { userInformation } = userStore
 
 const stockDetails = ref<IStock>()
 const userHold = ref<IPosition | null>(null)
@@ -27,7 +27,7 @@ const quantityBuy = ref(100)
 const currentPrice = ref(0)
 const checkedQuantityBuy = ref([])
 const availibleToBuy = ref(0)
-const isBuying = ref(flase)
+const isBuying = ref(false)
 
 const stockCode = computed(() => route.params.stockCode.toString())
 const canSell = computed(() => !!userHold.value && (Number(userHold.value.count || 0) - Number(userHold.value.count_today || 0)) > 0)
@@ -74,7 +74,7 @@ const getStockKline = async () => {
 
 const buyStock = () => {
   showPopUpBuy.value = true
-  const balanceUser = parseFloat((Object.assign({}, UserInformation)).balance)
+  const balanceUser = parseFloat((Object.assign({}, userInformation)).balance)
   // 100 * Math.floor(Math.floor(n.value.balance_avail / o.value.price).toFixed(2) / 100) || 0)
   availibleToBuy.value = 100 * (Math.floor(parseFloat(Math.floor(balanceUser / parseFloat(currentPrice.value)).toFixed(2)) / 100)) || 0
 }
@@ -91,6 +91,8 @@ const submitBuyStock = async () => {
     dieting: floorPrice.value
   }
   const res = await buyingStockLimnit(param)
+  // eslint-disable-next-line no-console
+  console.log(res)
   // TODO handle res
   isBuying.value = false
   showPopUpBuy.value = false

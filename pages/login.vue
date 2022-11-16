@@ -50,7 +50,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { useUserInfor } from '~~/stores/userInfor'
+import { useUserInfor } from '~~/stores/authentication'
 
 const { $typedRouter, $routesList } = useNuxtApp()
 const { loginService } = useApiServices()

@@ -4,7 +4,7 @@ import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
 import { IStock, IStockDetailsResponse, IStockKlineData } from '~~/types/stock'
-import { IBuyLimit } from '~~/types/buy-limit'
+// import { IBuyLimit } from '~~/types/buy-limit'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
