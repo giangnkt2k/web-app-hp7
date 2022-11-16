@@ -9,7 +9,7 @@ definePageMeta({
 })
 
 const { $dayjs } = useNuxtApp()
-const { stockDetailsService, stockKlineDataService } = useApiServices()
+const { stockDetailsService, stockKlineDataService, getCurrentLoginInformations } = useApiServices()
 const route = useRoute()
 const { toMoneyFormat } = useUtility()
 const selectedTimeRange = useSelectedTimeRange()
@@ -17,6 +17,11 @@ const selectedTimeRange = useSelectedTimeRange()
 const stockDetails = ref<IStock>()
 const userHold = ref<IPosition | null>(null)
 const stockKlineData = ref<IStockKlineData[]>([])
+const showPopUpBuy = ref(false)
+const quantityBuy = ref(100)
+const currentPrice = ref(0)
+const checkedQuantityBuy = ref([])
+const availibleToBuy = ref(0)
 
 const stockCode = computed(() => route.params.stockCode.toString())
 const canSell = computed(() => !!userHold.value && (Number(userHold.value.count || 0) - Number(userHold.value.count_today || 0)) > 0)
@@ -33,12 +38,22 @@ const klineData = computed<KLineData[]>(() => [...stockKlineData.value.map(data 
 const chartType = computed(() =>
   selectedTimeRange.value === 'line' ? ChartType.AREA : ChartType.CANDLE_SOLID
 )
+const ceilingPrice = computed(() =>
+  toMoneyFormat((stockDetails.value?.YC + (stockDetails.value?.YC * 0.1)) || 0, '0,0')
+)
+const floorPrice = computed(() =>
+  toMoneyFormat((stockDetails.value?.YC - (stockDetails.value?.YC * 0.1)) || 0, '0,0')
+)
+// const availibleToBuy = computed(() => {
+
+// })
 
 const getStockDetails = async () => {
   const response = await stockDetailsService(stockCode.value)
 
   if (response.data?.data) {
     stockDetails.value = response.data.data
+    currentPrice.value = stockDetails.value.P
     userHold.value = response.data.hold
   }
 }
@@ -46,10 +61,16 @@ const getStockDetails = async () => {
 const getStockKline = async () => {
   stockKlineData.value = []
   const response = await stockKlineDataService(stockCode.value, selectedTimeRange.value === 'line' ? '5M' : selectedTimeRange.value)
-
+  const userInfor = await getCurrentLoginInformations()
+  // eslint-disable-next-line no-console
+  console.log('we', userInfor)
   if (response.data?.data) {
     stockKlineData.value = response.data.data
   }
+}
+
+const buyStock = () => {
+  showPopUpBuy.value = true
 }
 
 const init = () => {
@@ -189,7 +210,7 @@ onUnmounted(() => {
     <van-sticky position="bottom">
       <van-row class="p-2 bg-white shadow-light-900" gutter="12">
         <van-col :span="canSell ? 12 : 24">
-          <van-button block class="!bg-success !text-white !rounded-md" size="small">
+          <van-button block class="!bg-success !text-white !rounded-md" size="small" @click="buyStock">
             {{ $t('stock-details.button.buy') }}
           </van-button>
         </van-col>
@@ -199,8 +220,72 @@ onUnmounted(() => {
           </van-button>
         </van-col>
       </van-row>
+
+      <van-popup
+        v-model:show="showPopUpBuy"
+        closeable
+        round
+        close-icon="close"
+        position="bottom"
+      >
+        <div class="font-bold text-xl text-center my-3">
+          {{ $t('stock-details.button.buy') }}
+        </div>
+        <div class="px-3 py-4">
+          <div>
+            <span class="text-lg pr-1">{{ stockDetails?.N }} </span>
+            <span class="font-light">{{ stockDetails?.C }}</span>
+          </div>
+          <div class="text-xs">
+            {{ $t('stock-details.buy.ceilingPrice') }}：{{ ceilingPrice }} {{ $t('stock-details.buy.floorPrice') }}：{{ floorPrice }}
+          </div>
+        </div>
+        <div>
+          <van-cell-group inset>
+            <van-field v-model="quantityBuy" type="digit" :label="$t('stock-details.buy.quantity')" />
+            <van-field v-model="currentPrice" type="text" readonly :label="$t('stock-details.buy.currentPrice')" />
+            <div class="van-cell van-field">
+              <span class="van-cell__title van-field__label">{{ $t('stock-details.buy.fast') }}</span>
+              <van-stepper v-model="quantityBuy" min="100" step="100" />
+            </div>
+            <div class="van-cell van-field">
+              <van-radio-group v-model="checkedQuantityBuy" direction="horizontal" :max="1">
+                <van-radio name="a">
+                  {{ $t('stock-details.buy.fullPosition') }}
+                </van-radio>
+                <van-radio name="b">
+                  {{ $t('stock-details.buy.halfWarehouse') }}
+                </van-radio>
+                <van-radio name="c">
+                  1/3
+                </van-radio>
+                <van-radio name="d">
+                  1/4
+                </van-radio>
+              </van-radio-group>
+            </div>
+          </van-cell-group>
+
+          <div class="px-3 py-4">
+            {{ $t('stock-details.buy.availibleToBuy') }}{{ availibleToBuy }}
+          </div>
+
+          <div class="px-3 py-2">
+            <van-button :disabled="availibleToBuy < 1" type="primary" round block size="small">
+              {{ $t('stock-details.buy.buyLimitBoard') }}
+            </van-button>
+          </div>
+        </div>
+      </van-popup>
     </van-sticky>
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+::v-deep .van-popup--bottom {
+  height: 70%;
+}
+::v-deep .van-popup {
+  background-color: #f7f8fa;
+}
+</style>

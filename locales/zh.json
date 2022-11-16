@@ -104,5 +104,14 @@
     "kline.tooltip.volume": "成交量: ",
     "kline.toolbar.line": "Line",
     "stock-details.button.buy": "买入",
-    "stock-details.button.sell": "卖出"
+    "stock-details.button.sell": "卖出",
+    "stock-details.buy.quantity": "数量",
+    "stock-details.buy.currentPrice": "现价",
+    "stock-details.buy.fast": "快捷",
+    "stock-details.buy.fullPosition": "全仓",
+    "stock-details.buy.halfWarehouse": "半仓",
+    "stock-details.buy.ceilingPrice": "上限价格",
+    "stock-details.buy.floorPrice": "底价",
+    "stock-details.buy.availibleToBuy": "可买：",
+    "stock-details.buy.buyLimitBoard": "买入涨停板"
 }

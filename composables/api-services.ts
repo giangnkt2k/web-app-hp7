@@ -4,6 +4,7 @@ import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
 import { IStock, IStockDetailsResponse, IStockKlineData } from '~~/types/stock'
+import { userData } from '~~/types/user'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
@@ -13,7 +14,7 @@ export const useApiServices = () => {
   //   Request intercept
   $api.interceptors.request.use((config) => {
     config.headers = {
-      authorization: accessToken.value || 'undefined',
+      Authorization: `Bearer ${accessToken.value || 'undefined'}`,
       ...config.headers
     }
 
@@ -108,6 +109,10 @@ export const useApiServices = () => {
     return $api.get<IBaseResponse<IStockKlineData[]>>(ApiRoutes.STOCK_KLINE_DATA, { params: { code: stockCode, period } })
   }
 
+  const getCurrentLoginInformations = () => {
+    return $api.get<IBaseResponse<userData[]>>(ApiRoutes.USER_INFORMATION)
+  }
+
   return {
     loginService,
     searchStockService,
@@ -120,6 +125,7 @@ export const useApiServices = () => {
     positionsService,
     userNewSharesService,
     stockDetailsService,
-    stockKlineDataService
+    stockKlineDataService,
+    getCurrentLoginInformations
   }
 }

@@ -10,7 +10,8 @@ export enum ApiRoutes {
   POSITIONS = '/api/orders',
   USER_NEW_SHARES = '/api/newshares/getMemberNewshareList',
   STOCK_DETAILS = '/api/stocks/getStockInfo',
-  STOCK_KLINE_DATA = '/api/stocks/getStockKLine'
+  STOCK_KLINE_DATA = '/api/stocks/getStockKLine',
+  USER_INFORMATION ='/api/services/app/session/GetCurrentLoginInformations'
 }
 
 export interface IBaseResponse<DataType> {
@@ -44,4 +45,8 @@ export interface IUserData {
 
 export interface ILoginResponse extends IBaseResponse<IUserData> {
   token: string
+}
+
+export interface UserInfor<DataType> {
+  data: DataType;
 }
