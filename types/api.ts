@@ -11,7 +11,8 @@ export enum ApiRoutes {
   USER_NEW_SHARES = '/api/newshares/getMemberNewshareList',
   STOCK_DETAILS = '/api/stocks/getStockInfo',
   STOCK_KLINE_DATA = '/api/stocks/getStockKLine',
-  USER_INFORMATION ='/api/services/app/session/GetCurrentLoginInformations'
+  USER_INFORMATION ='/api/services/app/session/GetCurrentLoginInformations',
+  BUY_LIMIT = ''
 }
 
 export interface IBaseResponse<DataType> {

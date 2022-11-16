@@ -10,7 +10,7 @@ definePageMeta({
 })
 
 const { $dayjs } = useNuxtApp()
-const { stockDetailsService, stockKlineDataService } = useApiServices()
+const { stockDetailsService, stockKlineDataService, buyingStockLimnit } = useApiServices()
 
 const route = useRoute()
 const { toMoneyFormat } = useUtility()
@@ -26,7 +26,8 @@ const showPopUpBuy = ref(false)
 const quantityBuy = ref(100)
 const currentPrice = ref(0)
 const checkedQuantityBuy = ref([])
-const availibleToBuy = ref<any>(0)
+const availibleToBuy = ref(0)
+const isBuying = ref(flase)
 
 const stockCode = computed(() => route.params.stockCode.toString())
 const canSell = computed(() => !!userHold.value && (Number(userHold.value.count || 0) - Number(userHold.value.count_today || 0)) > 0)
@@ -44,10 +45,10 @@ const chartType = computed(() =>
   selectedTimeRange.value === 'line' ? ChartType.AREA : ChartType.CANDLE_SOLID
 )
 const ceilingPrice = computed(() =>
-  toMoneyFormat((stockDetails.value?.YC + (stockDetails.value?.YC * 0.1)) || 0, '0,0')
+  toMoneyFormat((stockDetails.value?.YC || 0 + (stockDetails.value?.YC || 0 * 0.1)) || 0, '0,0')
 )
 const floorPrice = computed(() =>
-  toMoneyFormat((stockDetails.value?.YC - (stockDetails.value?.YC * 0.1)) || 0, '0,0')
+  toMoneyFormat((stockDetails.value?.YC || 0 - (stockDetails.value?.YC || 0 * 0.1)) || 0, '0,0')
 )
 // const availibleToBuy = computed(() => {
 
@@ -74,9 +75,25 @@ const getStockKline = async () => {
 const buyStock = () => {
   showPopUpBuy.value = true
   const balanceUser = parseFloat((Object.assign({}, UserInformation)).balance)
-  availibleToBuy.value = 100 * (Math.floor(Math.floor(balanceUser / currentPrice.value).toFixed(2) / 100) || 0)
-  // eslint-disable-next-line no-console
-  console.log('userStore', Object.assign({}, UserInformation))
+  // 100 * Math.floor(Math.floor(n.value.balance_avail / o.value.price).toFixed(2) / 100) || 0)
+  availibleToBuy.value = 100 * (Math.floor(parseFloat(Math.floor(balanceUser / parseFloat(currentPrice.value)).toFixed(2)) / 100)) || 0
+}
+
+const submitBuyStock = async () => {
+  isBuying.value = true
+  const param = {
+    amount: quantityBuy.value,
+    market: stockDetails.value?.M || '',
+    name: stockDetails.value?.N || '',
+    code: stockDetails.value?.C || '',
+    price: currentPrice.value,
+    zhangting: ceilingPrice.value,
+    dieting: floorPrice.value
+  }
+  const res = await buyingStockLimnit(param)
+  // TODO handle res
+  isBuying.value = false
+  showPopUpBuy.value = false
 }
 
 const init = () => {
@@ -277,7 +294,15 @@ onUnmounted(() => {
           </div>
 
           <div class="px-3 py-2">
-            <van-button :disabled="availibleToBuy < 1" type="primary" round block size="small">
+            <van-button
+              :disabled="availibleToBuy < 1"
+              type="primary"
+              round
+              block
+              size="small"
+              :loading="isBuying"
+              @click="submitBuyStock"
+            >
               {{ $t('stock-details.buy.buyLimitBoard') }}
             </van-button>
           </div>
