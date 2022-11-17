@@ -15,7 +15,7 @@ export interface IUserInfo
     bankbranch: string,
     accountname: string,
     withdraw_tips: string,
-    balance_frozen: string,
+    balance_frozen: number,
     balance_avail: string,
     balance_avail_newshare: string,
     total_assets: string,

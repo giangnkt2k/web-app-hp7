@@ -8,7 +8,6 @@ import { IUserInfo } from '~~/types/user'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
-  const { showApiError, t } = useUtility()
   const accessToken = useAccessToken()
 
   //   Request intercept
@@ -20,26 +19,6 @@ export const useApiServices = () => {
 
     return config
   })
-
-  // Response Interceptor
-  $api.interceptors.response.use(
-    (response) => {
-      if (response.data.code !== 0) {
-        showApiError(response.data.msg)
-      }
-
-      return response
-    },
-    (error) => {
-      if (process.dev) {
-        // eslint-disable-next-line no-console
-        console.log(error)
-      }
-
-      showApiError(t('api.error.general'))
-      return null
-    }
-  )
 
   const loginService = (username: string, password: string) => {
     return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { loginname: username, password })
@@ -117,6 +96,10 @@ export const useApiServices = () => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.BUY_LIMIT, { param })
   }
 
+  const withdrawMoney = (amount: number, withdrawPassword: string) => {
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.WITHDRAW_MONEY, { params: { amount, withdraw_password: withdrawPassword } })
+  }
+
   return {
     loginService,
     searchStockService,
@@ -131,6 +114,7 @@ export const useApiServices = () => {
     stockDetailsService,
     stockKlineDataService,
     buyingStockLimit,
-    userInfoService
+    userInfoService,
+    withdrawMoney
   }
 }

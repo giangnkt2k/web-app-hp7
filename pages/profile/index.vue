@@ -1,7 +1,10 @@
 <script lang="ts" setup>
-const userName = ref('User name')
-const realName = ref('Real name')
+import { storeToRefs } from 'pinia'
+import { useAuthenticationStore } from '~~/stores/authentication'
 
+const userStore = useAuthenticationStore()
+
+const { userInformation } = storeToRefs(userStore)
 </script>
 
 <template>
@@ -15,8 +18,8 @@ const realName = ref('Real name')
           src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
         />
         <div class="ml-5 pt-2 pl-2">
-          <h1> {{ userName }} </h1>
-          <h3>{{ realName }}</h3>
+          <h1> {{ userInformation?.loginname || '' }} </h1>
+          <h3>{{ userInformation?.realname || '' }}</h3>
         </div>
       </div>
 
@@ -26,14 +29,14 @@ const realName = ref('Real name')
           <van-icon name="eye-o" color="black" size="18" class="ml-3" />
         </div>
         <div class="my-3 text-2xl font-bold">
-          593243.23
+          {{ userInformation?.balance || '' }}
         </div>
         <div class="flex justify-between">
           <div>
-            {{ $t('profile.available') }} 30000000
+            {{ $t('profile.available') }} {{ userInformation?.balance_avail || '' }}
           </div>
           <div>
-            {{ $t('profile.freeze') }} 231241414
+            {{ $t('profile.freeze') }} {{ userInformation?.balance_frozen || 0 }}
           </div>
         </div>
       </div>
@@ -41,18 +44,18 @@ const realName = ref('Real name')
       <div class="mt-5 p-3 bg-light-50 rounded-md flex justify-center">
         <div class="border-r p-2 text-center">
           <div class="text-sm">
-            Total market capitalization
+            {{ $t('profile.totalMarketCapitalization') }}
           </div>
           <div class="text-xl font-bold">
-            95514.00
+            {{ userInformation?.hold_value || '' }}
           </div>
         </div>
         <div class="p-2 text-center">
           <div class="text-sm">
-            Profit and loss of open positions
+            {{ $t('profile.profitAndLoss') }}
           </div>
           <div class="text-xl font-bold">
-            44791.00
+            {{ userInformation?.profit || '' }}
           </div>
         </div>
       </div>
@@ -62,7 +65,7 @@ const realName = ref('Real name')
           <van-cell icon="records" title="Transaction history" is-link to="" />
           <van-cell icon="thumb-circle-o" title="My Subscription" is-link to="" />
           <van-cell icon="orders-o" title="Breakdown of funds" is-link to="" />
-          <van-cell icon="peer-pay" title="Silver certificate transfer out" is-link to="" />
+          <van-cell icon="peer-pay" :title="$t('profile.cell.silverCertificateTransferOut')" is-link to="profile/withdrawMoney" />
           <van-cell icon="description" title="Deposit" is-link to="profile/deposit" />
           <van-cell icon="cash-on-deliver" title="List of withdrawals" is-link to="" />
           <van-cell icon="contact" title="Real-name authentication" is-link to="profile/kyc" />
