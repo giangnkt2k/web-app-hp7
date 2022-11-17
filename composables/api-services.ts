@@ -4,7 +4,7 @@ import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
 import { IStock, IStockDetailsResponse, IStockKlineData, IBuyStockReqBody } from '~~/types/stock'
-import { IUserInfo } from '~~/types/user'
+import { IUserInfo, IUserDeposit } from '~~/types/user'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
@@ -88,6 +88,10 @@ export const useApiServices = () => {
     return $api.get<IStockDetailsResponse>(ApiRoutes.STOCK_DETAILS, { params: { keyword: stockCode } })
   }
 
+  const depositDetailService = (page = 1) => {
+    return $api.get <IBaseResponse<IPaginatedData<IUserDeposit>>>(ApiRoutes.DEPOSIT_LIST, { params: { page } })
+  }
+
   const stockKlineDataService = (stockCode: string, period: string) => {
     return $api.get<IBaseResponse<IStockKlineData[]>>(ApiRoutes.STOCK_KLINE_DATA, { params: { code: stockCode, period } })
   }
@@ -115,6 +119,7 @@ export const useApiServices = () => {
     stockKlineDataService,
     buyingStockLimit,
     userInfoService,
-    withdrawMoney
+    withdrawMoney,
+    depositDetailService
   }
 }

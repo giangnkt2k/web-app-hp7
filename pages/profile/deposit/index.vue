@@ -1,8 +1,29 @@
 <script lang="ts" setup>
+import { IUserDeposit } from '~~/types/user'
+
 const { $routesList, $typedRouter } = useNuxtApp()
+const { depositDetailService } = useApiServices()
 
 const deposit = ref()
 const showPopupDeposit = ref(false)
+const depositList = ref([])
+
+const getDetailService = async () => {
+  const res = await depositDetailService()
+  const data = res.data.data.data
+  if (data.length > 0) {
+    depositList.value = res.data.data.data.map((item:IUserDeposit) => {
+      return {
+        ...item,
+        is_check: (item.is_check === 1) ? '已审核' : '拒审',
+        created_at: convertTime(item.created_at)
+      }
+    })
+  }
+}
+const convertTime = (value:number) => {
+  return new Date(value * 1000).toLocaleString()
+}
 
 const submitDeposit = () => {
   // TODO: ....call api get deposit id
@@ -12,6 +33,9 @@ const submitDeposit = () => {
 const addDeposit = () => {
   showPopupDeposit.value = true
 }
+
+getDetailService()
+
 </script>
 
 <template>
@@ -23,9 +47,8 @@ const addDeposit = () => {
           {{ $t("page.profile.deposit.addNew") }}
         </van-button>
       </div>
-      <van-cell-group inset>
-        <van-cell title="10000" value="Accept" label="10:10:00" />
-        <van-cell title="100000" value="Deny" label="10:10:00" />
+      <van-cell-group v-for="(item, index) in depositList" :key="index" inset>
+        <van-cell :title="item.amount" :value="item.is_check" :label="item.created_at" />
       </van-cell-group>
     </div>
     <van-popup

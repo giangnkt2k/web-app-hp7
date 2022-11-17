@@ -13,7 +13,8 @@ export enum ApiRoutes {
   STOCK_KLINE_DATA = '/api/stocks/getStockKLine',
   USER_INFORMATION ='/api/getUserInfo',
   BUY_LIMIT = '',
-  WITHDRAW_MONEY = '/api/withdraws/save'
+  WITHDRAW_MONEY = '/api/withdraws/save',
+  DEPOSIT_LIST = '/api/deposits'
 }
 
 export interface IBaseResponse<DataType> {

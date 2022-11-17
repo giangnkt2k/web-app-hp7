@@ -25,3 +25,10 @@ export interface IUserInfo
     profit: string,
     online_service: string
 }
+
+export interface IUserDeposit {
+    amount: string,
+    is_check: number,
+    created_at: number,
+    thumb: string
+}
