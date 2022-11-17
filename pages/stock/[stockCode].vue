@@ -17,7 +17,8 @@ const { toMoneyFormat } = useUtility()
 const selectedTimeRange = useSelectedTimeRange()
 
 const userStore = useAthenticationStore()
-const { userInformation } = userStore
+const { userInformation, getUserData } = userStore
+getUserData()
 
 const stockDetails = ref<IStock>()
 const userHold = ref<IPosition | null>(null)

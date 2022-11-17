@@ -4,7 +4,7 @@ import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
 import { IStock, IStockDetailsResponse, IStockKlineData } from '~~/types/stock'
-// import { IBuyLimit } from '~~/types/buy-limit'
+import { IUserInfor } from '~~/types/user'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
@@ -44,6 +44,10 @@ export const useApiServices = () => {
 
   const loginService = (username: string, password: string) => {
     return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { loginname: username, password })
+  }
+
+  const userInfor = () => {
+    return $api.post<IBaseResponse<IUserInfor>>(ApiRoutes.USER_INFORMATION)
   }
 
   const searchStockService = (keyword: string, page = 1) => {
@@ -127,6 +131,7 @@ export const useApiServices = () => {
     userNewSharesService,
     stockDetailsService,
     stockKlineDataService,
-    buyingStockLimnit
+    buyingStockLimnit,
+    userInfor
   }
 }
