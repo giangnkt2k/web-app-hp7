@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TheHeader />
+    <TheHeader :title="$t('page.market')" />
     <SearchBar />
     <van-tabs v-model:active="activeName" color="#ffe100" lazy-render>
       <van-tab :title="$t('page.market.indexMarket')" name="IndexQuotes">
