@@ -12,7 +12,7 @@ const { toMoneyFormat } = useUtility()
 
 <template>
   <div>
-    <h2>热门行业</h2>
+    <h2>{{ $t('page.market.hotIndustry') }}</h2>
     <van-row gutter="20" :wrap="true" class="py-10px px-12px">
       <van-col v-for="(item, index) in indexes" :key="index" span="8">
         <div class="bg-light-50 shadow-lg rounded-lg py-12px px-10px">
