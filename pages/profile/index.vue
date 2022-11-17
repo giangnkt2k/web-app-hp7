@@ -1,8 +1,12 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const userName = ref('User name')
+const realName = ref('Real name')
+
+</script>
 
 <template>
-  <div>
-    <div class="mx-5 mt-20">
+  <div class="mx-5 mt-20">
+    <div>
       <div class="flex">
         <van-image
           round
@@ -10,15 +14,15 @@
           height="5rem"
           src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
         />
-        <div class="ml-5">
-          <h1> hahaa </h1>
-          <h3>Real name</h3>
+        <div class="ml-5 pt-2 pl-2">
+          <h1> {{ userName }} </h1>
+          <h3>{{ realName }}</h3>
         </div>
       </div>
 
       <div class="mt-10 p-3 bg-light-50 rounded-md">
         <div class="flex">
-          <p>Total assets</p>
+          <p>{{ $t('profile.totalAssets') }}</p>
           <van-icon name="eye-o" color="black" size="18" class="ml-3" />
         </div>
         <div class="my-3 text-2xl font-bold">
@@ -26,10 +30,10 @@
         </div>
         <div class="flex justify-between">
           <div>
-            Availiable: 30000000
+            {{ $t('profile.available') }} 30000000
           </div>
           <div>
-            Freeze: 231241414
+            {{ $t('profile.freeze') }} 231241414
           </div>
         </div>
       </div>

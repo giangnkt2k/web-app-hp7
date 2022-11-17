@@ -126,5 +126,8 @@
     "kline.tooltip.volume": "成交量: ",
     "kline.toolbar.line": "Line",
     "stock-details.button.buy": "买入",
-    "stock-details.button.sell": "卖出"
+    "stock-details.button.sell": "卖出",
+    "profile.totalAssets": "总资产",
+    "profile.available": " 可用：",
+    "profile.freeze": " 冻结："
 }
