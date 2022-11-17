@@ -3,7 +3,7 @@ import { ISlideItem } from '~~/types/hero-slide'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
-import { IStock, IStockDetailsResponse, IStockKlineData } from '~~/types/stock'
+import { IStock, IStockDetailsResponse, IStockKlineData, IBuyStockReqBody } from '~~/types/stock'
 import { IUserInfo } from '~~/types/user'
 
 export const useApiServices = () => {
@@ -113,7 +113,7 @@ export const useApiServices = () => {
     return $api.get<IBaseResponse<IStockKlineData[]>>(ApiRoutes.STOCK_KLINE_DATA, { params: { code: stockCode, period } })
   }
 
-  const buyingStockLimit = (param : object) => {
+  const buyingStockLimit = (param : IBuyStockReqBody) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.BUY_LIMIT, { param })
   }
 

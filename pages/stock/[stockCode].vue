@@ -58,17 +58,21 @@ const floorPrice = computed(() =>
 watch(
   () => checkedBuyQuantity.value,
   (value) => {
-    if (value === 'all') {
-      buyQuantity.value = availableToBuy.value
-    }
-    if (value === 'half') {
-      buyQuantity.value = availableToBuy.value / 2
-    }
-    if (value === '1/3') {
-      buyQuantity.value = availableToBuy.value / 3
-    }
-    if (value === '1/4') {
-      buyQuantity.value = availableToBuy.value / 4
+    switch (value) {
+      case 'all':
+        buyQuantity.value = availableToBuy.value
+        break
+      case 'half':
+        buyQuantity.value = availableToBuy.value / 2
+        break
+      case '1/3':
+        buyQuantity.value = availableToBuy.value / 3
+        break
+      case '1/4':
+        buyQuantity.value = availableToBuy.value / 4
+        break
+      default:
+        break
     }
   }
 )
