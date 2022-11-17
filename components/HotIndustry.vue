@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { HotIndustry } from '~~/types/host-industry'
+import { HotIndustry } from '~~/types/hot-industry'
 
 type Props = {
   indexes: HotIndustry[]

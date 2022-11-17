@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div class="market__title text-center text-light-50 font-bold text-xl">
-      {{ $t('page.market') }}
-    </div>
+    <TheHeader />
     <SearchBar />
     <van-tabs v-model:active="activeName" color="#ffe100" lazy-render>
       <van-tab :title="$t('page.market.indexMarket')" name="IndexQuotes">
@@ -33,9 +31,4 @@ const activeName = ref('IndexQuotes')
 
 </script>
 <style lang="scss" scoped>
-.market__title {
-  background-color: #ffe100;
-  height: 46px;
-  line-height: 46px;
-}
 </style>

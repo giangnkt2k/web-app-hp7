@@ -26,10 +26,10 @@ getUserData()
 const stockDetails = ref<IStock>()
 const userHold = ref<IPosition | null>(null)
 const stockKlineData = ref<IStockKlineData[]>([])
-const showPopUpBuy = ref(false)
-const quantityBuy = ref(100)
+const isShowPopUpBuy = ref(false)
+const buyQuantity = ref(100)
 const currentPrice = ref(0)
-const checkedQuantityBuy = ref('')
+const checkedBuyQuantity = ref('')
 const availableToBuy = ref(0)
 const isBuying = ref(false)
 
@@ -56,19 +56,19 @@ const floorPrice = computed(() =>
 )
 
 watch(
-  () => checkedQuantityBuy.value,
+  () => checkedBuyQuantity.value,
   (value) => {
     if (value === 'all') {
-      quantityBuy.value = availableToBuy.value
+      buyQuantity.value = availableToBuy.value
     }
     if (value === 'half') {
-      quantityBuy.value = availableToBuy.value / 2
+      buyQuantity.value = availableToBuy.value / 2
     }
     if (value === '1/3') {
-      quantityBuy.value = availableToBuy.value / 3
+      buyQuantity.value = availableToBuy.value / 3
     }
     if (value === '1/4') {
-      quantityBuy.value = availableToBuy.value / 4
+      buyQuantity.value = availableToBuy.value / 4
     }
   }
 )
@@ -91,16 +91,16 @@ const getStockKline = async () => {
   }
 }
 
-const buyStock = () => {
-  showPopUpBuy.value = true
+const openPopupBuyStock = () => {
+  isShowPopUpBuy.value = true
   const balanceUser = Number(userInformation.value?.balance_avail)
   availableToBuy.value = 100 * (Math.floor(Number(Math.floor(balanceUser / currentPrice.value).toFixed(2)) / 100)) || 0
 }
 
-const submitBuyStock = async () => {
+const buyStock = async () => {
   isBuying.value = true
   const param = {
-    amount: quantityBuy.value,
+    amount: buyQuantity.value,
     market: stockDetails.value?.M || '',
     name: stockDetails.value?.N || '',
     code: stockDetails.value?.C || '',
@@ -111,7 +111,7 @@ const submitBuyStock = async () => {
   await buyingStockLimit(param)
 
   isBuying.value = false
-  showPopUpBuy.value = false
+  isShowPopUpBuy.value = false
 }
 
 const init = () => {
@@ -251,7 +251,7 @@ onUnmounted(() => {
     <van-sticky position="bottom">
       <van-row class="p-2 bg-white shadow-light-900" gutter="12">
         <van-col :span="canSell ? 12 : 24">
-          <van-button block class="!bg-success !text-white !rounded-md" size="small" @click="buyStock">
+          <van-button block class="!bg-success !text-white !rounded-md" size="small" @click="openPopupBuyStock">
             {{ $t('stock-details.button.buy') }}
           </van-button>
         </van-col>
@@ -263,7 +263,7 @@ onUnmounted(() => {
       </van-row>
 
       <van-popup
-        v-model:show="showPopUpBuy"
+        v-model:show="isShowPopUpBuy"
         closeable
         round
         close-icon="close"
@@ -283,14 +283,14 @@ onUnmounted(() => {
         </div>
         <div>
           <van-cell-group inset>
-            <van-field v-model="quantityBuy" type="digit" :label="$t('stock-details.buy.quantity')" />
+            <van-field v-model="buyQuantity" type="digit" :label="$t('stock-details.buy.quantity')" />
             <van-field v-model="currentPrice" type="text" readonly :label="$t('stock-details.buy.currentPrice')" />
             <div class="van-cell van-field">
               <span class="van-cell__title van-field__label">{{ $t('stock-details.buy.fast') }}</span>
-              <van-stepper v-model="quantityBuy" min="100" step="100" />
+              <van-stepper v-model="buyQuantity" min="100" step="100" />
             </div>
             <div class="van-cell van-field">
-              <van-radio-group v-model="checkedQuantityBuy" direction="horizontal" :max="1">
+              <van-radio-group v-model="checkedBuyQuantity" direction="horizontal" :max="1">
                 <van-radio name="all">
                   {{ $t('stock-details.buy.fullPosition') }}
                 </van-radio>
@@ -319,7 +319,7 @@ onUnmounted(() => {
               block
               size="small"
               :loading="isBuying"
-              @click="submitBuyStock"
+              @click="buyStock"
             >
               {{ $t('stock-details.buy.buyLimitBoard') }}
             </van-button>

@@ -46,7 +46,7 @@ export const useApiServices = () => {
   }
 
   const userInfoService = () => {
-    return $api.post<IBaseResponse<IUserInfo>>(ApiRoutes.USER_InfoMATION)
+    return $api.post<IBaseResponse<IUserInfo>>(ApiRoutes.USER_INFORMATION)
   }
 
   const searchStockService = (keyword: string, page = 1) => {
