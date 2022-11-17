@@ -4,7 +4,7 @@ import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
 import { IStock, IStockDetailsResponse, IStockKlineData } from '~~/types/stock'
-import { IUserInfor } from '~~/types/user'
+import { IUserInfo } from '~~/types/user'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
@@ -14,7 +14,6 @@ export const useApiServices = () => {
   //   Request intercept
   $api.interceptors.request.use((config) => {
     config.headers = {
-      // Authorization: `Bearer ${accessToken.value || 'undefined'}`,
       authorization: accessToken.value || 'undefined',
       ...config.headers
     }
@@ -46,8 +45,8 @@ export const useApiServices = () => {
     return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { loginname: username, password })
   }
 
-  const userInfor = () => {
-    return $api.post<IBaseResponse<IUserInfor>>(ApiRoutes.USER_INFORMATION)
+  const userInfoService = () => {
+    return $api.post<IBaseResponse<IUserInfo>>(ApiRoutes.USER_InfoMATION)
   }
 
   const searchStockService = (keyword: string, page = 1) => {
@@ -114,7 +113,7 @@ export const useApiServices = () => {
     return $api.get<IBaseResponse<IStockKlineData[]>>(ApiRoutes.STOCK_KLINE_DATA, { params: { code: stockCode, period } })
   }
 
-  const buyingStockLimnit = (param : object) => {
+  const buyingStockLimit = (param : object) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.BUY_LIMIT, { param })
   }
 
@@ -131,7 +130,7 @@ export const useApiServices = () => {
     userNewSharesService,
     stockDetailsService,
     stockKlineDataService,
-    buyingStockLimnit,
-    userInfor
+    buyingStockLimit,
+    userInfoService
   }
 }

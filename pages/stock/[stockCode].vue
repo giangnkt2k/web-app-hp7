@@ -1,23 +1,26 @@
 <script lang="ts" setup>
 import { KLineData } from 'klinecharts'
+import { storeToRefs } from 'pinia'
 import { ChartType } from '~~/types/chart'
 import { IPosition } from '~~/types/position'
 import { IStock, IStockKlineData } from '~~/types/stock'
-import { useAthenticationStore } from '~~/stores/authentication'
+import { useAuthenticationStore } from '~~/stores/authentication'
 
 definePageMeta({
   pageTitle: 'page.stock-details.title'
 })
 
 const { $dayjs } = useNuxtApp()
-const { stockDetailsService, stockKlineDataService, buyingStockLimnit } = useApiServices()
+const { stockDetailsService, stockKlineDataService, buyingStockLimit } = useApiServices()
 
 const route = useRoute()
 const { toMoneyFormat } = useUtility()
 const selectedTimeRange = useSelectedTimeRange()
 
-const userStore = useAthenticationStore()
-const { userInformation, getUserData } = userStore
+const userStore = useAuthenticationStore()
+const { getUserData } = userStore
+
+const { userInformation } = storeToRefs(userStore)
 getUserData()
 
 const stockDetails = ref<IStock>()
@@ -27,7 +30,7 @@ const showPopUpBuy = ref(false)
 const quantityBuy = ref(100)
 const currentPrice = ref(0)
 const checkedQuantityBuy = ref('')
-const availibleToBuy = ref(0)
+const availableToBuy = ref(0)
 const isBuying = ref(false)
 
 const stockCode = computed(() => route.params.stockCode.toString())
@@ -56,16 +59,16 @@ watch(
   () => checkedQuantityBuy.value,
   (value) => {
     if (value === 'all') {
-      quantityBuy.value = parseInt(availibleToBuy.value)
+      quantityBuy.value = availableToBuy.value
     }
     if (value === 'half') {
-      quantityBuy.value = parseInt(availibleToBuy.value) / 2
+      quantityBuy.value = availableToBuy.value / 2
     }
     if (value === '1/3') {
-      quantityBuy.value = parseInt(availibleToBuy.value) / 3
+      quantityBuy.value = availableToBuy.value / 3
     }
     if (value === '1/4') {
-      quantityBuy.value = parseInt(availibleToBuy.value) / 4
+      quantityBuy.value = availableToBuy.value / 4
     }
   }
 )
@@ -90,8 +93,8 @@ const getStockKline = async () => {
 
 const buyStock = () => {
   showPopUpBuy.value = true
-  const balanceUser = parseFloat((Object.assign({}, userInformation)).balance)
-  availibleToBuy.value = 100 * (Math.floor(parseFloat(Math.floor(balanceUser / parseFloat(currentPrice.value)).toFixed(2)) / 100)) || 0
+  const balanceUser = Number(userInformation.value?.balance_avail)
+  availableToBuy.value = 100 * (Math.floor(Number(Math.floor(balanceUser / currentPrice.value).toFixed(2)) / 100)) || 0
 }
 
 const submitBuyStock = async () => {
@@ -105,10 +108,8 @@ const submitBuyStock = async () => {
     zhangting: ceilingPrice.value,
     dieting: floorPrice.value
   }
-  const res = await buyingStockLimnit(param)
-  // eslint-disable-next-line no-console
-  console.log(res)
-  // TODO handle res
+  await buyingStockLimit(param)
+
   isBuying.value = false
   showPopUpBuy.value = false
 }
@@ -307,12 +308,12 @@ onUnmounted(() => {
           </van-cell-group>
 
           <div class="px-3 py-4">
-            {{ $t('stock-details.buy.availibleToBuy') }}{{ availibleToBuy }}
+            {{ $t('stock-details.buy.availableToBuy') }}{{ availableToBuy }}
           </div>
 
           <div class="px-3 py-2">
             <van-button
-              :disabled="availibleToBuy < 1"
+              :disabled="availableToBuy < 1"
               type="primary"
               round
               block

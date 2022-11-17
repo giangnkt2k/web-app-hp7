@@ -17,6 +17,13 @@
     "page.search.search-button.label": "搜索",
     "page.search.search-field.placeholder": "请输入名称/代码",
     "page.search.empty": "空結果",
+    "page.market": "市场",
+    "page.market.indexMarket": "指数行情",
+    "page.market.shanghaiAndShenzhen": "沪深",
+    "page.market.amplitudeList": "振幅榜",
+    "page.market.turnoverRate": "换手率",
+    "page.market.gainList": "涨幅榜",
+    "page.market.dropList": "跌幅榜",
     "stock-list.finished-text": "所有庫存已加載",
     "stock-list.loading-text": "正在加載庫存...",
     "stock-list.headers.name": "名称/代码",
@@ -112,6 +119,6 @@
     "stock-details.buy.halfWarehouse": "半仓",
     "stock-details.buy.ceilingPrice": "上限价格",
     "stock-details.buy.floorPrice": "底价",
-    "stock-details.buy.availibleToBuy": "可买：",
+    "stock-details.buy.availableToBuy": "可买：",
     "stock-details.buy.buyLimitBoard": "买入涨停板"
 }

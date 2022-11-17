@@ -1,4 +1,4 @@
-export interface IUserInfor
+export interface IUserInfo
 {
     id: number,
     balance: string,

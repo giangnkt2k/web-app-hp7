@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia'
-import { IUserInfor } from '~~/types/user'
-export const useAthenticationStore = defineStore('authentication-store', () => {
-  const { userInfor } = useApiServices()
+import { IUserInfo } from '~~/types/user'
+export const useAuthenticationStore = defineStore('authentication-store', () => {
+  const { userInfoService } = useApiServices()
 
-  const userInformation = ref<IUserInfor>()
+  const userInformation = ref<IUserInfo>()
 
   const getUserData = async () => {
-    const response = await userInfor()
-    userInformation.value = response.data
+    const response = await userInfoService()
+    setUserData(response.data.data)
   }
 
-  const setUserData = (data: IUserInfor) => {
+  const setUserData = (data: IUserInfo) => {
     userInformation.value = data
   }
 
