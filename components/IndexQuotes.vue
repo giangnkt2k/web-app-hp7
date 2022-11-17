@@ -1,10 +1,8 @@
 <script lang="ts" setup>
 import { IStock } from '~~/types/stock'
-// import { HotIndustry } from '~~/types/host-industry'
 
 const { chinaIndexesService } = useApiServices()
 const chinaIndexes = ref<IStock[]>([])
-// const hotIndustry = ref<HotIndustry[]>([])
 const getChinaIndexes = async () => {
   const response = await chinaIndexesService()
 
@@ -19,7 +17,6 @@ getChinaIndexes()
 <template>
   <div>
     <IndexQuotesList :indexes="chinaIndexes" />
-    <!-- <HotIndustry :indexes="hotIndustry" /> -->
   </div>
 </template>
 

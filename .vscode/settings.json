@@ -2,6 +2,7 @@
     "eslint.format.enable": true,
     "cSpell.words": [
         "klinecharts",
-        "Nuxt"
+        "Nuxt",
+        "pinia"
     ]
 }
