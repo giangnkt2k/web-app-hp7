@@ -74,12 +74,9 @@
 </template>
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
-import { Toast } from 'vant'
-import { createApp } from 'vue'
 import { useAuthenticationStore } from '~~/stores/authentication'
-const app = createApp()
-app.use(Toast)
 
+const { $toast } = useNuxtApp()
 const userStore = useAuthenticationStore()
 const { userInformation } = storeToRefs(userStore)
 const { withdrawMoney } = useApiServices()
@@ -95,9 +92,9 @@ const branch = ref(userInformation.value?.bankbranch || '')
 const onSubmit = async () => {
   const res = await withdrawMoney(transferAmount.value, withdrawPassword.value)
   if (res.data.code === 1) {
-    Toast.fail(res.data.msg)
+    $toast.fail(res.data.msg)
   } else {
-    Toast.success(res.data.msg)
+    $toast.success(res.data.msg)
   }
 }
 </script>

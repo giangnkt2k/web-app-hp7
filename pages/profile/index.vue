@@ -3,13 +3,20 @@ import { storeToRefs } from 'pinia'
 import { useAuthenticationStore } from '~~/stores/authentication'
 
 const userStore = useAuthenticationStore()
-
 const { userInformation } = storeToRefs(userStore)
+const router = useRouter()
+
+const accessToken = useAccessToken()
+
+const logout = () => {
+  accessToken.value = ''
+  router.push('login')
+}
 </script>
 
 <template>
-  <div class="mx-5 mt-20">
-    <div>
+  <div>
+    <div class="mx-5 mt-20">
       <div class="flex">
         <van-image
           round
@@ -41,26 +48,30 @@ const { userInformation } = storeToRefs(userStore)
         </div>
       </div>
 
-      <div class="mt-5 p-3 bg-light-50 rounded-md flex justify-center">
-        <div class="border-r p-2 text-center">
-          <div class="text-sm">
-            {{ $t('profile.totalMarketCapitalization') }}
+      <van-grid :column-num="2" class="mt-5 rounded-md ">
+        <van-grid-item>
+          <div class="p-2 text-center">
+            <div class="text-sm">
+              {{ $t('profile.totalMarketCapitalization') }}
+            </div>
+            <div class="text-xl font-bold">
+              {{ userInformation?.hold_value || '' }}
+            </div>
           </div>
-          <div class="text-xl font-bold">
-            {{ userInformation?.hold_value || '' }}
+        </van-grid-item>
+        <van-grid-item>
+          <div class="p-2 text-center">
+            <div class="text-sm">
+              {{ $t('profile.profitAndLoss') }}
+            </div>
+            <div class="text-xl font-bold">
+              {{ userInformation?.profit || '' }}
+            </div>
           </div>
-        </div>
-        <div class="p-2 text-center">
-          <div class="text-sm">
-            {{ $t('profile.profitAndLoss') }}
-          </div>
-          <div class="text-xl font-bold">
-            {{ userInformation?.profit || '' }}
-          </div>
-        </div>
-      </div>
+        </van-grid-item>
+      </van-grid>
 
-      <div class="mt-5 mb-15 bg-light-50 rounded-md">
+      <div class="mt-5 mb-5 bg-light-50 rounded-md">
         <van-cell-group>
           <van-cell icon="records" title="Transaction history" is-link to="" />
           <van-cell icon="thumb-circle-o" title="My Subscription" is-link to="" />
@@ -72,6 +83,11 @@ const { userInformation } = storeToRefs(userStore)
           <van-cell icon="browsing-history-o" title="Login password" is-link to="" />
           <van-cell icon="browsing-history" title="Withdrawal password" is-link to="" />
         </van-cell-group>
+      </div>
+      <div class=" mb-20">
+        <van-button hairline block color="linear-gradient(to right, #ff6034, #ee0a24)" @click="logout">
+          Logout
+        </van-button>
       </div>
     </div>
     <TheBottomNavigation />
