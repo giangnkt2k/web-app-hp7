@@ -8,7 +8,13 @@ export enum ApiRoutes {
   CHECK_TOKEN = '/api/checkToken',
   WATCH_LIST = '/api/optionals/index',
   POSITIONS = '/api/orders',
-  USER_NEW_SHARES = '/api/newshares/getMemberNewshareList'
+  USER_NEW_SHARES = '/api/newshares/getMemberNewshareList',
+  STOCK_DETAILS = '/api/stocks/getStockInfo',
+  STOCK_KLINE_DATA = '/api/stocks/getStockKLine',
+  USER_INFORMATION ='/api/getUserInfo',
+  BUY_LIMIT = '',
+  WITHDRAW_MONEY = '/api/withdraws/save',
+  DEPOSIT_LIST = '/api/deposits'
 }
 
 export interface IBaseResponse<DataType> {
@@ -42,4 +48,8 @@ export interface IUserData {
 
 export interface ILoginResponse extends IBaseResponse<IUserData> {
   token: string
+}
+
+export interface UserInfo<DataType> {
+  data: DataType;
 }
