@@ -5,14 +5,14 @@ const { $routesList, $typedRouter } = useNuxtApp()
 const { depositDetailService } = useApiServices()
 
 const deposit = ref()
-const showPopupDeposit = ref(false)
+const isDepositPopupVisible = ref(false)
 const depositList = ref([])
 
-const getDetailService = async () => {
+const getDepositDetail = async () => {
   const res = await depositDetailService()
   const data = res.data.data.data
   if (data.length > 0) {
-    depositList.value = res.data.data.data.map((item:IUserDeposit) => {
+    depositList.value = data.map((item:IUserDeposit) => {
       return {
         ...item,
         is_check: (item.is_check === 1) ? '已审核' : '拒审',
@@ -31,10 +31,10 @@ const submitDeposit = () => {
   $typedRouter.push({ name: $routesList.profileDepositDepositId, params: { depositId } })
 }
 const addDeposit = () => {
-  showPopupDeposit.value = true
+  isDepositPopupVisible.value = true
 }
 
-getDetailService()
+getDepositDetail()
 
 </script>
 
@@ -52,7 +52,7 @@ getDetailService()
       </van-cell-group>
     </div>
     <van-popup
-      v-model:show="showPopupDeposit"
+      v-model:show="isDepositPopupVisible"
       closeable
       close-icon="close"
       position="bottom"

@@ -100,7 +100,7 @@ export const useApiServices = () => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.BUY_LIMIT, { param })
   }
 
-  const withdrawMoney = (amount: number, withdrawPassword: string) => {
+  const withdrawMoneyService = (amount: number, withdrawPassword: string) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.WITHDRAW_MONEY, { params: { amount, withdraw_password: withdrawPassword } })
   }
 
@@ -119,7 +119,7 @@ export const useApiServices = () => {
     stockKlineDataService,
     buyingStockLimit,
     userInfoService,
-    withdrawMoney,
+    withdrawMoneyService,
     depositDetailService
   }
 }

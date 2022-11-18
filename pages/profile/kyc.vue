@@ -20,12 +20,12 @@
     <div class="mx-5  bg-light-50 rounded-md">
       <div class="text-sm py-3 px-4 ">
         <div class="flex justify-between">
-          <div class="kyc__label pb-2 pl-3">
+          <div class="text-[#646566] pb-2 pl-3">
             {{ $t('page.profile.kyc.idCardFront') }}
           </div>
           <van-uploader v-model="idCardFont" :disabled="idCardFont.length > 0" max-count="1">
             <template #preview-cover="{ file }">
-              <div class="preview-cover van-ellipsis">
+              <div class="bg-[#0000004d] text-center text-12px text-white p-1 w-full absolute bottom-0 van-ellipsis van-ellipsis">
                 {{ file.name }}
               </div>
             </template>
@@ -34,12 +34,12 @@
         <van-divider />
       </div>
       <div class="text-sm px-4 flex justify-between">
-        <div class="kyc__label pb-2 pl-3">
+        <div class="text-[#646566] pb-2 pl-3">
           {{ $t('page.profile.kyc.idCardBack') }}
         </div>
         <van-uploader v-model="idCardBack" :disabled="idCardBack.length > 0" max-count="1">
           <template #preview-cover="{ file }">
-            <div class="preview-cover van-ellipsis">
+            <div class="bg-[#0000004d] text-center text-12px text-white p-1 w-full absolute bottom-0 van-ellipsis">
               {{ file.name }}
             </div>
           </template>
@@ -82,18 +82,4 @@ const username = ref('')
 const branch = ref('')
 </script>
 <style lang="scss" scoped>
-  .preview-cover {
-    position: absolute;
-    bottom: 0;
-    box-sizing: border-box;
-    width: 100%;
-    padding: 4px;
-    color: #fff;
-    font-size: 12px;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.3);
-  }
-  .kyc__label {
-    color:#646566;
-  }
 </style>

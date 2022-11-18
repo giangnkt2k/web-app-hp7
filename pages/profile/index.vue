@@ -76,7 +76,7 @@ const logout = () => {
           <van-cell icon="records" title="Transaction history" is-link to="" />
           <van-cell icon="thumb-circle-o" title="My Subscription" is-link to="" />
           <van-cell icon="orders-o" title="Breakdown of funds" is-link to="" />
-          <van-cell icon="peer-pay" :title="$t('profile.cell.silverCertificateTransferOut')" is-link to="profile/withdrawMoney" />
+          <van-cell icon="peer-pay" :title="$t('profile.cell.silverCertificateTransferOut')" is-link to="profile/withdraw-money" />
           <van-cell icon="description" title="Deposit" is-link to="profile/deposit" />
           <van-cell icon="cash-on-deliver" title="List of withdrawals" is-link to="" />
           <van-cell icon="contact" title="Real-name authentication" is-link to="profile/kyc" />

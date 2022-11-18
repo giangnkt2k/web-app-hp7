@@ -1,7 +1,7 @@
 <template>
   <div>
     <TheHeader :back-to="'/profile'" :title="$t('profile.cell.silverCertificateTransferOut')" />
-    <div class="wd__body px-3">
+    <div class=" px-3">
       <h3 class="font-bold text-md my-3">
         {{ $t('profile.cell.silverCertificateTransferOut.title') }}
       </h3>
@@ -24,31 +24,31 @@
             :rules="[{ required: true, message: $t('mess.required') }]"
           />
           <van-field
-            v-model="availableBalance"
+            :model-value="userInformation?.balance_avail"
             name="available Balance"
             :label="$t('profile.silverCertificateTransferOut.availableBalance')"
             readonly
           />
           <van-field
-            v-model="accName"
+            :model-value="userInformation?.accountname || ''"
             name="asyncValidator"
             :label="$t('profile.silverCertificateTransferOut.accName')"
             readonly
           />
           <van-field
-            v-model="depositoryBank"
+            :model-value="userInformation?.bankname || ''"
             name="asyncValidator"
             :label="$t('profile.silverCertificateTransferOut.depositoryBank')"
             readonly
           />
           <van-field
-            v-model="cardNumber"
+            :model-value="userInformation?.banknumber || ''"
             name="asyncValidator"
             :label="$t('profile.silverCertificateTransferOut.cardNumber')"
             readonly
           />
           <van-field
-            v-model="branch"
+            :model-value="userInformation?.bankbranch || ''"
             name="asyncValidator"
             :label="$t('profile.silverCertificateTransferOut.branch')"
             :placeholder="$t('profile.silverCertificateTransferOut.branch')"
@@ -79,18 +79,13 @@ import { useAuthenticationStore } from '~~/stores/authentication'
 const { $toast } = useNuxtApp()
 const userStore = useAuthenticationStore()
 const { userInformation } = storeToRefs(userStore)
-const { withdrawMoney } = useApiServices()
+const { withdrawMoneyService } = useApiServices()
 
 const transferAmount = ref(0)
 const withdrawPassword = ref('')
-const availableBalance = ref(userInformation.value?.balance_avail)
-const accName = ref(userInformation.value?.accountname || '')
-const depositoryBank = ref(userInformation.value?.bankname || '')
-const cardNumber = ref(userInformation.value?.banknumber || '')
-const branch = ref(userInformation.value?.bankbranch || '')
 
 const onSubmit = async () => {
-  const res = await withdrawMoney(transferAmount.value, withdrawPassword.value)
+  const res = await withdrawMoneyService(transferAmount.value, withdrawPassword.value)
   if (res.data.code === 1) {
     $toast.fail(res.data.msg)
   } else {
