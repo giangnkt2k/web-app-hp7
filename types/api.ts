@@ -14,7 +14,11 @@ export enum ApiRoutes {
   USER_INFORMATION ='/api/getUserInfo',
   BUY_LIMIT = '',
   WITHDRAW_MONEY = '/api/withdraws/save',
-  DEPOSIT_LIST = '/api/deposits'
+  DEPOSIT_LIST = '/api/deposits',
+  HOT_MARKET= '/api/stocks/getHotIndustry',
+  HOT_CONCEPT = '/api/stocks/getHotConcept',
+  HOT_SPOT = '/api/stocks/getHotspot'
+
 }
 
 export interface IBaseResponse<DataType> {

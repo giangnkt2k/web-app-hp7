@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { IStock } from '~~/types/stock'
-import { HotIndustry } from '~~/types/host-industry'
+import { HotIndustry, HotSpot } from '~~/types/market'
 
-const { chinaIndexesService } = useApiServices()
+const { chinaIndexesService, hotIndustryService, hotConceptService, hotSpotService } = useApiServices()
 const chinaIndexes = ref<IStock[]>([])
 const hotIndustry = ref<HotIndustry[]>([])
+const hotConcept = ref<HotIndustry[]>([])
+const hotSpot = ref<HotSpot[]>([])
 const getChinaIndexes = async () => {
   const response = await chinaIndexesService()
 
@@ -12,35 +14,40 @@ const getChinaIndexes = async () => {
     chinaIndexes.value = response.data.data
   }
 }
-const getHotIndustry = () => {
-  hotIndustry.value = [{
-    Increase: 1,
-    Increase_share: 1,
-    plate: 'string',
-    shares: 'string'
-  },
-  {
-    Increase: 11,
-    Increase_share: 11,
-    plate: 'string1',
-    shares: 'string1'
-  },
-  {
-    Increase: 2,
-    Increase_share: 2,
-    plate: 'string2',
-    shares: 'string2'
-  }]
+const getHotIndustry = async () => {
+  const response = await hotIndustryService()
+
+  if (response.data && response.data.data) {
+    hotIndustry.value = response.data.data
+  }
+}
+const getHotConcept = async () => {
+  const response = await hotConceptService()
+
+  if (response.data && response.data.data) {
+    hotConcept.value = response.data.data
+  }
+}
+const getHotSpot = async () => {
+  const response = await hotSpotService()
+
+  if (response.data && response.data.data) {
+    hotSpot.value = response.data.data
+  }
 }
 getHotIndustry()
 getChinaIndexes()
+getHotConcept()
+getHotSpot()
 
 </script>
 
 <template>
   <div>
     <IndexQuotesList :indexes="chinaIndexes" />
-    <HotIndustryList :indexes="hotIndustry" />
+    <HotIndustryList :indexes="hotIndustry" :title="'page.market.hotIndustry'" />
+    <HotIndustryList :indexes="hotConcept" :title="'page.market.hotConcept'" />
+    <HotSpotList :indexes="hotSpot" :title="'page.market.hotSpot'" />
   </div>
 </template>
 

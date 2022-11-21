@@ -25,6 +25,8 @@
     "page.market.gainList": "涨幅榜",
     "page.market.dropList": "跌幅榜",
     "page.market.hotIndustry": "热门行业",
+    "page.market.hotConcept": "热门概念",
+    "page.market.hotSpot": "风口热点",
     "stock-list.finished-text": "所有庫存已加載",
     "stock-list.loading-text": "正在加載庫存...",
     "stock-list.headers.name": "名称/代码",

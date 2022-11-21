@@ -4,3 +4,8 @@ export interface HotIndustry {
     plate: string,
     shares: string
 }
+
+export interface HotSpot {
+    title: string,
+    up_down: number
+}

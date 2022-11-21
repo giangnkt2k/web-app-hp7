@@ -1,5 +1,6 @@
 import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
 import { ISlideItem } from '~~/types/hero-slide'
+import { HotIndustry, HotSpot } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
@@ -104,6 +105,17 @@ export const useApiServices = () => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.WITHDRAW_MONEY, { params: { amount, withdraw_password: withdrawPassword } })
   }
 
+  // ------MARKET PAGE------
+  const hotIndustryService = () => {
+    return $api.get<IBaseResponse<HotIndustry>>(ApiRoutes.HOT_MARKET)
+  }
+  const hotConceptService = () => {
+    return $api.get<IBaseResponse<HotIndustry>>(ApiRoutes.HOT_CONCEPT)
+  }
+  const hotSpotService = () => {
+    return $api.get<IBaseResponse<HotSpot>>(ApiRoutes.HOT_SPOT)
+  }
+
   return {
     loginService,
     searchStockService,
@@ -120,6 +132,9 @@ export const useApiServices = () => {
     buyingStockLimit,
     userInfoService,
     withdrawMoneyService,
-    depositDetailService
+    depositDetailService,
+    hotIndustryService,
+    hotConceptService,
+    hotSpotService
   }
 }

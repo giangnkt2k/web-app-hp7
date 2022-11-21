@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { HotIndustry } from '~~/types/hot-industry'
+import { HotIndustry } from '~~/types/market'
 
 type Props = {
-  indexes: HotIndustry[]
+  indexes: HotIndustry[],
+  title : string
 }
 defineProps<Props>()
 
@@ -11,13 +12,15 @@ const { toMoneyFormat } = useUtility()
 </script>
 
 <template>
-  <div>
-    <h2>{{ $t('page.market.hotIndustry') }}</h2>
-    <van-row gutter="20" :wrap="true" class="py-10px px-12px">
+  <div class="py-10px px-10px">
+    <h2 class="font-bold text-lg py-10px">
+      {{ $t(title) }}
+    </h2>
+    <van-row gutter="20" :wrap="true">
       <van-col v-for="(item, index) in indexes" :key="index" span="8">
-        <div class="bg-light-50 shadow-lg rounded-lg py-12px px-10px">
-          <div class="font-bold text-lg text-left">
-            {{ item.Increase }}
+        <div class="bg-light-50 shadow-lg rounded-lg py-12px px-5px">
+          <div class="font-bold text-left">
+            {{ item.plate }}
           </div>
           <div
             class="font-medium text-left mt-1"
@@ -28,19 +31,19 @@ const { toMoneyFormat } = useUtility()
                 'text-danger': item.Increase < 0
               }"
             >
-              {{ item.Increase_share }}
+              {{ item.Increase }}%
             </div>
             <div class="mt-2 whitespace-nowrap">
               <div class="pr-1">
-                {{ toMoneyFormat(item.plate) }}
+                {{ item.shares }}
               </div>
               <div
                 class="text-success text-xs"
                 :class="{
-                  'text-danger': item.Increase < 0
+                  'text-danger': item.Increase_share < 0
                 }"
               >
-                {{ toMoneyFormat(item.shares) }}%
+                {{ toMoneyFormat(item.Increase_share) }}%
               </div>
             </div>
           </div>
