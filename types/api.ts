@@ -17,8 +17,10 @@ export enum ApiRoutes {
   DEPOSIT_LIST = '/api/deposits',
   HOT_MARKET= '/api/stocks/getHotIndustry',
   HOT_CONCEPT = '/api/stocks/getHotConcept',
-  HOT_SPOT = '/api/stocks/getHotspot'
-
+  HOT_SPOT = '/api/stocks/getHotspot',
+  QNQUOTATION = '/api/stocks/getCnQuotation',
+  GAINLIST = '/api/stocks/getRiseRank',
+  DROPLIST = '/api/stocks/getFallRank'
 }
 
 export interface IBaseResponse<DataType> {

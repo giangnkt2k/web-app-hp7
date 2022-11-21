@@ -16,10 +16,10 @@
         content of tab 3
       </van-tab>
       <van-tab :title="$t('page.market.gainList')" name="RiseRank">
-        content of tab 3
+        <GainList />
       </van-tab>
       <van-tab :title="$t('page.market.dropList')" name="FallRank">
-        content of tab 3
+        <DropList />
       </van-tab>
     </van-tabs>
 

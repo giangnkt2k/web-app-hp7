@@ -115,6 +115,27 @@ export const useApiServices = () => {
   const hotSpotService = () => {
     return $api.get<IBaseResponse<HotSpot>>(ApiRoutes.HOT_SPOT)
   }
+  const qNQuotation = (page = 1) => {
+    return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.QNQUOTATION, {
+      params: {
+        page
+      }
+    })
+  }
+  const gainListService = (page = 1) => {
+    return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.GAINLIST, {
+      params: {
+        page
+      }
+    })
+  }
+  const dropListService = (page = 1) => {
+    return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.DROPLIST, {
+      params: {
+        page
+      }
+    })
+  }
 
   return {
     loginService,
@@ -135,6 +156,9 @@ export const useApiServices = () => {
     depositDetailService,
     hotIndustryService,
     hotConceptService,
-    hotSpotService
+    hotSpotService,
+    qNQuotation,
+    gainListService,
+    dropListService
   }
 }

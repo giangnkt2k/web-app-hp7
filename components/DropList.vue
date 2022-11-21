@@ -6,7 +6,7 @@ definePageMeta({
 })
 
 const route = useRoute()
-const { qNQuotation } = useApiServices()
+const { dropListService } = useApiServices()
 const searchKey = ref('shanghai')
 
 const searchHeader = ref<HTMLElement>()
@@ -22,7 +22,7 @@ const search = async (page?: number) => {
   isLoading.value = true
   currentPage.value = page ?? currentPage.value
 
-  const response = await qNQuotation(currentPage.value)
+  const response = await dropListService(currentPage.value)
 
   if (response.data.data) {
     stocks.value.push(...response.data.data)
