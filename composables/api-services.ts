@@ -4,11 +4,10 @@ import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
 import { IStock, IStockDetailsResponse, IStockKlineData, IBuyStockReqBody } from '~~/types/stock'
-import { IUserInfo } from '~~/types/user'
+import { IUserInfo, IUserDeposit } from '~~/types/user'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
-  const { showApiError, t } = useUtility()
   const accessToken = useAccessToken()
 
   //   Request intercept
@@ -20,26 +19,6 @@ export const useApiServices = () => {
 
     return config
   })
-
-  // Response Interceptor
-  $api.interceptors.response.use(
-    (response) => {
-      if (response.data.code !== 0) {
-        showApiError(response.data.msg)
-      }
-
-      return response
-    },
-    (error) => {
-      if (process.dev) {
-        // eslint-disable-next-line no-console
-        console.log(error)
-      }
-
-      showApiError(t('api.error.general'))
-      return null
-    }
-  )
 
   const loginService = (username: string, password: string) => {
     return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { loginname: username, password })
@@ -109,12 +88,20 @@ export const useApiServices = () => {
     return $api.get<IStockDetailsResponse>(ApiRoutes.STOCK_DETAILS, { params: { keyword: stockCode } })
   }
 
+  const depositDetailService = (page = 1) => {
+    return $api.get <IBaseResponse<IPaginatedData<IUserDeposit>>>(ApiRoutes.DEPOSIT_LIST, { params: { page } })
+  }
+
   const stockKlineDataService = (stockCode: string, period: string) => {
     return $api.get<IBaseResponse<IStockKlineData[]>>(ApiRoutes.STOCK_KLINE_DATA, { params: { code: stockCode, period } })
   }
 
   const buyingStockLimit = (param : IBuyStockReqBody) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.BUY_LIMIT, { param })
+  }
+
+  const withdrawMoneyService = (amount: number, withdrawPassword: string) => {
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.WITHDRAW_MONEY, { params: { amount, withdraw_password: withdrawPassword } })
   }
 
   return {
@@ -131,6 +118,8 @@ export const useApiServices = () => {
     stockDetailsService,
     stockKlineDataService,
     buyingStockLimit,
-    userInfoService
+    userInfoService,
+    withdrawMoneyService,
+    depositDetailService
   }
 }
