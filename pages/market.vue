@@ -1,26 +1,24 @@
 <template>
   <div>
-    <div class="market__title text-center text-light-50 font-bold text-xl">
-      {{ $t('page.market.title') }}
-    </div>
+    <TheHeader :title="$t('page.market')" />
     <SearchBar />
     <van-tabs v-model:active="activeName" color="#ffe100" lazy-render>
-      <van-tab title="指数行情" name="IndexQuotes">
+      <van-tab :title="$t('page.market.indexMarket')" name="IndexQuotes">
         <IndexQuotes />
       </van-tab>
-      <van-tab title="沪深" name="CnQuotation">
+      <van-tab :title="$t('page.market.shanghaiAndShenzhen')" name="CnQuotation">
         <CnQuotation />
       </van-tab>
-      <van-tab title="振幅榜" name="Amplitube">
+      <van-tab :title="$t('page.market.amplitudeList')" name="Amplitube">
         content of tab 3
       </van-tab>
-      <van-tab title="换手率" name="TurnOver">
+      <van-tab :title="$t('page.market.turnoverRate')" name="TurnOver">
         content of tab 3
       </van-tab>
-      <van-tab title="涨幅榜" name="RiseRank">
+      <van-tab :title="$t('page.market.gainList')" name="RiseRank">
         content of tab 3
       </van-tab>
-      <van-tab title="跌幅榜" name="FallRank">
+      <van-tab :title="$t('page.market.dropList')" name="FallRank">
         content of tab 3
       </van-tab>
     </van-tabs>
@@ -30,22 +28,7 @@
 </template>
 <script lang="ts" setup>
 const activeName = ref('IndexQuotes')
-watch(
-  () => activeName,
-  () => {
-    // eslint-disable-next-line no-console
-    getIndex()
-  }
-)
-const getIndex = () => {
-  // eslint-disable-next-line no-console
-  console.log('getaaaa')
-}
+
 </script>
 <style lang="scss" scoped>
-.market__title {
-  background-color: #ffe100;
-  height: 46px;
-  line-height: 46px;
-}
 </style>

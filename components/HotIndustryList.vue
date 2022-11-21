@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { HotIndustry } from '~~/types/host-industry'
+import { HotIndustry } from '~~/types/hot-industry'
 
 type Props = {
   indexes: HotIndustry[]
@@ -12,9 +12,7 @@ const { toMoneyFormat } = useUtility()
 
 <template>
   <div>
-    <h2 class="py-5px px-12px font-bold text-xl">
-      热门行业
-    </h2>
+    <h2>{{ $t('page.market.hotIndustry') }}</h2>
     <van-row gutter="20" :wrap="true" class="py-10px px-12px">
       <van-col v-for="(item, index) in indexes" :key="index" span="8">
         <div class="bg-light-50 shadow-lg rounded-lg py-12px px-10px">

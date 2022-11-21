@@ -3,8 +3,8 @@ import { ISlideItem } from '~~/types/hero-slide'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
-import { IStock } from '~~/types/stock'
-// import { HotIndustry } from '~~/types/host-industry'
+import { IStock, IStockDetailsResponse, IStockKlineData, IBuyStockReqBody } from '~~/types/stock'
+import { IUserInfo } from '~~/types/user'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
@@ -37,11 +37,16 @@ export const useApiServices = () => {
       }
 
       showApiError(t('api.error.general'))
+      return null
     }
   )
 
   const loginService = (username: string, password: string) => {
     return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { loginname: username, password })
+  }
+
+  const userInfoService = () => {
+    return $api.post<IBaseResponse<IUserInfo>>(ApiRoutes.USER_INFORMATION)
   }
 
   const searchStockService = (keyword: string, page = 1) => {
@@ -66,7 +71,7 @@ export const useApiServices = () => {
   }
 
   const newsService = (page = 1) => {
-    return $api.get<IBaseResponse<{data: INews[]}>>(
+    return $api.get<IBaseResponse<{ data: INews[] }>>(
       ApiRoutes.NEWS,
       {
         params: {
@@ -100,6 +105,18 @@ export const useApiServices = () => {
     return $api.get<IBaseResponse<IPaginatedData<INewShare[]>>>(ApiRoutes.USER_NEW_SHARES, { params: { page } })
   }
 
+  const stockDetailsService = (stockCode: string) => {
+    return $api.get<IStockDetailsResponse>(ApiRoutes.STOCK_DETAILS, { params: { keyword: stockCode } })
+  }
+
+  const stockKlineDataService = (stockCode: string, period: string) => {
+    return $api.get<IBaseResponse<IStockKlineData[]>>(ApiRoutes.STOCK_KLINE_DATA, { params: { code: stockCode, period } })
+  }
+
+  const buyingStockLimit = (param : IBuyStockReqBody) => {
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.BUY_LIMIT, { param })
+  }
+
   return {
     loginService,
     searchStockService,
@@ -110,6 +127,10 @@ export const useApiServices = () => {
     checkTokenService,
     watchListService,
     positionsService,
-    userNewSharesService
+    userNewSharesService,
+    stockDetailsService,
+    stockKlineDataService,
+    buyingStockLimit,
+    userInfoService
   }
 }
