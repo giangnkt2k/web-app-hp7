@@ -11,7 +11,7 @@ definePageMeta({
 })
 
 const { $dayjs } = useNuxtApp()
-const { stockDetailsService, stockKlineDataService, buyingStockLimit } = useApiServices()
+const { stockDetailsService, stockKlineDataService, buyingStockLimit, sellStockLimit } = useApiServices()
 
 const route = useRoute()
 const { toMoneyFormat } = useUtility()
@@ -28,10 +28,14 @@ const userHold = ref<IPosition | null>(null)
 const stockKlineData = ref<IStockKlineData[]>([])
 const isShowPopUpBuy = ref(false)
 const buyQuantity = ref(100)
+const isShowPopUpSell = ref(false)
+const sellQuantity = ref(100)
 const currentPrice = ref(0)
 const checkedBuyQuantity = ref('')
 const availableToBuy = ref(0)
+const availableToSell = ref(0)
 const isBuying = ref(false)
+const isSelling = ref(false)
 
 const stockCode = computed(() => route.params.stockCode.toString())
 const canSell = computed(() => !!userHold.value && (Number(userHold.value.count || 0) - Number(userHold.value.count_today || 0)) > 0)
@@ -101,6 +105,11 @@ const openPopupBuyStock = () => {
   availableToBuy.value = 100 * (Math.floor(Number(Math.floor(balanceUser / currentPrice.value).toFixed(2)) / 100)) || 0
 }
 
+const openPopupSellStock = () => {
+  isShowPopUpSell.value = true
+  availableToSell.value = Number(userHold.value?.count || 0) - Number(userHold.value?.count_today || 0)
+}
+
 const buyStock = async () => {
   isBuying.value = true
   const param = {
@@ -116,6 +125,23 @@ const buyStock = async () => {
 
   isBuying.value = false
   isShowPopUpBuy.value = false
+}
+
+const sellStock = async () => {
+  isSelling.value = true
+  const paramSell = {
+    amount: sellQuantity.value,
+    market: stockDetails.value?.M || '',
+    name: stockDetails.value?.N || '',
+    code: stockDetails.value?.C || '',
+    price: currentPrice.value,
+    zhangting: ceilingPrice.value,
+    dieting: floorPrice.value
+  }
+  await sellStockLimit(paramSell)
+
+  isSelling.value = false
+  isShowPopUpSell.value = false
 }
 
 const init = () => {
@@ -260,12 +286,12 @@ onUnmounted(() => {
           </van-button>
         </van-col>
         <van-col v-if="canSell" span="12">
-          <van-button block class="!bg-danger !text-white !rounded-md">
+          <van-button block class="!bg-danger !text-white !rounded-md" size="small" @click="openPopupSellStock">
             {{ $t('stock-details.button.sell') }}
           </van-button>
         </van-col>
       </van-row>
-
+      <!-- Buy  -->
       <van-popup
         v-model:show="isShowPopUpBuy"
         closeable
@@ -318,7 +344,7 @@ onUnmounted(() => {
           <div class="px-3 py-2">
             <van-button
               :disabled="availableToBuy < 1"
-              type="primary"
+              type="success"
               round
               block
               size="small"
@@ -326,6 +352,55 @@ onUnmounted(() => {
               @click="buyStock"
             >
               {{ $t('stock-details.buy.buyLimitBoard') }}
+            </van-button>
+          </div>
+        </div>
+      </van-popup>
+      <!-- Sell -->
+      <van-popup
+        v-model:show="isShowPopUpSell"
+        closeable
+        round
+        close-icon="close"
+        position="bottom"
+      >
+        <div class="font-bold text-xl text-center my-3">
+          {{ $t('sell.title') }}
+        </div>
+        <div class="px-3 py-4">
+          <div>
+            <span class="text-lg pr-1">{{ stockDetails?.N }} </span>
+            <span class="font-light">{{ stockDetails?.C }}</span>
+          </div>
+          <div class="text-xs">
+            {{ $t('stock-details.buy.ceilingPrice') }}：{{ ceilingPrice }} {{ $t('stock-details.buy.floorPrice') }}：{{ floorPrice }}
+          </div>
+        </div>
+        <div>
+          <van-cell-group inset>
+            <van-field v-model="sellQuantity" type="digit" :label="$t('stock-details.buy.quantity')" />
+            <van-field v-model="currentPrice" type="text" readonly :label="$t('stock-details.buy.currentPrice')" />
+            <div class="van-cell van-field">
+              <span class="van-cell__title van-field__label">{{ $t('stock-details.buy.fast') }}</span>
+              <van-stepper v-model="sellQuantity" min="100" step="100" />
+            </div>
+          </van-cell-group>
+
+          <div class="px-3 py-4">
+            {{ $t('sell.available') }}{{ availableToSell }}
+          </div>
+
+          <div class="px-3 py-2">
+            <van-button
+              :disabled="availableToSell < 1"
+              type="danger"
+              round
+              block
+              size="small"
+              :loading="isSelling"
+              @click="sellStock"
+            >
+              {{ $t('sell.btn') }}
             </van-button>
           </div>
         </div>

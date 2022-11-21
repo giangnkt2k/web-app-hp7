@@ -12,9 +12,10 @@ export enum ApiRoutes {
   STOCK_DETAILS = '/api/stocks/getStockInfo',
   STOCK_KLINE_DATA = '/api/stocks/getStockKLine',
   USER_INFORMATION ='/api/getUserInfo',
-  BUY_LIMIT = '',
+  BUY_LIMIT = '/api/orders/buyDailyLimit',
   WITHDRAW_MONEY = '/api/withdraws/save',
-  DEPOSIT_LIST = '/api/deposits'
+  DEPOSIT_LIST = '/api/deposits',
+  SELL = '/api/orders/sell'
 }
 
 export interface IBaseResponse<DataType> {

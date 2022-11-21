@@ -97,7 +97,11 @@ export const useApiServices = () => {
   }
 
   const buyingStockLimit = (param : IBuyStockReqBody) => {
-    return $api.post<IBaseResponse<undefined>>(ApiRoutes.BUY_LIMIT, { param })
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.BUY_LIMIT, param)
+  }
+
+  const sellStockLimit = (param : IBuyStockReqBody) => {
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.SELL, param)
   }
 
   const withdrawMoneyService = (amount: number, withdrawPassword: string) => {
@@ -120,6 +124,7 @@ export const useApiServices = () => {
     buyingStockLimit,
     userInfoService,
     withdrawMoneyService,
-    depositDetailService
+    depositDetailService,
+    sellStockLimit
   }
 }
