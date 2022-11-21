@@ -20,7 +20,9 @@ export enum ApiRoutes {
   HOT_SPOT = '/api/stocks/getHotspot',
   QNQUOTATION = '/api/stocks/getCnQuotation',
   GAINLIST = '/api/stocks/getRiseRank',
-  DROPLIST = '/api/stocks/getFallRank'
+  DROPLIST = '/api/stocks/getFallRank',
+  AMPLITUBE_INDEX = '/api/stocks/getAmplitude',
+  TURNOVER_INDEX='/api/stocks/getTurnover'
 }
 
 export interface IBaseResponse<DataType> {

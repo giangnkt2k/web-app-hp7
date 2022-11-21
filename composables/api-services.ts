@@ -1,6 +1,6 @@
 import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
 import { ISlideItem } from '~~/types/hero-slide'
-import { HotIndustry, HotSpot } from '~~/types/market'
+import { HotIndustry, HotSpot, Amplitube } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
@@ -109,12 +109,15 @@ export const useApiServices = () => {
   const hotIndustryService = () => {
     return $api.get<IBaseResponse<HotIndustry>>(ApiRoutes.HOT_MARKET)
   }
+
   const hotConceptService = () => {
     return $api.get<IBaseResponse<HotIndustry>>(ApiRoutes.HOT_CONCEPT)
   }
+
   const hotSpotService = () => {
     return $api.get<IBaseResponse<HotSpot>>(ApiRoutes.HOT_SPOT)
   }
+
   const qNQuotation = (page = 1) => {
     return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.QNQUOTATION, {
       params: {
@@ -122,6 +125,7 @@ export const useApiServices = () => {
       }
     })
   }
+
   const gainListService = (page = 1) => {
     return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.GAINLIST, {
       params: {
@@ -129,8 +133,25 @@ export const useApiServices = () => {
       }
     })
   }
+
   const dropListService = (page = 1) => {
     return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.DROPLIST, {
+      params: {
+        page
+      }
+    })
+  }
+
+  const amplitubeListService = (page = 1) => {
+    return $api.get<IBaseResponse<Amplitube[]>>(ApiRoutes.AMPLITUBE_INDEX, {
+      params: {
+        page
+      }
+    })
+  }
+
+  const turnoverListService = (page = 1) => {
+    return $api.get<IBaseResponse<Amplitube[]>>(ApiRoutes.TURNOVER_INDEX, {
       params: {
         page
       }
@@ -159,6 +180,8 @@ export const useApiServices = () => {
     hotSpotService,
     qNQuotation,
     gainListService,
-    dropListService
+    dropListService,
+    amplitubeListService,
+    turnoverListService
   }
 }

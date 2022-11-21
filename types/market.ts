@@ -9,3 +9,11 @@ export interface HotSpot {
     title: string,
     up_down: number
 }
+
+export interface Amplitube {
+    Increase : number;
+    code: string;
+    name: string;
+    price: number;
+    scode: string;
+}

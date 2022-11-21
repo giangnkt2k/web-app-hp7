@@ -10,10 +10,10 @@
         <CnQuotation />
       </van-tab>
       <van-tab :title="$t('page.market.amplitudeList')" name="Amplitube">
-        content of tab 3
+        <AmplitubeList />
       </van-tab>
       <van-tab :title="$t('page.market.turnoverRate')" name="TurnOver">
-        content of tab 3
+        <TurnoverList />
       </van-tab>
       <van-tab :title="$t('page.market.gainList')" name="RiseRank">
         <GainList />
