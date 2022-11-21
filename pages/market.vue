@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="market__title text-center text-light-50 font-bold text-xl">
-      Market
+      {{ $t('page.market.title') }}
     </div>
     <SearchBar />
     <van-tabs v-model:active="activeName" color="#ffe100" lazy-render>

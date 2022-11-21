@@ -39,11 +39,7 @@ getChinaIndexes()
 
 <template>
   <div>
-    <!-- <IndexQuotesList :indexes="chinaIndexes" /> -->
-    <HotIndustryList :indexes="hotIndustry" />
-    <HotIndustryList :indexes="hotIndustry" />
-    <HotIndustryList :indexes="hotIndustry" />
-    <HotIndustryList :indexes="hotIndustry" />
+    <IndexQuotesList :indexes="chinaIndexes" />
     <HotIndustryList :indexes="hotIndustry" />
   </div>
 </template>
