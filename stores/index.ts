@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 
 const useAppStore = defineStore('app-store', () => {
-  return {}
+  const isAppInited = ref(false)
+  return {
+    isAppInited
+  }
 })
 export default useAppStore

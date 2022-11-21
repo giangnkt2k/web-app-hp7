@@ -15,7 +15,7 @@ export interface IUserInfo
     bankbranch: string,
     accountname: string,
     withdraw_tips: string,
-    balance_frozen: string,
+    balance_frozen: number,
     balance_avail: string,
     balance_avail_newshare: string,
     total_assets: string,
@@ -24,4 +24,11 @@ export interface IUserInfo
     hold_value: number,
     profit: string,
     online_service: string
+}
+
+export interface IUserDeposit {
+    amount: string,
+    is_check: number,
+    created_at: number,
+    thumb: string
 }
