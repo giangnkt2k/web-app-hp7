@@ -10,7 +10,7 @@ export interface HotSpot {
     up_down: number
 }
 
-export interface Amplitube {
+export interface Amplitude {
     Increase : number;
     code: string;
     name: string;

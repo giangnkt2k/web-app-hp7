@@ -21,7 +21,7 @@ export enum ApiRoutes {
   QNQUOTATION = '/api/stocks/getCnQuotation',
   GAINLIST = '/api/stocks/getRiseRank',
   DROPLIST = '/api/stocks/getFallRank',
-  AMPLITUBE_INDEX = '/api/stocks/getAmplitude',
+  AMPLITUDE_INDEX = '/api/stocks/getAmplitude',
   TURNOVER_INDEX='/api/stocks/getTurnover'
 }
 

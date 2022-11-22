@@ -1,21 +1,12 @@
 <script lang="ts" setup>
 import { IStock } from '~~/types/stock'
 
-definePageMeta({
-  pageTitle: 'page.search.title'
-})
-
-const route = useRoute()
 const { dropListService } = useApiServices()
-const searchKey = ref('shanghai')
 
-const searchHeader = ref<HTMLElement>()
 const currentPage = ref(1)
 const isLoading = ref(false)
 const isFinished = ref(false)
 const stocks = ref<IStock[]>([])
-
-const { height: searchHeaderHeight } = useElementBounding(searchHeader)
 
 const search = async (page?: number) => {
   isFinished.value = false
@@ -37,21 +28,6 @@ const search = async (page?: number) => {
   }
 }
 
-if (route.query.query?.toString()) {
-  searchKey.value = route.query.query?.toString()
-}
-
-watch(
-  () => route.query.query,
-  () => {
-    stocks.value = []
-    search(1)
-  }
-)
-
-onBeforeUnmount(() => {
-  searchKey.value = 'shanghai'
-})
 </script>
 
 <template>
@@ -59,8 +35,8 @@ onBeforeUnmount(() => {
     <StockTable
       v-model:is-loading="isLoading"
       :stocks="stocks"
+      :offset-top="0"
       :is-finished="isFinished"
-      :offset-top="searchHeaderHeight"
       @load="search"
     />
   </div>

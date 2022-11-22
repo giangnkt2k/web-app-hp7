@@ -1,6 +1,6 @@
 import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
 import { ISlideItem } from '~~/types/hero-slide'
-import { HotIndustry, HotSpot, Amplitube } from '~~/types/market'
+import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
@@ -142,8 +142,8 @@ export const useApiServices = () => {
     })
   }
 
-  const amplitubeListService = (page = 1) => {
-    return $api.get<IBaseResponse<Amplitube[]>>(ApiRoutes.AMPLITUBE_INDEX, {
+  const amplitudeListService = (page = 1) => {
+    return $api.get<IBaseResponse<Amplitude[]>>(ApiRoutes.AMPLITUDE_INDEX, {
       params: {
         page
       }
@@ -151,7 +151,7 @@ export const useApiServices = () => {
   }
 
   const turnoverListService = (page = 1) => {
-    return $api.get<IBaseResponse<Amplitube[]>>(ApiRoutes.TURNOVER_INDEX, {
+    return $api.get<IBaseResponse<Amplitude[]>>(ApiRoutes.TURNOVER_INDEX, {
       params: {
         page
       }
@@ -181,7 +181,7 @@ export const useApiServices = () => {
     qNQuotation,
     gainListService,
     dropListService,
-    amplitubeListService,
+    amplitudeListService,
     turnoverListService
   }
 }

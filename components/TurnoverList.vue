@@ -1,28 +1,20 @@
 <script lang="ts" setup>
 import { IStock } from '~~/types/stock'
 
-definePageMeta({
-  pageTitle: 'page.search.title'
-})
+const { turnoverListService } = useApiServices()
 
-const route = useRoute()
-const { amplitubeListService } = useApiServices()
-const searchKey = ref('shanghai')
-
-const searchHeader = ref<HTMLElement>()
 const currentPage = ref(1)
 const isLoading = ref(false)
 const isFinished = ref(false)
 const stocks = ref<IStock[]>([])
 const tempData = ref<IStock[]>([])
-const { height: searchHeaderHeight } = useElementBounding(searchHeader)
 
 const getData = async (page?: number) => {
   isFinished.value = false
   isLoading.value = true
   currentPage.value = page ?? currentPage.value
 
-  const response = await amplitubeListService(currentPage.value)
+  const response = await turnoverListService(currentPage.value)
 
   if (response.data.data) {
     const rawData = response.data.data
@@ -102,21 +94,6 @@ const getData = async (page?: number) => {
   }
 }
 
-if (route.query.query?.toString()) {
-  searchKey.value = route.query.query?.toString()
-}
-
-watch(
-  () => route.query.query,
-  () => {
-    stocks.value = []
-    getData(1)
-  }
-)
-
-onBeforeUnmount(() => {
-  searchKey.value = 'shanghai'
-})
 </script>
 
 <template>
@@ -125,7 +102,7 @@ onBeforeUnmount(() => {
       v-model:is-loading="isLoading"
       :stocks="stocks"
       :is-finished="isFinished"
-      :offset-top="searchHeaderHeight"
+      :offset-top="0"
       @load="getData"
     />
   </div>

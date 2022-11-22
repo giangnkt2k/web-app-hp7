@@ -9,8 +9,8 @@
       <van-tab :title="$t('page.market.shanghaiAndShenzhen')" name="CnQuotation">
         <CnQuotation />
       </van-tab>
-      <van-tab :title="$t('page.market.amplitudeList')" name="Amplitube">
-        <AmplitubeList />
+      <van-tab :title="$t('page.market.amplitudeList')" name="Amplitude">
+        <AmplitudeList />
       </van-tab>
       <van-tab :title="$t('page.market.turnoverRate')" name="TurnOver">
         <TurnoverList />
