@@ -111,15 +111,15 @@ export const useApiServices = () => {
 
   // ------MARKET PAGE------
   const hotIndustryService = () => {
-    return $api.get<IBaseResponse<HotIndustry>>(ApiRoutes.HOT_MARKET)
+    return $api.get<IBaseResponse<HotIndustry[]>>(ApiRoutes.HOT_MARKET)
   }
 
   const hotConceptService = () => {
-    return $api.get<IBaseResponse<HotIndustry>>(ApiRoutes.HOT_CONCEPT)
+    return $api.get<IBaseResponse<HotIndustry[]>>(ApiRoutes.HOT_CONCEPT)
   }
 
   const hotSpotService = () => {
-    return $api.get<IBaseResponse<HotSpot>>(ApiRoutes.HOT_SPOT)
+    return $api.get<IBaseResponse<HotSpot[]>>(ApiRoutes.HOT_SPOT)
   }
 
   const qNQuotationService = (page = 1) => {
