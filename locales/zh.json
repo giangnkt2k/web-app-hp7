@@ -163,5 +163,8 @@
     "profile.silverCertificateTransferOut.submit": "提交",
     "profile.silverCertificateTransferOut.dearUser": "尊敬的用户您好:",
     "profile.silverCertificateTransferOut.dearUserContent": "转出时间为：（早上9：30--下午15：00）到账时间为：正常2小时内到账，以银行审核为准！为了让您有更好的体验，避免转出高峰期到账不及时的情况，请联系客服查询银行到账状态！",
-    "mess.required": "此输入字段不能留空"
+    "mess.required": "此输入字段不能留空",
+    "sell.title": "卖出",
+    "sell.btn": "正在提交",
+    "sell.available": "可卖:"
 }
