@@ -22,7 +22,7 @@ export enum ApiRoutes {
   GAINLIST = '/api/stocks/getRiseRank',
   DROPLIST = '/api/stocks/getFallRank',
   AMPLITUDE_INDEX = '/api/stocks/getAmplitude',
-  TURNOVER_INDEX='/api/stocks/getTurnover'
+  TURNOVER_INDEX='/api/stocks/getTurnover',
   SELL = '/api/orders/sell'
 }
 
