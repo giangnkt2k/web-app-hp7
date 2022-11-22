@@ -11,7 +11,7 @@ definePageMeta({
 })
 
 const { $dayjs } = useNuxtApp()
-const { stockDetailsService, stockKlineDataService, buyingStockLimit, sellStockLimit } = useApiServices()
+const { stockDetailsService, stockKlineDataService, buyingStockLimitService, sellStockLimitService } = useApiServices()
 
 const route = useRoute()
 const { toMoneyFormat } = useUtility()
@@ -121,7 +121,7 @@ const buyStock = async () => {
     zhangting: ceilingPrice.value,
     dieting: floorPrice.value
   }
-  await buyingStockLimit(param)
+  await buyingStockLimitService(param)
 
   isBuying.value = false
   isShowPopUpBuy.value = false
@@ -138,7 +138,7 @@ const sellStock = async () => {
     zhangting: ceilingPrice.value,
     dieting: floorPrice.value
   }
-  await sellStockLimit(paramSell)
+  await sellStockLimitService(paramSell)
 
   isSelling.value = false
   isShowPopUpSell.value = false

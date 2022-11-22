@@ -96,11 +96,11 @@ export const useApiServices = () => {
     return $api.get<IBaseResponse<IStockKlineData[]>>(ApiRoutes.STOCK_KLINE_DATA, { params: { code: stockCode, period } })
   }
 
-  const buyingStockLimit = (param : IBuyStockReqBody) => {
+  const buyingStockLimitService = (param : IBuyStockReqBody) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.BUY_LIMIT, param)
   }
 
-  const sellStockLimit = (param : IBuyStockReqBody) => {
+  const sellStockLimitService = (param : IBuyStockReqBody) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.SELL, param)
   }
 
@@ -121,10 +121,10 @@ export const useApiServices = () => {
     userNewSharesService,
     stockDetailsService,
     stockKlineDataService,
-    buyingStockLimit,
+    buyingStockLimitService,
     userInfoService,
     withdrawMoneyService,
     depositDetailService,
-    sellStockLimit
+    sellStockLimitService
   }
 }
