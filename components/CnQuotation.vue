@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IStock } from '~~/types/stock'
 
-const { qNQuotation } = useApiServices()
+const { qNQuotationService } = useApiServices()
 
 const currentPage = ref(1)
 const isLoading = ref(false)
@@ -13,7 +13,7 @@ const search = async (page?: number) => {
   isLoading.value = true
   currentPage.value = page ?? currentPage.value
 
-  const response = await qNQuotation(currentPage.value)
+  const response = await qNQuotationService(currentPage.value)
 
   if (response.data.data) {
     stocks.value.push(...response.data.data)

@@ -118,7 +118,7 @@ export const useApiServices = () => {
     return $api.get<IBaseResponse<HotSpot>>(ApiRoutes.HOT_SPOT)
   }
 
-  const qNQuotation = (page = 1) => {
+  const qNQuotationService = (page = 1) => {
     return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.QNQUOTATION, {
       params: {
         page
@@ -178,7 +178,7 @@ export const useApiServices = () => {
     hotIndustryService,
     hotConceptService,
     hotSpotService,
-    qNQuotation,
+    qNQuotationService,
     gainListService,
     dropListService,
     amplitudeListService,

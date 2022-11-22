@@ -1,13 +1,13 @@
 export interface HotIndustry {
-    Increase: number,
-    Increase_share: number,
-    plate: string,
-    shares: string
+    Increase: number;
+    Increase_share: number;
+    plate: string;
+    shares: string;
 }
 
 export interface HotSpot {
-    title: string,
-    up_down: number
+    title: string;
+    up_down: number;
 }
 
 export interface Amplitude {
