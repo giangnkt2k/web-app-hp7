@@ -15,6 +15,14 @@ export enum ApiRoutes {
   BUY_LIMIT = '/api/orders/buyDailyLimit',
   WITHDRAW_MONEY = '/api/withdraws/save',
   DEPOSIT_LIST = '/api/deposits',
+  HOT_MARKET= '/api/stocks/getHotIndustry',
+  HOT_CONCEPT = '/api/stocks/getHotConcept',
+  HOT_SPOT = '/api/stocks/getHotspot',
+  QNQUOTATION = '/api/stocks/getCnQuotation',
+  GAINLIST = '/api/stocks/getRiseRank',
+  DROPLIST = '/api/stocks/getFallRank',
+  AMPLITUDE_INDEX = '/api/stocks/getAmplitude',
+  TURNOVER_INDEX='/api/stocks/getTurnover',
   SELL = '/api/orders/sell'
 }
 

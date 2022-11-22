@@ -7,19 +7,19 @@
         <IndexQuotes />
       </van-tab>
       <van-tab :title="$t('page.market.shanghaiAndShenzhen')" name="CnQuotation">
-        content of tab 2
+        <CnQuotation />
       </van-tab>
-      <van-tab :title="$t('page.market.amplitudeList')" name="Amplitube">
-        content of tab 3
+      <van-tab :title="$t('page.market.amplitudeList')" name="Amplitude">
+        <AmplitudeList />
       </van-tab>
       <van-tab :title="$t('page.market.turnoverRate')" name="TurnOver">
-        content of tab 3
+        <TurnoverList />
       </van-tab>
       <van-tab :title="$t('page.market.gainList')" name="RiseRank">
-        content of tab 3
+        <GainList />
       </van-tab>
       <van-tab :title="$t('page.market.dropList')" name="FallRank">
-        content of tab 3
+        <DropList />
       </van-tab>
     </van-tabs>
 

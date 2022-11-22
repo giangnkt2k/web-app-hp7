@@ -1,5 +1,6 @@
 import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
 import { ISlideItem } from '~~/types/hero-slide'
+import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
@@ -108,6 +109,59 @@ export const useApiServices = () => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.WITHDRAW_MONEY, { params: { amount, withdraw_password: withdrawPassword } })
   }
 
+  // ------MARKET PAGE------
+  const hotIndustryService = () => {
+    return $api.get<IBaseResponse<HotIndustry[]>>(ApiRoutes.HOT_MARKET)
+  }
+
+  const hotConceptService = () => {
+    return $api.get<IBaseResponse<HotIndustry[]>>(ApiRoutes.HOT_CONCEPT)
+  }
+
+  const hotSpotService = () => {
+    return $api.get<IBaseResponse<HotSpot[]>>(ApiRoutes.HOT_SPOT)
+  }
+
+  const qNQuotationService = (page = 1) => {
+    return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.QNQUOTATION, {
+      params: {
+        page
+      }
+    })
+  }
+
+  const gainListService = (page = 1) => {
+    return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.GAINLIST, {
+      params: {
+        page
+      }
+    })
+  }
+
+  const dropListService = (page = 1) => {
+    return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.DROPLIST, {
+      params: {
+        page
+      }
+    })
+  }
+
+  const amplitudeListService = (page = 1) => {
+    return $api.get<IBaseResponse<Amplitude[]>>(ApiRoutes.AMPLITUDE_INDEX, {
+      params: {
+        page
+      }
+    })
+  }
+
+  const turnoverListService = (page = 1) => {
+    return $api.get<IBaseResponse<Amplitude[]>>(ApiRoutes.TURNOVER_INDEX, {
+      params: {
+        page
+      }
+    })
+  }
+
   return {
     loginService,
     searchStockService,
@@ -125,6 +179,14 @@ export const useApiServices = () => {
     userInfoService,
     withdrawMoneyService,
     depositDetailService,
+    hotIndustryService,
+    hotConceptService,
+    hotSpotService,
+    qNQuotationService,
+    gainListService,
+    dropListService,
+    amplitudeListService,
+    turnoverListService,
     sellStockLimitService
   }
 }
