@@ -23,7 +23,11 @@ export enum ApiRoutes {
   DROPLIST = '/api/stocks/getFallRank',
   AMPLITUDE_INDEX = '/api/stocks/getAmplitude',
   TURNOVER_INDEX='/api/stocks/getTurnover',
-  SELL = '/api/orders/sell'
+  SELL = '/api/orders/sell',
+  OPTIONALS_INDEX = '/api/optionals/index',
+  ADD_OPTION = '/api/optionals/addOptional',
+  DELETE_OPTION = '/api/optionals/deleteOptional',
+  SEARCH_OPTIONAL_STOCK = '/api/stocks/serchOptionalStock'
 }
 
 export interface IBaseResponse<DataType> {
