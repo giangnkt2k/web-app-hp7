@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IStockSearch } from '~~/types/stock'
 
-const { wishlistService, searchOptionalStock, addOneToWishList, deleteOneFromWishList } = useApiServices()
+const { wishlistService, searchOptionalStockService, addOneToWishListService, deleteOneFromWishListService } = useApiServices()
 
 const currentPage = ref(1)
 const currentSearchPage = ref(1)
@@ -35,13 +35,12 @@ const getData = async (page?: number) => {
 }
 
 const onSearch = async (page?: number) => {
-  console.log('onSearch', currentSearchPage.value)
   isSearchFinished.value = false
   isSearchLoading.value = true
   stocksSearched.value = []
 
   currentSearchPage.value = page ?? currentSearchPage.value
-  const response = await searchOptionalStock(searchKey.value, currentSearchPage.value)
+  const response = await searchOptionalStockService(searchKey.value, currentSearchPage.value)
 
   if (response.data.data) {
     stocksSearched.value.push(...response.data.data)
@@ -61,13 +60,13 @@ const openPopupSearchStock = () => {
 }
 
 const addStockToWishList = async (stock: IStockSearch) => {
-  await addOneToWishList(stock)
+  await addOneToWishListService(stock)
   getData(1)
   onSearch(1)
 }
 
 const deleteStockFromWishList = async (code : string) => {
-  await deleteOneFromWishList(code)
+  await deleteOneFromWishListService(code)
   getData(1)
   onSearch(1)
 }

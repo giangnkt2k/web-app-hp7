@@ -171,15 +171,15 @@ export const useApiServices = () => {
     })
   }
 
-  const addOneToWishList = (stock: IStockSearch) => {
+  const addOneToWishListService = (stock: IStockSearch) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.ADD_OPTION, stock)
   }
 
-  const deleteOneFromWishList = (stockCode: string) => {
+  const deleteOneFromWishListService = (stockCode: string) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.DELETE_OPTION, { fullcode: stockCode })
   }
 
-  const searchOptionalStock = (keyword: string, page = 1) => {
+  const searchOptionalStockService = (keyword: string, page = 1) => {
     return $api.get<IBaseResponse<IStockSearch[]>>(ApiRoutes.SEARCH_OPTIONAL_STOCK, {
       params: {
         keyword,
@@ -215,8 +215,8 @@ export const useApiServices = () => {
     turnoverListService,
     sellStockLimitService,
     wishlistService,
-    addOneToWishList,
-    deleteOneFromWishList,
-    searchOptionalStock
+    addOneToWishListService,
+    deleteOneFromWishListService,
+    searchOptionalStockService
   }
 }
