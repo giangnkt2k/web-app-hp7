@@ -35,12 +35,12 @@
 </template>
 <script lang="ts" setup>
 const { $toast } = useNuxtApp()
-const { changeWithdrawalPassword } = useApiServices()
+const { changeWithdrawalPasswordService } = useApiServices()
 const newPassword = ref('')
 const repeatNewPassword = ref('')
 
 const onSubmit = async () => {
-  const res = await changeWithdrawalPassword({
+  const res = await changeWithdrawalPasswordService({
     withdraw_password: newPassword.value,
     rewithdraw_password: repeatNewPassword.value
   })

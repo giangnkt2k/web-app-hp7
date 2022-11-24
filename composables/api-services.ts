@@ -5,7 +5,7 @@ import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
 import { IStock, IStockDetailsResponse, IStockKlineData, IBuyStockReqBody } from '~~/types/stock'
-import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePassword } from '~~/types/user'
+import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserchangePasswordService } from '~~/types/user'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
@@ -163,11 +163,11 @@ export const useApiServices = () => {
   }
 
   // ------Profile------
-  const changePassword = (param: IUserChangePassword) => {
+  const changePasswordServiceService = (param: IUserchangePasswordService) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.CHANGE_PASSWORD, param)
   }
 
-  const changeWithdrawalPassword = (param: IUserChangeWithdrawalPassword) => {
+  const changeWithdrawalPasswordService = (param: IUserChangeWithdrawalPassword) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.CHANGE_WITHDRAWAL_PASSWORD, param)
   }
 
@@ -197,7 +197,7 @@ export const useApiServices = () => {
     amplitudeListService,
     turnoverListService,
     sellStockLimitService,
-    changePassword,
-    changeWithdrawalPassword
+    changePasswordServiceService,
+    changeWithdrawalPasswordService
   }
 }

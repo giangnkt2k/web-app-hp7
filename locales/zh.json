@@ -183,6 +183,12 @@
     "profile.change-password.reNewPassword": "重复新密码",
     "profile.change-password.currentPassword.ph": "请填写原密码",
     "profile.change-password.newPassword.ph": "请填写新密码",
-    "profile.change-password.reNewPassword.ph": "请重复填写新密码"
-    
+    "profile.change-password.reNewPassword.ph": "请重复填写新密码",
+    "profile.transaction-history.tab": "交易记录",
+    "profile.my-subscription.tab": "我的申购",
+    "profile.breakdown-of-funds.tab": "资金明细",
+    "profile.deposit.tab": "入金列表",
+    "profile.list-of-withdrawals.tab": "出金列表",
+    "profile.kyc.tab": "实名认证",
+    "profile.logout.tab": "退出登录"
 }

@@ -35,7 +35,7 @@ export interface IUserDeposit {
     thumb: string
 }
 
-export interface IUserChangePassword {
+export interface IUserchangePasswordService {
     oldpassword: string;
     password: string;
     repassword: string;

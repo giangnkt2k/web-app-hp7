@@ -43,13 +43,13 @@
 </template>
 <script lang="ts" setup>
 const { $toast } = useNuxtApp()
-const { changePassword } = useApiServices()
+const { changePasswordServiceService } = useApiServices()
 const currentPassword = ref('')
 const newPassword = ref('')
 const repeatNewPassword = ref('')
 
 const onSubmit = async () => {
-  const res = await changePassword({
+  const res = await changePasswordServiceService({
     oldpassword: currentPassword.value,
     password: newPassword.value,
     repassword: repeatNewPassword.value
