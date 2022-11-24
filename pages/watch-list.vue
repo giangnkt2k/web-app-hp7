@@ -35,10 +35,13 @@ const getData = async (page?: number) => {
 }
 
 const onSearch = async (page?: number) => {
+  console.log('onSearch', currentSearchPage.value)
   isSearchFinished.value = false
   isSearchLoading.value = true
+  stocksSearched.value = []
+
   currentSearchPage.value = page ?? currentSearchPage.value
-  const response = await searchOptionalStock(searchKey.value, 1)
+  const response = await searchOptionalStock(searchKey.value, currentSearchPage.value)
 
   if (response.data.data) {
     stocksSearched.value.push(...response.data.data)
@@ -69,6 +72,14 @@ const deleteStockFromWishList = async (code : string) => {
   onSearch(1)
 }
 
+const handleWishlist = (stock: IStockSearch) => {
+  if (stock.is_optional === 0) {
+    addStockToWishList(stock)
+  } else {
+    deleteStockFromWishList(stock.FS)
+  }
+}
+
 watch(
   () => searchKey.value,
   () => {
@@ -76,15 +87,6 @@ watch(
     onSearch(1)
   }
 )
-
-const isLoadingComputed = computed({
-  get () {
-    return !!isSearchLoading.value
-  },
-  set (value) {
-    isSearchLoading.value = value
-  }
-})
 
 </script>
 
@@ -94,7 +96,7 @@ const isLoadingComputed = computed({
     <van-nav-bar class="!bg-primary">
       <template #title>
         <div class="text-white font-bold">
-          {{ $t('wl-title') }}
+          {{ $t('wl.title') }}
         </div>
       </template>
     </van-nav-bar>
@@ -110,7 +112,7 @@ const isLoadingComputed = computed({
       <!-- Button open search stock  -->
       <div class="text-center pt-5 pb-10">
         <van-button icon="plus" type="default" @click="openPopupSearchStock">
-          {{ $t("wl-btn-add") }}
+          {{ $t("wl.btn.add") }}
         </van-button>
       </div>
       <!-- Popup search stock  -->
@@ -123,7 +125,7 @@ const isLoadingComputed = computed({
       >
         <div class="mt-6">
           <h1 class="font-bold text-lg p-4">
-            {{ $t('wl-popup-title') }}
+            {{ $t('wl.popup.title') }}
           </h1>
         </div>
         <div class="mt-2">
@@ -134,8 +136,8 @@ const isLoadingComputed = computed({
             @search="onSearch"
           />
           <van-list
-            v-model:loading="isLoadingComputed"
-            :finished="isFinished"
+            v-model:loading="isSearchLoading"
+            :finished="isSearchFinished"
             :finished-text="$t('stock-list.finished-text')"
             :loading-text="$t('stock-list.loading-text')"
             @load="onSearch"
@@ -155,8 +157,8 @@ const isLoadingComputed = computed({
                   </div>
                 </van-col>
                 <van-col span="12" class="text-right">
-                  <van-icon v-if="stock.is_optional === 0" name="like-o" @click="addStockToWishList(stock)" />
-                  <van-icon v-else color="#f03957" name="like" @click="deleteStockFromWishList(stock.FS)" />
+                  <!-- <van-icon v-if="stock.is_optional === 0" name="like-o" @click="addStockToWishList(stock)" /> -->
+                  <van-icon class="!text-2xl" color="#f03957" :name="(stock.is_optional === 0 || stock.is_optional === undefined) ? 'like-o' : 'like'" @click="handleWishlist(stock)" />
                 </van-col>
               </van-row>
             </van-cell>

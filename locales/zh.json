@@ -170,7 +170,7 @@
     "sell.title": "卖出",
     "sell.btn": "正在提交",
     "sell.available": "可卖:",
-    "wl-title": "自选股",
-    "wl-btn-add": "添加股票",
-    "wl-popup-title": "添加股票"
+    "wl.title": "自选股",
+    "wl.btn.add": "添加股票",
+    "wl.popup.title": "添加股票"
 }
