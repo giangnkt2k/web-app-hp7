@@ -73,7 +73,7 @@ const deleteStockFromWishList = async (code : string) => {
 }
 
 const handleWishlist = (stock: IStockSearch) => {
-  if (stock.is_optional === 0) {
+  if (stock.is_optional === 0 || stock.is_optional === undefined) {
     addStockToWishList(stock)
   } else {
     deleteStockFromWishList(stock.FS)
@@ -157,7 +157,6 @@ watch(
                   </div>
                 </van-col>
                 <van-col span="12" class="text-right">
-                  <!-- <van-icon v-if="stock.is_optional === 0" name="like-o" @click="addStockToWishList(stock)" /> -->
                   <van-icon class="!text-2xl" color="#f03957" :name="(stock.is_optional === 0 || stock.is_optional === undefined) ? 'like-o' : 'like'" @click="handleWishlist(stock)" />
                 </van-col>
               </van-row>
