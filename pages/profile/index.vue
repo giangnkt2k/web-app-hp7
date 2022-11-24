@@ -80,8 +80,8 @@ const logout = () => {
           <van-cell icon="description" title="Deposit" is-link to="profile/deposit" />
           <van-cell icon="cash-on-deliver" title="List of withdrawals" is-link to="" />
           <van-cell icon="contact" title="Real-name authentication" is-link to="profile/kyc" />
-          <van-cell icon="browsing-history-o" title="Login password" is-link to="" />
-          <van-cell icon="browsing-history" title="Withdrawal password" is-link to="" />
+          <van-cell icon="browsing-history-o" title="Login password" is-link to="profile/change-password" />
+          <van-cell icon="browsing-history" title="Withdrawal password" is-link to="profile/change-withdrawal-password" />
         </van-cell-group>
       </div>
       <div class=" mb-20">

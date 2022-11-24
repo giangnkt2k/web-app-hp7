@@ -23,7 +23,10 @@ export enum ApiRoutes {
   DROPLIST = '/api/stocks/getFallRank',
   AMPLITUDE_INDEX = '/api/stocks/getAmplitude',
   TURNOVER_INDEX='/api/stocks/getTurnover',
-  SELL = '/api/orders/sell'
+  SELL = '/api/orders/sell',
+  CHANGE_PASSWORD = '/api/members/resetPassword',
+  CHANGE_WITHDRAWAL_PASSWORD = '/api/members/resetWithdrawPassword',
+
 }
 
 export interface IBaseResponse<DataType> {

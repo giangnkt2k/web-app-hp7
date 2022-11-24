@@ -169,5 +169,17 @@
     "mess.required": "此输入字段不能留空",
     "sell.title": "卖出",
     "sell.btn": "正在提交",
-    "sell.available": "可卖:"
+    "sell.available": "可卖:",
+    "profile.change-password.title": "重置密码",
+    "profile.change-withdrawal-password.title": "重置提现密码",
+    "profile.change-password.currentPassword": "原密码",
+    "profile.change-password.newPassword": "新密码",
+    "profile.change-withdrawal-password.currentPassword": "提现密码",
+    "profile.change-withdrawal-password.newPassword": "重复提现密码",
+    "profile.change-withdrawal-password.currentPassword.ph": "请填写提现密码",
+    "profile.change-withdrawal-password.newPassword.ph": "请重复填写提现密码",
+    "profile.change-password.reNewPassword": "重复新密码",
+    "profile.change-password.currentPassword.ph": "请填写原密码",
+    "profile.change-password.newPassword.ph": "请填写新密码",
+    "profile.change-password.reNewPassword.ph": "请重复填写新密码"
 }

@@ -29,6 +29,19 @@ export interface IUserInfo
 export interface IUserDeposit {
     amount: string,
     is_check: number,
+    is_check_title: string;
     created_at: number,
+    created_at_covert: string,
     thumb: string
+}
+
+export interface IUserChangePassword {
+    oldpassword: string;
+    password: string;
+    repassword: string;
+}
+
+export interface IUserChangeWithdrawalPassword {
+    withdraw_password: string;
+    rewithdraw_password: string;
 }
