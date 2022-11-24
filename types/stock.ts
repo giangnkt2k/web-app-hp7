@@ -62,6 +62,10 @@ export interface IStock {
   MT: number;
 }
 
+export interface IStockSearch extends IStock {
+  is_optional: number;
+}
+
 export interface IStockDetailsResponse extends IBaseResponse<IStock> {
   hold: IPosition | null;
   type: 'short' | 'long'
