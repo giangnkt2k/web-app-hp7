@@ -14,7 +14,7 @@ export const useApiServices = () => {
   //   Request intercept
   $api.interceptors.request.use((config) => {
     config.headers = {
-      authorization: accessToken.value || 'undefined',
+      authorization: `Bearer ${accessToken.value}` || 'undefined',
       ...config.headers
     }
 
@@ -26,7 +26,7 @@ export const useApiServices = () => {
   }
 
   const userInfoService = () => {
-    return $api.post<IBaseResponse<IUserInfo>>(ApiRoutes.USER_INFORMATION)
+    return $api.get<IBaseResponse<IUserInfo>>(ApiRoutes.USER_INFORMATION)
   }
 
   const searchStockService = (keyword: string, page = 1) => {
@@ -188,6 +188,15 @@ export const useApiServices = () => {
     })
   }
 
+  const addNewDeposit = (id: number, amount: number) => {
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.DEPOSIT, {
+      params: {
+        deposit_account_id: id,
+        amount
+      }
+    })
+  }
+
   return {
     loginService,
     searchStockService,
@@ -217,6 +226,7 @@ export const useApiServices = () => {
     wishlistService,
     addOneToWishListService,
     deleteOneFromWishListService,
-    searchOptionalStockService
+    searchOptionalStockService,
+    addNewDeposit
   }
 }

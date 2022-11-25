@@ -38,11 +38,13 @@
 </template>
 <script lang="ts" setup>
 const { $routesList, $typedRouter } = useNuxtApp()
+const { addNewDeposit } = useApiServices()
 
 const activeNames = ref(['1'])
 
-const submitTransfer = () => {
+const submitTransfer = async () => {
   // TODO: Integrate API to submit the deposit status `paid`
+  await addNewDeposit(4, 100000)
   $typedRouter.push({ name: $routesList.profileDeposit })
 }
 </script>
