@@ -59,3 +59,13 @@ export interface IUserDeposit {
   remark: string;
   __entity: string;
 }
+
+export interface IUserChangePasswordRequestBody {
+    oldpassword: string;
+    password: string;
+}
+
+export interface IUserChangeWithdrawalPassword {
+    withdraw_password: string;
+    rewithdraw_password: string;
+}

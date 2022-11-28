@@ -5,8 +5,13 @@ import { useAuthenticationStore } from '~~/stores/authentication'
 const userStore = useAuthenticationStore()
 const { userInformation } = storeToRefs(userStore)
 const router = useRouter()
-
 const accessToken = useAccessToken()
+
+const isHiddenBalance = ref(false)
+
+const hiddenBalance = () => {
+  isHiddenBalance.value = !isHiddenBalance.value
+}
 
 const logout = () => {
   accessToken.value = ''
@@ -33,17 +38,22 @@ const logout = () => {
       <div class="mt-10 p-3 bg-light-50 rounded-md">
         <div class="flex">
           <p>{{ $t('profile.totalAssets') }}</p>
-          <van-icon name="eye-o" color="black" size="18" class="ml-3" />
+          <van-icon :name="isHiddenBalance ? 'eye-o': 'closed-eye'" color="black" size="18" class="ml-3" @click="hiddenBalance" />
         </div>
         <div class="my-3 text-2xl font-bold">
-          {{ userInformation?.balance || '' }}
+          <span v-if="isHiddenBalance">{{ userInformation?.balance || '' }}</span>
+          <span v-else>******</span>
         </div>
-        <div class="flex justify-between">
+        <div class="flex">
           <div>
-            {{ $t('profile.available') }} {{ userInformation?.balance_avail || '' }}
+            {{ $t('profile.available') }}
+            <span v-if="isHiddenBalance">  {{ userInformation?.balance_avail || '' }} </span>
+            <span v-else>******</span>
           </div>
-          <div>
-            {{ $t('profile.freeze') }} {{ userInformation?.balance_frozen || 0 }}
+          <div class="pl-6">
+            {{ $t('profile.freeze') }}
+            <span v-if="isHiddenBalance"> {{ userInformation?.balance_frozen || 0 }} </span>
+            <span v-else>******</span>
           </div>
         </div>
       </div>
@@ -55,7 +65,8 @@ const logout = () => {
               {{ $t('profile.totalMarketCapitalization') }}
             </div>
             <div class="text-xl font-bold">
-              {{ userInformation?.hold_value || '' }}
+              <span v-if="isHiddenBalance">{{ userInformation?.hold_value || '' }}</span>
+              <span v-else>******</span>
             </div>
           </div>
         </van-grid-item>
@@ -65,7 +76,8 @@ const logout = () => {
               {{ $t('profile.profitAndLoss') }}
             </div>
             <div class="text-xl font-bold">
-              {{ userInformation?.profit || '' }}
+              <span v-if="isHiddenBalance">{{ userInformation?.profit || '' }} </span>
+              <span v-else>******</span>
             </div>
           </div>
         </van-grid-item>
@@ -73,20 +85,20 @@ const logout = () => {
 
       <div class="mt-5 mb-5 bg-light-50 rounded-md">
         <van-cell-group>
-          <van-cell icon="records" title="Transaction history" is-link to="" />
-          <van-cell icon="thumb-circle-o" title="My Subscription" is-link to="" />
-          <van-cell icon="orders-o" title="Breakdown of funds" is-link to="" />
+          <van-cell icon="records" :title="$t('profile.transaction-history.tab')" is-link to="" />
+          <van-cell icon="thumb-circle-o" :title="$t('profile.my-subscription.tab')" is-link to="" />
+          <van-cell icon="orders-o" :title="$t('profile.breakdown-of-funds.tab')" is-link to="" />
           <van-cell icon="peer-pay" :title="$t('profile.cell.silverCertificateTransferOut')" is-link to="profile/withdraw-money" />
-          <van-cell icon="description" title="Deposit" is-link to="profile/deposit" />
-          <van-cell icon="cash-on-deliver" title="List of withdrawals" is-link to="" />
-          <van-cell icon="contact" title="Real-name authentication" is-link to="profile/kyc" />
-          <van-cell icon="browsing-history-o" title="Login password" is-link to="" />
-          <van-cell icon="browsing-history" title="Withdrawal password" is-link to="" />
+          <van-cell icon="description" :title="$t('profile.deposit.tab')" is-link to="profile/deposit" />
+          <van-cell icon="cash-on-deliver" :title="$t('profile.list-of-withdrawals.tab')" is-link to="" />
+          <van-cell icon="contact" :title="$t('profile.kyc.tab')" is-link to="profile/kyc" />
+          <van-cell icon="browsing-history-o" :title="$t('profile.change-password.tab')" is-link to="profile/change-password" />
+          <van-cell icon="browsing-history" :title="$t('profile.change-withdrawal-password.tab')" is-link to="profile/change-withdrawal-password" />
         </van-cell-group>
       </div>
       <div class=" mb-20">
         <van-button hairline block color="linear-gradient(to right, #ff6034, #ee0a24)" @click="logout">
-          Logout
+          {{ $t('profile.logout.tab') }}
         </van-button>
       </div>
     </div>

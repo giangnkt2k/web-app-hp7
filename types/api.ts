@@ -24,6 +24,8 @@ export enum ApiRoutes {
   AMPLITUDE_INDEX = '/api/stocks/getAmplitude',
   TURNOVER_INDEX='/api/stocks/getTurnover',
   SELL = '/api/orders/sell',
+  CHANGE_PASSWORD = '/api/members/resetPassword',
+  CHANGE_WITHDRAWAL_PASSWORD = '/api/members/resetWithdrawPassword',
   OPTIONALS_INDEX = '/api/optionals/index',
   ADD_OPTION = '/api/optionals/addOptional',
   DELETE_OPTION = '/api/optionals/deleteOptional',

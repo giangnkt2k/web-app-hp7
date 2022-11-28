@@ -170,6 +170,37 @@
     "sell.title": "卖出",
     "sell.btn": "正在提交",
     "sell.available": "可卖:",
+    "profile.change-password.title": "重置密码",
+    "profile.change-password.tab": "登录密码",
+    "profile.change-withdrawal-password.title": "重置提现密码",
+    "profile.change-withdrawal-password.tab": "提现密码",
+    "profile.change-password.currentPassword": "原密码",
+    "profile.change-password.newPassword": "新密码",
+    "profile.change-withdrawal-password.currentPassword": "提现密码",
+    "profile.change-withdrawal-password.newPassword": "重复提现密码",
+    "profile.change-withdrawal-password.currentPassword.ph": "请填写提现密码",
+    "profile.change-withdrawal-password.newPassword.ph": "请重复填写提现密码",
+    "profile.change-password.reNewPassword": "重复新密码",
+    "profile.change-password.currentPassword.ph": "请填写原密码",
+    "profile.change-password.newPassword.ph": "请填写新密码",
+    "profile.change-password.reNewPassword.ph": "请重复填写新密码",
+    "profile.transaction-history.tab": "交易记录",
+    "profile.my-subscription.tab": "我的申购",
+    "profile.breakdown-of-funds.tab": "资金明细",
+    "profile.deposit.tab": "入金列表",
+    "profile.list-of-withdrawals.tab": "出金列表",
+    "profile.kyc.tab": "实名认证",
+    "profile.logout.tab": "退出登录",
+    "validations": {
+        "required": {
+            "oldPassword": "请填写原密码",
+            "newPassword": "请输入您的新密码",
+            "repeatNewPassword": "请重新输入您的新密码"
+        },
+        "sameAs": {
+            "repeatNewPassword": "请正确输入您的新密码"
+        }
+    },
     "wl.title": "自选股",
     "wl.btn.add": "添加股票",
     "wl.popup.title": "添加股票",
