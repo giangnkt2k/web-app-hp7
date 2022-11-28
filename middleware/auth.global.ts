@@ -23,6 +23,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
       return navigateTo({ name: $routesList.login })
     }
   }
+  isAuthorized.value = true
 
   if (to.name !== $routesList.login && !accessToken.value) {
     return navigateTo({ name: $routesList.login })

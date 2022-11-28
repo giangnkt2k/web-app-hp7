@@ -2,9 +2,9 @@ import { defineStore } from 'pinia'
 import { IUserInfo } from '~~/types/user'
 export const useAuthenticationStore = defineStore('authentication-store', () => {
   const { userInfoService } = useApiServices()
+  const isAuthorized = useIsAuthorized()
 
   const userInformation = ref<IUserInfo>()
-  const isAuthorized = useIsAuthorized()
 
   const getUserData = async () => {
     if (isAuthorized.value) {
