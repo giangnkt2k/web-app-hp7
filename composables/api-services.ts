@@ -4,7 +4,7 @@ import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
-import { IStock, IStockDetailsResponse, IStockKlineData, IBuyStockReqBody } from '~~/types/stock'
+import { IStock, IStockDetailsResponse, IStockKlineData, IBuyStockReqBody, IStockSearch } from '~~/types/stock'
 import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePasswordRequestBody } from '~~/types/user'
 
 export const useApiServices = () => {
@@ -170,6 +170,31 @@ export const useApiServices = () => {
   const changeWithdrawalPasswordService = (param: IUserChangeWithdrawalPassword) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.CHANGE_WITHDRAWAL_PASSWORD, param)
   }
+  // ------WISHLIST PAGE------
+  const wishlistService = (page = 1) => {
+    return $api.get<IBaseResponse<IStockSearch[]>>(ApiRoutes.OPTIONALS_INDEX, {
+      params: {
+        page
+      }
+    })
+  }
+
+  const addOneToWishListService = (stock: IStockSearch) => {
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.ADD_OPTION, stock)
+  }
+
+  const deleteOneFromWishListService = (stockCode: string) => {
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.DELETE_OPTION, { fullcode: stockCode })
+  }
+
+  const searchOptionalStockService = (keyword: string, page = 1) => {
+    return $api.get<IBaseResponse<IStockSearch[]>>(ApiRoutes.SEARCH_OPTIONAL_STOCK, {
+      params: {
+        keyword,
+        page
+      }
+    })
+  }
 
   return {
     loginService,
@@ -198,6 +223,10 @@ export const useApiServices = () => {
     turnoverListService,
     sellStockLimitService,
     changePasswordService,
-    changeWithdrawalPasswordService
+    changeWithdrawalPasswordService,
+    wishlistService,
+    addOneToWishListService,
+    deleteOneFromWishListService,
+    searchOptionalStockService
   }
 }

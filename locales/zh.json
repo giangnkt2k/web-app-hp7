@@ -200,5 +200,8 @@
         "sameAs": {
             "repeatNewPassword": "请正确输入您的新密码"
         }
-    }
+    },
+    "wl.title": "自选股",
+    "wl.btn.add": "添加股票",
+    "wl.popup.title": "添加股票"
 }
