@@ -1,37 +1,40 @@
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia'
 import { IUserDeposit } from '~~/types/user'
+import { useAuthenticationStore } from '~~/stores/authentication'
 
 const { $routesList, $typedRouter } = useNuxtApp()
-const { depositDetailService } = useApiServices()
+const { depositListService, addNewDeposit } = useApiServices()
 
 const deposit = ref()
 const isDepositPopupVisible = ref(false)
-const depositList = ref([])
+const depositList = ref<IUserDeposit[]>([])
+const activeNames = ref(['1'])
+
+const authStore = useAuthenticationStore()
+const { userInformation } = storeToRefs(authStore)
 
 const getDepositDetail = async () => {
-  const res = await depositDetailService()
-  const data = res.data.data.data
-  if (data.length > 0) {
-    depositList.value = data.map((item:IUserDeposit) => {
-      return {
-        ...item,
-        is_check: (item.is_check === 1) ? '已审核' : '拒审',
-        created_at: convertTime(item.created_at)
-      }
-    })
+  const res = await depositListService()
+
+  if (res?.data) {
+    depositList.value = res.data
   }
 }
-const convertTime = (value:number) => {
-  return new Date(value * 1000).toLocaleString()
-}
 
-const submitDeposit = () => {
+const submitDeposit = async () => {
   // TODO: ....call api get deposit id
-  const depositId = 1
-  $typedRouter.push({ name: $routesList.profileDepositDepositId, params: { depositId } })
+  const idUser = (userInformation.value?.id) ? userInformation.value?.id : 1
+  await addNewDeposit(Number(deposit.value), idUser)
+  isDepositPopupVisible.value = false
+  getDepositDetail()
 }
 const addDeposit = () => {
   isDepositPopupVisible.value = true
+}
+
+const goToDetail = (depositId : number) => {
+  $typedRouter.push({ name: $routesList.profileDepositDepositId, params: { depositId } })
 }
 
 getDepositDetail()
@@ -41,14 +44,16 @@ getDepositDetail()
 <template>
   <div>
     <TheHeader :back-to="{name: $routesList.profile}" />
-    <div class="deposit__body my-7">
+    <div class="deposit__body my-7 mx-3">
       <div class="my-3 px-4">
         <van-button round icon="plus" type="success" block @click="addDeposit">
           {{ $t("page.profile.deposit.addNew") }}
         </van-button>
       </div>
-      <van-cell-group v-for="(item, index) in depositList" :key="index" inset>
-        <van-cell :title="item.amount" :value="item.is_check" :label="item.created_at" />
+      <van-cell-group class="mb-8" inset>
+        <div v-for="(item, index) in depositList" :key="index" @click="goToDetail(item.id)">
+          <van-cell :title="item.amount" :value="item.is_reviewed ? '已审核' : '拒审'" :label="item.created_at" />
+        </div>
       </van-cell-group>
     </div>
     <van-popup
@@ -67,6 +72,20 @@ getDepositDetail()
             type="number"
           />
         </van-cell-group>
+        <van-collapse v-model="activeNames" class="px-4 mt-4">
+          <van-collapse-item name="1">
+            <template #title>
+              <div>{{ $t("page.profile.deposit.methodTransfer.atm") }} <van-icon name="ecard-pay" /></div>
+            </template>
+            Content 1
+          </van-collapse-item>
+          <van-collapse-item name="2">
+            <template #title>
+              <div>{{ $t("page.profile.deposit.methodTransfer.credit") }} <van-icon name="credit-pay" /></div>
+            </template>
+            Content 1
+          </van-collapse-item>
+        </van-collapse>
         <div class="px-4 mt-4">
           <van-button type="primary" block round @click="submitDeposit">
             {{ $t("page.profile.submit") }}

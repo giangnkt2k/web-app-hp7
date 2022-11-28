@@ -4,10 +4,13 @@ export const useAuthenticationStore = defineStore('authentication-store', () => 
   const { userInfoService } = useApiServices()
 
   const userInformation = ref<IUserInfo>()
+  const isAuthorized = useIsAuthorized()
 
   const getUserData = async () => {
-    const response = await userInfoService()
-    setUserData(response.data.data)
+    if (isAuthorized.value) {
+      const response = await userInfoService()
+      setUserData(response?.data)
+    }
   }
 
   const setUserData = (data: IUserInfo) => {

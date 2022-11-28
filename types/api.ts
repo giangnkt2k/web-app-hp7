@@ -1,5 +1,5 @@
 export enum ApiRoutes {
-  LOGIN = '/api/login',
+  LOGIN = '/auth/login/app',
   SEARCH_STOCK = '/api/stocks/searchStocks',
   CAROUSELS = '/carousels',
   CHINA_INDEXES = '/api/stocks/getCnIndexes',
@@ -11,10 +11,10 @@ export enum ApiRoutes {
   USER_NEW_SHARES = '/api/newshares/getMemberNewshareList',
   STOCK_DETAILS = '/api/stocks/getStockInfo',
   STOCK_KLINE_DATA = '/api/stocks/getStockKLine',
-  USER_INFORMATION ='/api/getUserInfo',
+  USER_INFORMATION ='/auth/get-app',
   BUY_LIMIT = '/api/orders/buyDailyLimit',
   WITHDRAW_MONEY = '/api/withdraws/save',
-  DEPOSIT_LIST = '/api/deposits',
+  DEPOSIT_LIST = '/deposit',
   HOT_MARKET= '/api/stocks/getHotIndustry',
   HOT_CONCEPT = '/api/stocks/getHotConcept',
   HOT_SPOT = '/api/stocks/getHotspot',
@@ -27,10 +27,14 @@ export enum ApiRoutes {
   OPTIONALS_INDEX = '/api/optionals/index',
   ADD_OPTION = '/api/optionals/addOptional',
   DELETE_OPTION = '/api/optionals/deleteOptional',
-  SEARCH_OPTIONAL_STOCK = '/api/stocks/serchOptionalStock'
+  SEARCH_OPTIONAL_STOCK = '/api/stocks/serchOptionalStock',
+  ADD_DEPOSIT = '/deposit/app',
+  KYC = '/app',
+  UPLOAD_IMAGE = '/app/upload'
 }
 
 export interface IBaseResponse<DataType> {
+  [x: string]: any;
   code: number;
   data: DataType;
   msg: string;

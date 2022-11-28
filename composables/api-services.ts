@@ -14,7 +14,7 @@ export const useApiServices = () => {
   //   Request intercept
   $api.interceptors.request.use((config) => {
     config.headers = {
-      authorization: accessToken.value || 'undefined',
+      authorization: `Bearer ${accessToken.value}` || 'undefined',
       ...config.headers
     }
 
@@ -26,7 +26,7 @@ export const useApiServices = () => {
   }
 
   const userInfoService = () => {
-    return $api.post<IBaseResponse<IUserInfo>>(ApiRoutes.USER_INFORMATION)
+    return $api.get<IBaseResponse<IUserInfo>>(ApiRoutes.USER_INFORMATION)
   }
 
   const searchStockService = (keyword: string, page = 1) => {
@@ -89,8 +89,12 @@ export const useApiServices = () => {
     return $api.get<IStockDetailsResponse>(ApiRoutes.STOCK_DETAILS, { params: { keyword: stockCode } })
   }
 
-  const depositDetailService = (page = 1) => {
-    return $api.get <IBaseResponse<IPaginatedData<IUserDeposit>>>(ApiRoutes.DEPOSIT_LIST, { params: { page } })
+  const depositListService = () => {
+    return $api.get<IUserDeposit[]>(ApiRoutes.DEPOSIT_LIST)
+  }
+
+  const depositDetailService2 = (id: number) => {
+    return $api.get<IUserDeposit>(`${ApiRoutes.DEPOSIT_LIST}/${id}`)
   }
 
   const stockKlineDataService = (stockCode: string, period: string) => {
@@ -188,6 +192,25 @@ export const useApiServices = () => {
     })
   }
 
+  const addNewDeposit = (amount: number, id: number) => {
+    return $api.post(ApiRoutes.ADD_DEPOSIT, {
+      amount,
+      deposit_account_id: id
+    })
+  }
+
+  const kycService = (param: object) => {
+    return $api.patch<IUserInfo>(ApiRoutes.KYC, param)
+  }
+
+  const uploadImageService = (formData: FormData, type: 0 | 1) => {
+    return $api.post(`${ApiRoutes.UPLOAD_IMAGE}?type=${type}`, formData, {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    })
+  }
+
   return {
     loginService,
     searchStockService,
@@ -204,7 +227,7 @@ export const useApiServices = () => {
     buyingStockLimitService,
     userInfoService,
     withdrawMoneyService,
-    depositDetailService,
+    depositListService,
     hotIndustryService,
     hotConceptService,
     hotSpotService,
@@ -217,6 +240,10 @@ export const useApiServices = () => {
     wishlistService,
     addOneToWishListService,
     deleteOneFromWishListService,
-    searchOptionalStockService
+    searchOptionalStockService,
+    addNewDeposit,
+    depositDetailService2,
+    kycService,
+    uploadImageService
   }
 }

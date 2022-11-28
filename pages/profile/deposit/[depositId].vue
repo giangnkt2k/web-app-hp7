@@ -7,42 +7,23 @@
         {{ $t("page.profile.deposit.infoDeposit") }}
       </h2>
       <van-cell-group>
-        <van-cell :title="$t('page.profile.deposit.money')" value="10000" />
-        <van-cell :title="$t('page.profile.deposit.status')" value="Pending" />
+        <van-cell :title="$t('page.profile.deposit.money')" :value="money" />
+        <van-cell :title="$t('page.profile.deposit.status')" :value="status" />
       </van-cell-group>
-      <h2 class="van-doc-demo-block__title my-2">
-        {{ $t("page.profile.deposit.methodTransfer") }}
-      </h2>
-      <van-collapse v-model="activeNames">
-        <van-collapse-item name="1">
-          <template #title>
-            <div>{{ $t("page.profile.deposit.methodTransfer.atm") }} <van-icon name="ecard-pay" /></div>
-          </template>
-          Content 1
-        </van-collapse-item>
-        <van-collapse-item name="2">
-          <template #title>
-            <div>{{ $t("page.profile.deposit.methodTransfer.credit") }} <van-icon name="credit-pay" /></div>
-          </template>
-          Content 1
-        </van-collapse-item>
-      </van-collapse>
-      <div class="mt-4">
-        <van-button type="primary" round block @click="submitTransfer">
-          {{ $t("page.profile.submit") }}
-        </van-button>
-      </div>
     </div>
     <TheBottomNavigation />
   </div>
 </template>
 <script lang="ts" setup>
-const { $routesList, $typedRouter } = useNuxtApp()
+const { depositDetailService2 } = useApiServices()
+const route = useRoute()
 
-const activeNames = ref(['1'])
-
-const submitTransfer = () => {
-  // TODO: Integrate API to submit the deposit status `paid`
-  $typedRouter.push({ name: $routesList.profileDeposit })
+const money = ref(0)
+const status = ref('')
+const getDepositDetail = async () => {
+  const res = await depositDetailService2(Number(route.params.depositId.toString()))
+  money.value = res.data.amount
+  status.value = (res.data.is_reviewed) ? '已审核' : '拒审'
 }
+getDepositDetail()
 </script>
