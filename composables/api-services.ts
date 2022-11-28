@@ -4,36 +4,55 @@ import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
-import { IStock, IStockDetailsResponse, IStockKlineData, IBuyStockReqBody, IStockSearch } from '~~/types/stock'
+import { IStock, IStockKlineData, IBuyStockReqBody, IStockSearch } from '~~/types/stock'
 import { IUserInfo, IUserDeposit } from '~~/types/user'
 
 export const useApiServices = () => {
-  const { $api } = useNuxtApp()
+  const { $api, $typedRouter, $routesList } = useNuxtApp()
   const accessToken = useAccessToken()
 
   //   Request intercept
+  $api.interceptors.request.clear()
   $api.interceptors.request.use((config) => {
     config.headers = {
-      authorization: `Bearer ${accessToken.value}` || 'undefined',
+      authorization: `Bearer ${accessToken.value}`,
       ...config.headers
     }
 
     return config
   })
 
+  //   Response intercept
+  $api.interceptors.response.clear()
+  $api.interceptors.response.use((response) => {
+    if (response.status === 401) {
+      $typedRouter.push({ name: $routesList.login })
+    }
+
+    return response
+  })
+
   const loginService = (username: string, password: string) => {
     return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { loginname: username, password })
   }
 
-  const userInfoService = () => {
-    return $api.get<IBaseResponse<IUserInfo>>(ApiRoutes.USER_INFORMATION)
+  const userInfoService = async () => {
+    try {
+      return await $api.get<IBaseResponse<IUserInfo>>(ApiRoutes.USER_INFORMATION)
+    } catch (error) {
+      if (process.dev) {
+        // eslint-disable-next-line no-console
+        console.log('ERROR: ', { error })
+      }
+    }
   }
 
-  const searchStockService = (keyword: string, page = 1) => {
+  const searchStockService = (keyword: string, page = 1, ps = 20) => {
     return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.SEARCH_STOCK, {
       params: {
-        keyword,
-        page
+        where: keyword,
+        page,
+        ps
       }
     })
   }
@@ -86,7 +105,7 @@ export const useApiServices = () => {
   }
 
   const stockDetailsService = (stockCode: string) => {
-    return $api.get<IStockDetailsResponse>(ApiRoutes.STOCK_DETAILS, { params: { keyword: stockCode } })
+    return $api.get<IStock>(`${ApiRoutes.STOCK_DETAILS}/${stockCode}`)
   }
 
   const depositListService = () => {

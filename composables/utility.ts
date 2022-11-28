@@ -1,8 +1,7 @@
 import numeral from 'numeral'
 
 export const useUtility = () => {
-  const { $toast, $dayjs } = useNuxtApp()
-  const { t } = useI18n()
+  const { $toast, $dayjs, $t } = useNuxtApp()
 
   const showApiError = (message: string) => {
     $toast.fail(message)
@@ -20,6 +19,6 @@ export const useUtility = () => {
     showApiError,
     toMoneyFormat,
     dateFormatter,
-    t
+    t: $t
   }
 }
