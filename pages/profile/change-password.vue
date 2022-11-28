@@ -50,7 +50,7 @@
 <script lang="ts" setup>
 import { useVuelidate } from '@vuelidate/core'
 
-const { $toast } = useNuxtApp()
+const { $toast, $t } = useNuxtApp()
 const { changePasswordService } = useApiServices()
 const { required, sameAs } = useValidators()
 
