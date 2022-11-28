@@ -3,7 +3,7 @@ import { KLineData } from 'klinecharts'
 import { storeToRefs } from 'pinia'
 import { ChartType } from '~~/types/chart'
 import { IPosition } from '~~/types/position'
-import { IStock, IStockKlineData } from '~~/types/stock'
+import { IBuyStockReqBody, IStock, IStockKlineData } from '~~/types/stock'
 import { useAuthenticationStore } from '~~/stores/authentication'
 
 definePageMeta({
@@ -84,10 +84,9 @@ watch(
 const getStockDetails = async () => {
   const response = await stockDetailsService(stockCode.value)
 
-  if (response.data?.data) {
-    stockDetails.value = response.data.data
+  if (response?.data) {
+    stockDetails.value = response.data
     currentPrice.value = stockDetails.value.P
-    userHold.value = response.data.hold
   }
 }
 
@@ -112,14 +111,15 @@ const openPopupSellStock = () => {
 
 const buyStock = async () => {
   isBuying.value = true
-  const param = {
-    amount: buyQuantity.value,
-    market: stockDetails.value?.M || '',
-    name: stockDetails.value?.N || '',
-    code: stockDetails.value?.C || '',
-    price: currentPrice.value,
+  const param: IBuyStockReqBody = {
+    quantity: buyQuantity.value,
+    stock_market: stockDetails.value?.M || '',
+    stock_name: stockDetails.value?.N || '',
+    stock_code: stockDetails.value?.C || '',
+    price: currentPrice.value.toString(),
     zhangting: ceilingPrice.value,
-    dieting: floorPrice.value
+    dieting: floorPrice.value,
+    type: 'B'
   }
   await buyingStockLimitService(param)
 
@@ -129,14 +129,15 @@ const buyStock = async () => {
 
 const sellStock = async () => {
   isSelling.value = true
-  const paramSell = {
-    amount: sellQuantity.value,
-    market: stockDetails.value?.M || '',
-    name: stockDetails.value?.N || '',
-    code: stockDetails.value?.C || '',
-    price: currentPrice.value,
+  const paramSell: IBuyStockReqBody = {
+    quantity: buyQuantity.value,
+    stock_market: stockDetails.value?.M || '',
+    stock_name: stockDetails.value?.N || '',
+    stock_code: stockDetails.value?.C || '',
+    price: currentPrice.value.toString(),
     zhangting: ceilingPrice.value,
-    dieting: floorPrice.value
+    dieting: floorPrice.value,
+    type: 'S'
   }
   await sellStockLimitService(paramSell)
 

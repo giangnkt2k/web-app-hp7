@@ -5,6 +5,7 @@ import { ChartType, DrawableShape } from '~~/types/chart'
 type Props = {
   data: KLineData[];
   // TODO: Provide better typing
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   chartOptions?: any;
   chartType?: ChartType;
   isDrawable?: boolean

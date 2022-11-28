@@ -83,11 +83,12 @@ export interface IStockKlineData {
 }
 
 export interface IBuyStockReqBody {
-  amount: number,
-  market: string,
-  name: string,
-  code: string,
-  price: number,
-  zhangting: string,
-  dieting: string
+  stock_code: string;
+  type: string;
+  quantity: number;
+  stock_market: string;
+  stock_name: string;
+  price: string;
+  zhangting: string;
+  dieting: string;
 }
