@@ -190,5 +190,15 @@
     "profile.deposit.tab": "入金列表",
     "profile.list-of-withdrawals.tab": "出金列表",
     "profile.kyc.tab": "实名认证",
-    "profile.logout.tab": "退出登录"
+    "profile.logout.tab": "退出登录",
+    "validations": {
+        "required": {
+            "oldPassword": "请填写原密码",
+            "newPassword": "请输入您的新密码",
+            "repeatNewPassword": "请重新输入您的新密码"
+        },
+        "sameAs": {
+            "repeatNewPassword": "请正确输入您的新密码"
+        }
+    }
 }

@@ -8,20 +8,24 @@
       <div>
         <van-cell-group>
           <van-field
-            v-model="newPassword"
+            v-model="form.newPassword"
             type="password"
             name="currentPassword"
             :label="$t('profile.change-withdrawal-password.currentPassword')"
             :placeholder="$t('profile.change-withdrawal-password.currentPassword.ph')"
-            :rules="[{ required: true, message: $t('mess.required') }]"
+            :error="$v.newPassword.$error"
+            :error-message="$v.newPassword.$errors[0]?.$message.toString()"
+            @blur="$v.newPassword.$touch"
           />
           <van-field
-            v-model="repeatNewPassword"
+            v-model="form.repeatNewPassword"
             type="password"
             name="newPassword"
             :label="$t('profile.change-withdrawal-password.newPassword')"
             :placeholder="$t('profile.change-withdrawal-password.newPassword.ph')"
-            :rules="[{ required: true, message: $t('mess.required') }]"
+            :error="$v.repeatNewPassword.$error"
+            :error-message="$v.repeatNewPassword.$errors[0]?.$message.toString()"
+            @blur="$v.repeatNewPassword.$touch"
           />
         </van-cell-group>
         <div class="pt-5">
@@ -34,15 +38,35 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { useVuelidate } from '@vuelidate/core'
+const { required, sameAs } = useValidators()
+
 const { $toast } = useNuxtApp()
 const { changeWithdrawalPasswordService } = useApiServices()
-const newPassword = ref('')
-const repeatNewPassword = ref('')
+
+const form = reactive({
+  newPassword: '',
+  repeatNewPassword: ''
+})
+
+const rules = computed(() => ({
+  newPassword: {
+    required
+  },
+  repeatNewPassword: {
+    required,
+    sameAs: sameAs(form.newPassword)
+  }
+}))
+const $v = useVuelidate(rules, form)
 
 const onSubmit = async () => {
+  if ($v.value.$error) {
+    return
+  }
   const res = await changeWithdrawalPasswordService({
-    withdraw_password: newPassword.value,
-    rewithdraw_password: repeatNewPassword.value
+    withdraw_password: form.newPassword,
+    rewithdraw_password: form.repeatNewPassword
   })
   if (res.data.code === 1) {
     $toast.fail(res.data.msg)
@@ -50,4 +74,5 @@ const onSubmit = async () => {
     $toast.success(res.data.msg)
   }
 }
+
 </script>

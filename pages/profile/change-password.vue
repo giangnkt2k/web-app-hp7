@@ -8,28 +8,34 @@
       <div>
         <van-cell-group>
           <van-field
-            v-model="currentPassword"
+            v-model="form.oldPassword"
             type="password"
             name="currentPassword"
             :label="$t('profile.change-password.currentPassword')"
             :placeholder="$t('profile.change-password.currentPassword.ph')"
-            :rules="[{ required: true, message: $t('mess.required') }]"
+            :error="$v.oldPassword.$error"
+            :error-message="$v.oldPassword.$errors[0]?.$message.toString()"
+            @blur="$v.oldPassword.$touch"
           />
           <van-field
-            v-model="newPassword"
+            v-model="form.newPassword"
             type="password"
             name="newPassword"
             :label="$t('profile.change-password.newPassword')"
             :placeholder="$t('profile.change-password.newPassword.ph')"
-            :rules="[{ required: true, message: $t('mess.required') }]"
+            :error="$v.newPassword.$error"
+            :error-message="$v.newPassword.$errors[0]?.$message.toString()"
+            @blur="$v.newPassword.$touch"
           />
           <van-field
-            v-model="repeatNewPassword"
+            v-model="form.repeatNewPassword"
             type="password"
             name="reNewPassword"
             :label="$t('profile.change-password.reNewPassword')"
             :placeholder="$t('profile.change-password.reNewPassword.ph')"
-            :rules="[{ required: true, message: $t('mess.required') }]"
+            :error="$v.repeatNewPassword.$error"
+            :error-message="$v.repeatNewPassword.$errors[0]?.$message.toString()"
+            @blur="$v.repeatNewPassword.$touch"
           />
         </van-cell-group>
         <div class="pt-5">
@@ -42,17 +48,40 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { useVuelidate } from '@vuelidate/core'
+
 const { $toast } = useNuxtApp()
-const { changePasswordServiceService } = useApiServices()
-const currentPassword = ref('')
-const newPassword = ref('')
-const repeatNewPassword = ref('')
+const { changePasswordService } = useApiServices()
+const { required, sameAs } = useValidators()
+
+const form = reactive({
+  oldPassword: '',
+  newPassword: '',
+  repeatNewPassword: ''
+})
+
+const rules = computed(() => ({
+  oldPassword: {
+    required
+  },
+  newPassword: {
+    required
+  },
+  repeatNewPassword: {
+    required,
+    sameAs: sameAs(form.newPassword)
+  }
+}))
+
+const $v = useVuelidate(rules, form)
 
 const onSubmit = async () => {
-  const res = await changePasswordServiceService({
-    oldpassword: currentPassword.value,
-    password: newPassword.value,
-    repassword: repeatNewPassword.value
+  if ($v.value.$error) {
+    return
+  }
+  const res = await changePasswordService({
+    oldpassword: form.oldPassword,
+    password: form.newPassword
   })
   if (res.data.code === 1) {
     $toast.fail(res.data.msg)
@@ -60,4 +89,5 @@ const onSubmit = async () => {
     $toast.success(res.data.msg)
   }
 }
+
 </script>
