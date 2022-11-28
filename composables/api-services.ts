@@ -5,7 +5,7 @@ import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
 import { IStock, IStockDetailsResponse, IStockKlineData, IBuyStockReqBody, IStockSearch } from '~~/types/stock'
-import { IUserInfo, IUserDeposit } from '~~/types/user'
+import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePasswordRequestBody } from '~~/types/user'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
@@ -90,7 +90,7 @@ export const useApiServices = () => {
   }
 
   const depositDetailService = (page = 1) => {
-    return $api.get <IBaseResponse<IPaginatedData<IUserDeposit>>>(ApiRoutes.DEPOSIT_LIST, { params: { page } })
+    return $api.get <IBaseResponse<IPaginatedData<IUserDeposit[]>>>(ApiRoutes.DEPOSIT_LIST, { params: { page } })
   }
 
   const stockKlineDataService = (stockCode: string, period: string) => {
@@ -162,6 +162,14 @@ export const useApiServices = () => {
     })
   }
 
+  // ------Profile------
+  const changePasswordService = (param: IUserChangePasswordRequestBody) => {
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.CHANGE_PASSWORD, param)
+  }
+
+  const changeWithdrawalPasswordService = (param: IUserChangeWithdrawalPassword) => {
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.CHANGE_WITHDRAWAL_PASSWORD, param)
+  }
   // ------WISHLIST PAGE------
   const wishlistService = (page = 1) => {
     return $api.get<IBaseResponse<IStockSearch[]>>(ApiRoutes.OPTIONALS_INDEX, {
@@ -214,6 +222,8 @@ export const useApiServices = () => {
     amplitudeListService,
     turnoverListService,
     sellStockLimitService,
+    changePasswordService,
+    changeWithdrawalPasswordService,
     wishlistService,
     addOneToWishListService,
     deleteOneFromWishListService,

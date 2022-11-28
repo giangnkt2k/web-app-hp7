@@ -410,10 +410,10 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
-::v-deep .van-popup--bottom {
+:deep(.van-popup--bottom) {
   height: 70%;
 }
-::v-deep .van-popup {
+:deep(.van-popup) {
   background-color: #f7f8fa;
 }
 </style>

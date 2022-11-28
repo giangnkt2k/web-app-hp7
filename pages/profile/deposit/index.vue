@@ -6,7 +6,7 @@ const { depositDetailService } = useApiServices()
 
 const deposit = ref()
 const isDepositPopupVisible = ref(false)
-const depositList = ref([])
+const depositList = ref<IUserDeposit[]>([])
 
 const getDepositDetail = async () => {
   const res = await depositDetailService()
@@ -15,8 +15,8 @@ const getDepositDetail = async () => {
     depositList.value = data.map((item:IUserDeposit) => {
       return {
         ...item,
-        is_check: (item.is_check === 1) ? '已审核' : '拒审',
-        created_at: convertTime(item.created_at)
+        is_check_title: (item.is_check === 1) ? '已审核' : '拒审',
+        created_at_covert: convertTime(item.created_at)
       }
     })
   }
@@ -48,7 +48,7 @@ getDepositDetail()
         </van-button>
       </div>
       <van-cell-group v-for="(item, index) in depositList" :key="index" inset>
-        <van-cell :title="item.amount" :value="item.is_check" :label="item.created_at" />
+        <van-cell :title="item.amount" :value="item.is_check_title" :label="item.created_at_covert" />
       </van-cell-group>
     </div>
     <van-popup
