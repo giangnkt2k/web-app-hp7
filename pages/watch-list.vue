@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { IStockSearch } from '~~/types/stock'
+import { IStock, IStockSearch } from '~~/types/stock'
 
-const { wishlistService, searchOptionalStockService, addOneToWishListService, deleteOneFromWishListService } = useApiServices()
+const { wishlistService, searchStockService, addOneToWishListService, deleteOneFromWishListService } = useApiServices()
 
 const currentPage = ref(1)
 const currentSearchPage = ref(1)
@@ -10,7 +10,7 @@ const isFinished = ref(false)
 const stocks = ref<IStockSearch[]>([])
 const isSearchLoading = ref(false)
 const isSearchFinished = ref(false)
-const stocksSearched = ref<IStockSearch[]>([])
+const stocksSearched = ref<IStock[]>([])
 const isPopupSearchStockOpen = ref(false)
 const { searchKey } = useSearch()
 
@@ -18,7 +18,6 @@ const getData = async (page?: number) => {
   isFinished.value = false
   isLoading.value = true
   currentPage.value = page ?? currentPage.value
-  stocks.value = []
   const response = await wishlistService(currentPage.value)
 
   if (response.data.data) {
@@ -37,10 +36,9 @@ const getData = async (page?: number) => {
 const onSearch = async (page?: number) => {
   isSearchFinished.value = false
   isSearchLoading.value = true
-  stocksSearched.value = []
 
   currentSearchPage.value = page ?? currentSearchPage.value
-  const response = await searchOptionalStockService(searchKey.value, currentSearchPage.value)
+  const response = await searchStockService(searchKey.value, currentSearchPage.value)
 
   if (response.data.data) {
     stocksSearched.value.push(...response.data.data)
@@ -59,7 +57,7 @@ const openPopupSearchStock = () => {
   isPopupSearchStockOpen.value = true
 }
 
-const addStockToWishList = async (stock: IStockSearch) => {
+const addStockToWishList = async (stock: IStock) => {
   await addOneToWishListService(stock)
   getData(1)
   onSearch(1)
@@ -71,8 +69,9 @@ const deleteStockFromWishList = async (code : string) => {
   onSearch(1)
 }
 
-const handleWishlist = (stock: IStockSearch) => {
-  if (stock.is_optional === 0 || stock.is_optional === undefined) {
+const handleWishlist = (stock: IStock) => {
+  const existed = !!stocks.value.find(({ C }) => C === stock.C)
+  if (!existed) {
     addStockToWishList(stock)
   } else {
     deleteStockFromWishList(stock.FS)
@@ -156,7 +155,7 @@ watch(
                   </div>
                 </van-col>
                 <van-col span="12" class="text-right">
-                  <van-icon class="!text-2xl" color="#f03957" :name="(stock.is_optional === 0 || stock.is_optional === undefined) ? 'like-o' : 'like'" @click="handleWishlist(stock)" />
+                  <van-icon class="!text-2xl" color="#f03957" :name="'like-o'" @click="handleWishlist(stock)" />
                 </van-col>
               </van-row>
             </van-cell>

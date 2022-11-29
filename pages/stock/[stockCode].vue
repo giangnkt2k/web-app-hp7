@@ -53,10 +53,10 @@ const chartType = computed(() =>
   selectedTimeRange.value === 'line' ? ChartType.AREA : ChartType.CANDLE_SOLID
 )
 const ceilingPrice = computed(() =>
-  toMoneyFormat((stockDetails.value?.YC || 0 + (stockDetails.value?.YC || 0 * 0.1)) || 0, '0,0')
+  toMoneyFormat(stockDetails.value?.ZT || (stockDetails.value?.YC || 0) + ((stockDetails.value?.YC || 0) * 0.1), '0,0')
 )
 const floorPrice = computed(() =>
-  toMoneyFormat((stockDetails.value?.YC || 0 - (stockDetails.value?.YC || 0 * 0.1)) || 0, '0,0')
+  toMoneyFormat(stockDetails.value?.DT || (stockDetails.value?.YC || 0) - ((stockDetails.value?.YC || 0) * 0.1), '0,0')
 )
 
 watch(
@@ -309,7 +309,13 @@ onUnmounted(() => {
             <span class="font-light">{{ stockDetails?.C }}</span>
           </div>
           <div class="text-xs">
-            {{ $t('stock-details.buy.ceilingPrice') }}：{{ ceilingPrice }} {{ $t('stock-details.buy.floorPrice') }}：{{ floorPrice }}
+            <span>
+              {{ $t('stock-details.buy.ceilingPrice') }}: {{ ceilingPrice }}
+            </span>
+            &nbsp;&nbsp;
+            <span>
+              {{ $t('stock-details.buy.floorPrice') }}: {{ floorPrice }}
+            </span>
           </div>
         </div>
         <div>
