@@ -6,6 +6,8 @@ definePageMeta({
   pageTitle: 'page.home.title'
 })
 
+const { searchStockService } = useApiServices()
+
 const slides = ref<ISlideItem[]>([
   {
     id: 1,
@@ -35,6 +37,23 @@ const slides = ref<ISlideItem[]>([
 ])
 const chinaIndexes = ref<IStock[]>([])
 const watchList = ref<IStock[]>([])
+
+const getChinaIndexes = async () => {
+  const response = await searchStockService(undefined, undefined, 3)
+  if (response?.data.data) {
+    chinaIndexes.value = response.data.data
+  }
+}
+
+const getWatchList = async () => {
+  const response = await searchStockService()
+  if (response?.data.data) {
+    watchList.value = response.data.data
+  }
+}
+
+getChinaIndexes()
+getWatchList()
 </script>
 
 <template>

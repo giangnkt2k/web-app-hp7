@@ -37,6 +37,7 @@ export enum ApiRoutes {
 }
 
 export interface IBaseResponse<DataType> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [x: string]: any;
   code: number;
   data: DataType;

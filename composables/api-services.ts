@@ -29,7 +29,7 @@ export const useApiServices = () => {
     return $api.get<IUserInfo>(ApiRoutes.USER_INFORMATION)
   }
 
-  const searchStockService = (keyword: string, page = 1, ps = 20) => {
+  const searchStockService = (keyword?: string, page = 1, ps = 20) => {
     return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.SEARCH_STOCK, {
       params: {
         where: keyword,
