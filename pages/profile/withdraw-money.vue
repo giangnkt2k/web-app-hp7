@@ -5,7 +5,6 @@
       <h3 class="font-bold text-md my-3">
         {{ $t('profile.cell.silverCertificateTransferOut.title') }}
       </h3>
-      {{ userInformation }}
       <van-form @submit="onSubmit">
         <van-cell-group inset>
           <van-field
@@ -31,7 +30,7 @@
             readonly
           />
           <van-field
-            :model-value="userInformation?.username || ''"
+            :model-value="userInformation?.account_name || ''"
             name="asyncValidator"
             :label="$t('profile.silverCertificateTransferOut.accName')"
             readonly

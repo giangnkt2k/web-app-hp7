@@ -27,14 +27,13 @@ const logout = () => {
           round
           width="5rem"
           height="5rem"
-          src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+          src="~/public/img/default_avatar.jpg"
         />
         <div class="ml-5 pt-2 pl-2">
-          <h1> {{ userInformation?.loginname || '' }} </h1>
-          <h3>{{ userInformation?.realname || '' }}</h3>
+          <h1> {{ userInformation?.username || '' }} </h1>
+          <h3>{{ userInformation?.real_name || '' }}</h3>
         </div>
       </div>
-
       <div class="mt-10 p-3 bg-light-50 rounded-md">
         <div class="flex">
           <p>{{ $t('profile.totalAssets') }}</p>
@@ -90,7 +89,7 @@ const logout = () => {
           <van-cell icon="orders-o" :title="$t('profile.breakdown-of-funds.tab')" is-link to="" />
           <van-cell icon="peer-pay" :title="$t('profile.cell.silverCertificateTransferOut')" is-link to="profile/withdraw-money" />
           <van-cell icon="description" :title="$t('profile.deposit.tab')" is-link to="profile/deposit" />
-          <van-cell icon="cash-on-deliver" :title="$t('profile.list-of-withdrawals.tab')" is-link to="" />
+          <van-cell icon="cash-on-deliver" :title="$t('profile.list-of-withdrawals.tab')" is-link to="profile/withdrawal-list" />
           <van-cell icon="contact" :title="$t('profile.kyc.tab')" is-link to="profile/kyc" />
           <van-cell icon="browsing-history-o" :title="$t('profile.change-password.tab')" is-link to="profile/change-password" />
           <van-cell icon="browsing-history" :title="$t('profile.change-withdrawal-password.tab')" is-link to="profile/change-withdrawal-password" />

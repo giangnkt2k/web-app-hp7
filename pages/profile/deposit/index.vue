@@ -44,7 +44,7 @@ getDepositDetail()
 <template>
   <div>
     <TheHeader :back-to="{name: $routesList.profile}" />
-    <div class="deposit__body my-7 mx-3">
+    <div class="my-7 mx-3">
       <div class="my-3 px-4">
         <van-button round icon="plus" type="success" block @click="addDeposit">
           {{ $t("page.profile.deposit.addNew") }}

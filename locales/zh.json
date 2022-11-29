@@ -212,5 +212,6 @@
         "fail": {
             "changePassword": "密码更新失败"
         }
-    }
+    },
+    "list.empty": "没有更多了"
 }

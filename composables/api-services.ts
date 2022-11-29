@@ -5,7 +5,7 @@ import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
 import { IStock, IStockKlineData, IBuyStockReqBody, IStockSearch } from '~~/types/stock'
-import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePasswordRequestBody } from '~~/types/user'
+import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePasswordRequestBody, IUserWithdrawal } from '~~/types/user'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
@@ -220,6 +220,10 @@ export const useApiServices = () => {
     })
   }
 
+  const withdrawalHistoryService = () => {
+    return $api.get<IUserWithdrawal[]>(ApiRoutes.WITHDRAW_LIST)
+  }
+
   return {
     loginService,
     searchStockService,
@@ -255,6 +259,7 @@ export const useApiServices = () => {
     addNewDeposit,
     depositDetailService2,
     kycService,
-    uploadImageService
+    uploadImageService,
+    withdrawalHistoryService
   }
 }

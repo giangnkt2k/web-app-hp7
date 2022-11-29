@@ -5,7 +5,6 @@ export interface IUserInfo
     is_real: number;
     withdraw_password: number;
     loginname: string;
-    realname: string;
     id_number: string;
     id_front: string;
     id_back: string;
@@ -68,4 +67,21 @@ export interface IUserChangePasswordRequestBody {
 export interface IUserChangeWithdrawalPassword {
     withdraw_password: string;
     rewithdraw_password: string;
+}
+
+export interface IUserWithdrawal
+{
+    created_at: string;
+    updated_at: string;
+    id: number;
+    username: string;
+    amount: number;
+    before: number;
+    after: number;
+    is_approved: boolean;
+    comments: string;
+    remark: string;
+    reviewed_by: string;
+    reviewed_at: string;
+    __entity: string;
 }
