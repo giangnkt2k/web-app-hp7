@@ -6,7 +6,33 @@ definePageMeta({
   pageTitle: 'page.home.title'
 })
 
-const slides = ref<ISlideItem[]>([])
+const slides = ref<ISlideItem[]>([
+  {
+    id: 1,
+    uri: '//ll1011.oss-cn-hongkong.aliyuncs.com/carousel/202211/img_20221115153259.png',
+    order: 0
+  },
+  {
+    id: 2,
+    uri: '//ll1011.oss-cn-hongkong.aliyuncs.com/carousel/202211/img_20221115153313.png',
+    order: 0
+  },
+  {
+    id: 3,
+    uri: '//ll1011.oss-cn-hongkong.aliyuncs.com/carousel/202211/img_20221115153323.png',
+    order: 0
+  },
+  {
+    id: 4,
+    uri: '//ll1011.oss-cn-hongkong.aliyuncs.com/carousel/202211/img_20221115153501.png',
+    order: 0
+  },
+  {
+    id: 5,
+    uri: '//ll1011.oss-cn-hongkong.aliyuncs.com/carousel/202211/img_20221115153525.jpg',
+    order: 0
+  }
+])
 const chinaIndexes = ref<IStock[]>([])
 const watchList = ref<IStock[]>([])
 </script>

@@ -1,14 +1,12 @@
 <script lang="ts" setup>
-import { MetaObject } from '#app'
-
 const route = useRoute()
 const { t } = useUtility()
 
-const computedHeader = computed<MetaObject>(() => ({
-  title: t(route.meta.pageTitle || 'page.home.title')
-}))
+const pageTitle = computed(() => t(route.meta.pageTitle || 'page.home.title'))
 
-useHead(computedHeader)
+useHead({
+  title: pageTitle
+})
 </script>
 
 <template>
