@@ -9,15 +9,11 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   const accessToken = useAccessToken()
   const isAuthorized = useIsAuthorized()
-
-  if (to.name === $routesList.login && accessToken.value) {
-    return navigateTo({ name: $routesList.index })
-  }
   if (to.name !== $routesList.login && accessToken.value && !isAuthorized.value) {
     try {
       const response = await userInfoService()
 
-      const isTokenValid = response?.status === 200
+      const isTokenValid = !!response?.data
       isAuthorized.value = true
 
       if (!isTokenValid) {
@@ -27,10 +23,10 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
       setUserData(response?.data)
     } catch (error) {
+      console.log({ error })
       return navigateTo({ name: $routesList.login })
     }
   }
-  isAuthorized.value = true
 
   if (to.name !== $routesList.login && !accessToken.value) {
     return navigateTo({ name: $routesList.login })
