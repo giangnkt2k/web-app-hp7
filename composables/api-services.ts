@@ -29,11 +29,12 @@ export const useApiServices = () => {
     return $api.get<IUserInfo>(ApiRoutes.USER_INFORMATION)
   }
 
-  const searchStockService = (keyword: string, page = 1) => {
+  const searchStockService = (keyword: string, page = 1, ps = 20) => {
     return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.SEARCH_STOCK, {
       params: {
-        keyword,
-        page
+        where: keyword,
+        page,
+        ps
       }
     })
   }
@@ -86,7 +87,7 @@ export const useApiServices = () => {
   }
 
   const stockDetailsService = (stockCode: string) => {
-    return $api.get<IStockDetailsResponse>(ApiRoutes.STOCK_DETAILS, { params: { keyword: stockCode } })
+    return $api.get<IStockDetailsResponse>(`${ApiRoutes.STOCK_DETAILS}/${stockCode}`)
   }
 
   const depositListService = () => {
