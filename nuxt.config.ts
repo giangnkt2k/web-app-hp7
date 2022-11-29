@@ -28,11 +28,10 @@ export default defineNuxtConfig({
   modules: [
     'nuxt-windicss',
     '@pinia/nuxt',
-    '@nuxtjs/robots',
     '@vueuse/nuxt',
-    'nuxt-lodash'
+    'nuxt-lodash',
+    'nuxt-typed-router'
   ],
-  buildModules: ['nuxt-typed-router'],
 
   // Vite config
   vite: {

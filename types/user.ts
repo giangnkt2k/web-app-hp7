@@ -1,7 +1,7 @@
 export interface IUserInfo
 {
     id: number;
-    balance: string;
+    balance: number;
     is_real: number;
     withdraw_password: number;
     loginname: string;

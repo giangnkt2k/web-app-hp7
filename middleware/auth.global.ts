@@ -1,6 +1,11 @@
+import { useAuthenticationStore } from '~~/stores/authentication'
+
 export default defineNuxtRouteMiddleware(async (to) => {
   const { $routesList } = useNuxtApp()
   const { userInfoService } = useApiServices()
+
+  const authStore = useAuthenticationStore()
+  const { setUserData } = authStore
 
   const accessToken = useAccessToken()
   const isAuthorized = useIsAuthorized()
@@ -19,6 +24,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
         accessToken.value = ''
         return navigateTo({ name: $routesList.login })
       }
+
+      setUserData(response?.data)
     } catch (error) {
       return navigateTo({ name: $routesList.login })
     }

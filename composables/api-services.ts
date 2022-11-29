@@ -22,11 +22,11 @@ export const useApiServices = () => {
   })
 
   const loginService = (username: string, password: string) => {
-    return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { loginname: username, password })
+    return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { username, password })
   }
 
   const userInfoService = () => {
-    return $api.get<IBaseResponse<IUserInfo>>(ApiRoutes.USER_INFORMATION)
+    return $api.get<IUserInfo>(ApiRoutes.USER_INFORMATION)
   }
 
   const searchStockService = (keyword: string, page = 1) => {
@@ -110,7 +110,7 @@ export const useApiServices = () => {
   }
 
   const withdrawMoneyService = (amount: number, withdrawPassword: string) => {
-    return $api.post<IBaseResponse<undefined>>(ApiRoutes.WITHDRAW_MONEY, { params: { amount, withdraw_password: withdrawPassword } })
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.WITHDRAW_MONEY, { amount, withdraw_password: withdrawPassword })
   }
 
   // ------MARKET PAGE------

@@ -5,6 +5,7 @@
       <h3 class="font-bold text-md my-3">
         {{ $t('profile.cell.silverCertificateTransferOut.title') }}
       </h3>
+      {{ userInformation }}
       <van-form @submit="onSubmit">
         <van-cell-group inset>
           <van-field
@@ -24,31 +25,31 @@
             :rules="[{ required: true, message: $t('mess.required') }]"
           />
           <van-field
-            :model-value="userInformation?.balance_avail"
+            :model-value="userInformation?.balance"
             name="available Balance"
             :label="$t('profile.silverCertificateTransferOut.availableBalance')"
             readonly
           />
           <van-field
-            :model-value="userInformation?.accountname || ''"
+            :model-value="userInformation?.username || ''"
             name="asyncValidator"
             :label="$t('profile.silverCertificateTransferOut.accName')"
             readonly
           />
           <van-field
-            :model-value="userInformation?.bankname || ''"
+            :model-value="userInformation?.bank_name || ''"
             name="asyncValidator"
             :label="$t('profile.silverCertificateTransferOut.depositoryBank')"
             readonly
           />
           <van-field
-            :model-value="userInformation?.banknumber || ''"
+            :model-value="userInformation?.bank_number || ''"
             name="asyncValidator"
             :label="$t('profile.silverCertificateTransferOut.cardNumber')"
             readonly
           />
           <van-field
-            :model-value="userInformation?.bankbranch || ''"
+            :model-value="userInformation?.bank_branch || ''"
             name="asyncValidator"
             :label="$t('profile.silverCertificateTransferOut.branch')"
             :placeholder="$t('profile.silverCertificateTransferOut.branch')"
@@ -56,7 +57,7 @@
           />
         </van-cell-group>
         <div class="m-4">
-          <van-button round block type="primary" native-type="submit">
+          <van-button round block type="primary" native-type="submit" :disabled="transferAmount < 1">
             {{ $t("profile.silverCertificateTransferOut.submit") }}
           </van-button>
         </div>
@@ -83,9 +84,9 @@ const { withdrawMoneyService } = useApiServices()
 
 const transferAmount = ref(0)
 const withdrawPassword = ref('')
-
+console.log('userInformation', userInformation)
 const onSubmit = async () => {
-  const res = await withdrawMoneyService(transferAmount.value, withdrawPassword.value)
+  const res = await withdrawMoneyService(Number(transferAmount.value), withdrawPassword.value)
   if (res.data.code === 1) {
     $toast.fail(res.data.msg)
   } else {
