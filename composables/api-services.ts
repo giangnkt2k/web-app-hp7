@@ -184,21 +184,12 @@ export const useApiServices = () => {
     })
   }
 
-  const addOneToWishListService = (stock: IStockSearch) => {
+  const addOneToWishListService = (stock: IStock) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.ADD_OPTION, stock)
   }
 
   const deleteOneFromWishListService = (stockCode: string) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.DELETE_OPTION, { fullcode: stockCode })
-  }
-
-  const searchOptionalStockService = (keyword: string, page = 1) => {
-    return $api.get<IBaseResponse<IStockSearch[]>>(ApiRoutes.SEARCH_OPTIONAL_STOCK, {
-      params: {
-        keyword,
-        page
-      }
-    })
   }
 
   const addNewDeposit = (amount: number, id: number) => {
@@ -251,7 +242,6 @@ export const useApiServices = () => {
     wishlistService,
     addOneToWishListService,
     deleteOneFromWishListService,
-    searchOptionalStockService,
     addNewDeposit,
     depositDetailService2,
     kycService,

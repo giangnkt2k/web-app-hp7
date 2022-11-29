@@ -29,7 +29,7 @@ export enum ApiRoutes {
   OPTIONALS_INDEX = '/api/optionals/index',
   ADD_OPTION = '/api/optionals/addOptional',
   DELETE_OPTION = '/api/optionals/deleteOptional',
-  SEARCH_OPTIONAL_STOCK = '/api/stocks/serchOptionalStock',
+  SEARCH_OPTIONAL_STOCK = '/stock',
   ADD_DEPOSIT = '/deposit/app',
   KYC = '/app',
   UPLOAD_IMAGE = '/app/upload'
