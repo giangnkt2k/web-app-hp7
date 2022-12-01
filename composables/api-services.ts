@@ -4,7 +4,7 @@ import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
-import { IStock, IStockKlineData, IBuyStockReqBody, IStockSearch } from '~~/types/stock'
+import { IStock, IStockKlineData, IBuyStockReqBody, IStockSearch, IStockDetailsResponse } from '~~/types/stock'
 import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePasswordRequestBody, IUserWithdrawal } from '~~/types/user'
 
 export const useApiServices = () => {
@@ -87,7 +87,7 @@ export const useApiServices = () => {
   }
 
   const stockDetailsService = (stockCode: string) => {
-    return $api.get<IStock>(`${ApiRoutes.STOCK_DETAILS}/${stockCode}`)
+    return $api.get<IStockDetailsResponse>(`${ApiRoutes.STOCK_DETAILS}/${stockCode}`)
   }
 
   const depositListService = () => {

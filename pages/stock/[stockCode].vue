@@ -2,7 +2,7 @@
 import { KLineData } from 'klinecharts'
 import { storeToRefs } from 'pinia'
 import { ChartType } from '~~/types/chart'
-import { IPosition } from '~~/types/position'
+import { UserHolding } from '~~/types/position'
 import { IBuyStockReqBody, IStock, IStockKlineData } from '~~/types/stock'
 import { useAuthenticationStore } from '~~/stores/authentication'
 
@@ -24,7 +24,7 @@ const { userInformation } = storeToRefs(userStore)
 getUserData()
 
 const stockDetails = ref<IStock>()
-const userHold = ref<IPosition | null>(null)
+const userHold = ref<UserHolding | null>(null)
 const stockKlineData = ref<IStockKlineData[]>([])
 const isShowPopUpBuy = ref(false)
 const buyQuantity = ref(100)
@@ -38,7 +38,7 @@ const isBuying = ref(false)
 const isSelling = ref(false)
 
 const stockCode = computed(() => route.params.stockCode.toString())
-const canSell = computed(() => !!userHold.value && (Number(userHold.value.count || 0) - Number(userHold.value.count_today || 0)) > 0)
+const canSell = computed(() => !!userHold.value && (Number(userHold.value.total_count || 0) - Number(userHold.value.today_count || 0)) > 0)
 const isDown = computed(() => (stockDetails.value?.ZF || 0) < 0)
 const klineData = computed<KLineData[]>(() => [...stockKlineData.value.map(data => ({
   close: data.C,
@@ -85,8 +85,9 @@ const getStockDetails = async () => {
   const response = await stockDetailsService(stockCode.value)
 
   if (response?.data) {
-    stockDetails.value = response.data
+    stockDetails.value = response.data.stock_data
     currentPrice.value = stockDetails.value.P
+    userHold.value = response.data.user_holding
   }
 }
 
@@ -106,7 +107,7 @@ const openPopupBuyStock = () => {
 
 const openPopupSellStock = () => {
   isShowPopUpSell.value = true
-  availableToSell.value = Number(userHold.value?.count || 0) - Number(userHold.value?.count_today || 0)
+  availableToSell.value = Number(userHold.value?.total_count || 0) - Number(userHold.value?.today_count || 0)
 }
 
 const buyStock = async () => {
@@ -417,9 +418,6 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
-:deep(.van-popup--bottom) {
-  height: 70%;
-}
 :deep(.van-popup) {
   background-color: #f7f8fa;
 }

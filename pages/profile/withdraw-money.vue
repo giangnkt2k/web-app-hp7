@@ -83,7 +83,7 @@ const { withdrawMoneyService } = useApiServices()
 
 const transferAmount = ref(0)
 const withdrawPassword = ref('')
-console.log('userInformation', userInformation)
+
 const onSubmit = async () => {
   const res = await withdrawMoneyService(Number(transferAmount.value), withdrawPassword.value)
   if (res.data.code === 1) {
