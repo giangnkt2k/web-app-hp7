@@ -94,8 +94,8 @@ const getStockDetails = async () => {
 const getStockKline = async () => {
   stockKlineData.value = []
   const response = await stockKlineDataService(stockCode.value, selectedTimeRange.value === 'line' ? '5M' : selectedTimeRange.value)
-  if (response.data?.data) {
-    stockKlineData.value = response.data.data
+  if (response.data) {
+    stockKlineData.value = response.data
   }
 }
 

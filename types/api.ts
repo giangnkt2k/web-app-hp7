@@ -10,7 +10,7 @@ export enum ApiRoutes {
   POSITIONS = '/api/orders',
   USER_NEW_SHARES = '/api/newshares/getMemberNewshareList',
   STOCK_DETAILS = '/stock',
-  STOCK_KLINE_DATA = '/api/stocks/getStockKLine',
+  STOCK_KLINE_DATA = '/stock/timeline',
   USER_INFORMATION ='/auth/get-app',
   BUY_LIMIT = '/app/buy',
   WITHDRAW_MONEY = '/withdrawals/app',
