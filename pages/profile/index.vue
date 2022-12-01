@@ -23,12 +23,13 @@ const logout = () => {
   <div>
     <div class="mx-5 mt-20">
       <div class="flex">
-        <van-image
-          round
-          width="5rem"
-          height="5rem"
-          src="~/public/img/default_avatar.jpg"
-        />
+        <img
+          class="rounded-full"
+          src="img/default_avatar.jpg"
+          width="80"
+          height="80"
+          alt=""
+        >
         <div class="ml-5 pt-2 pl-2">
           <h1> {{ userInformation?.username || '' }} </h1>
           <h3>{{ userInformation?.real_name || '' }}</h3>
