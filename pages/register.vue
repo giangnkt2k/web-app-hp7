@@ -10,47 +10,46 @@
       <van-form @submit="onSubmit">
         <van-cell-group inset>
           <van-field
-            v-model="username"
+            v-model="form.username"
             name="Username"
-            placeholder="Username"
-            :rules="[
-              { required: true, message: $t('register.mess.login.require') },
-            ]"
+            :placeholder="$t('please.input', {fieldName:$t('login.title.username')})"
+            :error="$v.username.$error"
+            :error-message="$v.username.$errors[0]?.$message.toString()"
             :label="$t('login.title.username')"
+            @blur="$v.password.$touch"
           />
           <van-field
-            v-model="password"
+            v-model="form.password"
             type="password"
             name="Password"
             :label="$t('login.title.password')"
-            placeholder="Password"
-            :rules="[
-              { required: true, message: $t('register.mess.password.require') },
-            ]"
+            :placeholder="$t('please.input', {fieldName:$t('login.title.password')})"
+            :error="$v.password.$error"
+            :error-message="$v.password.$errors[0]?.$message.toString()"
+            @blur="$v.password.$touch"
           />
           <van-field
-            v-model="rePassword"
+            v-model="form.repeatNewPassword"
             type="password"
-            name="RePassword"
+            name="repeatNewPassword"
             :label="$t('register.title.repassword')"
-            placeholder="Repeat Password"
-            :rules="[{ required: true, message: $t('register.mess.password.require') }]"
+            :placeholder="$t('please.input', {fieldName:$t('register.title.repassword')})"
+            :error="$v.repeatNewPassword.$error"
+            :error-message="$v.repeatNewPassword.$errors[0]?.$message.toString()"
+            @blur="$v.repeatNewPassword.$touch"
           />
           <van-field
-            v-model="institutionCode"
+            v-model="form.institutionCode"
             name="Institution code"
-            placeholder="Institution code"
-            :rules="[
-              {
-                required: true,
-                message: $t('register.mess.institutionCode.require'),
-              },
-            ]"
+            :placeholder="$t('please.input', {fieldName:$t('register.title.institutionCode')})"
+            :error="$v.institutionCode.$error"
+            :error-message="$v.institutionCode.$errors[0]?.$message.toString()"
             :label="$t('register.title.institutionCode')"
+            @blur="$v.institutionCode.$touch"
           />
         </van-cell-group>
         <div class="m-16px">
-          <van-button round block type="primary" native-type="submit">
+          <van-button round block type="primary" native-type="submit" :disabled="$v.$invalid">
             {{ $t("register") }}
           </van-button>
         </div>
@@ -69,13 +68,44 @@
   </div>
 </template>
 <script lang="ts" setup>
-const username = ref('')
-const password = ref('')
-const rePassword = ref('')
-const institutionCode = ref('')
+import { useVuelidate } from '@vuelidate/core'
+const { required, sameAs } = useValidators()
+const { registerService } = useApiServices()
+const { $toast, $t, $routesList } = useNuxtApp()
 
-const onSubmit = () => {
-  // TODO: implement register API
+const form = reactive({
+  username: '',
+  password: '',
+  repeatNewPassword: '',
+  institutionCode: ''
+})
+
+const rules = computed(() => ({
+  username: {
+    required
+  },
+  password: {
+    required
+  },
+  institutionCode: {
+    required
+  },
+  repeatNewPassword: {
+    required,
+    sameAs: sameAs(form.password)
+  }
+}))
+
+const $v = useVuelidate(rules, form)
+
+const onSubmit = async () => {
+  const res = await registerService(form.username, form.password, form.institutionCode)
+  if (res.status !== 201) {
+    $toast.fail($t('message.fail.register'))
+  } else {
+    $toast.success($t('message.success.register'))
+    return navigateTo({ name: $routesList.login })
+  }
 }
 </script>
 <style lang="scss" scoped>

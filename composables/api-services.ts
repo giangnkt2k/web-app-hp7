@@ -25,6 +25,10 @@ export const useApiServices = () => {
     return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { username, password })
   }
 
+  const registerService = (username: string, password: string, agentCode: string) => {
+    return $api.post<ILoginResponse>(ApiRoutes.REGISTER, { username, password, agent_code: agentCode })
+  }
+
   const userInfoService = () => {
     return $api.get<IUserInfo>(ApiRoutes.USER_INFORMATION)
   }
@@ -250,6 +254,7 @@ export const useApiServices = () => {
     depositDetailService2,
     kycService,
     uploadImageService,
-    withdrawalHistoryService
+    withdrawalHistoryService,
+    registerService
   }
 }
