@@ -11,12 +11,11 @@ export const i18n = createI18n({
   }
 })
 
-export default defineNuxtPlugin(({ vueApp }) => {
-  vueApp.use(i18n)
-
+export default defineNuxtPlugin(() => {
   return {
     provide: {
-      t: i18n.global.t
+      t: i18n.global.t,
+      i18n: i18n.global
     }
   }
 })

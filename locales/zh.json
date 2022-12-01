@@ -195,7 +195,10 @@
         "required": {
             "oldPassword": "请填写原密码",
             "newPassword": "请输入您的新密码",
-            "repeatNewPassword": "请重新输入您的新密码"
+            "password": "请输入您的新密码",
+            "repeatNewPassword": "请重新输入您的新密码",
+            "username": "用户名需要填写",
+            "institutionCode": "公司代码输入"
         },
         "sameAs": {
             "repeatNewPassword": "请正确输入您的新密码"
@@ -207,10 +210,12 @@
     "please.input": "请输入{fieldName}",
     "message":{
         "success": {
-            "changePassword": "修改密码成功"
+            "changePassword": "修改密码成功",
+            "register": "注册账号成功"
         },
         "fail": {
-            "changePassword": "密码更新失败"
+            "changePassword": "密码更新失败",
+            "register": "账号注册失败"
         }
     },
     "list.empty": "没有更多了"

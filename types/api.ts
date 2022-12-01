@@ -1,5 +1,6 @@
 export enum ApiRoutes {
   LOGIN = '/auth/login/app',
+  REGISTER = '/auth/signup/app',
   SEARCH_STOCK = '/stock',
   CAROUSELS = '/carousels',
   CHINA_INDEXES = '/api/stocks/getCnIndexes',
