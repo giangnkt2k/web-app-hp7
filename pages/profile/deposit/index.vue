@@ -9,7 +9,6 @@ const { depositListService, addNewDeposit } = useApiServices()
 const deposit = ref()
 const isDepositPopupVisible = ref(false)
 const depositList = ref<IUserDeposit[]>([])
-const activeNames = ref(['1'])
 
 const authStore = useAuthenticationStore()
 const { userInformation } = storeToRefs(authStore)
@@ -23,7 +22,6 @@ const getDepositDetail = async () => {
 }
 
 const submitDeposit = async () => {
-  // TODO: ....call api get deposit id
   const idUser = (userInformation.value?.id) ? userInformation.value?.id : 1
   await addNewDeposit(Number(deposit.value), idUser)
   isDepositPopupVisible.value = false
@@ -72,20 +70,7 @@ getDepositDetail()
             type="number"
           />
         </van-cell-group>
-        <van-collapse v-model="activeNames" class="px-4 mt-4">
-          <van-collapse-item name="1">
-            <template #title>
-              <div>{{ $t("page.profile.deposit.methodTransfer.atm") }} <van-icon name="ecard-pay" /></div>
-            </template>
-            Content 1
-          </van-collapse-item>
-          <van-collapse-item name="2">
-            <template #title>
-              <div>{{ $t("page.profile.deposit.methodTransfer.credit") }} <van-icon name="credit-pay" /></div>
-            </template>
-            Content 1
-          </van-collapse-item>
-        </van-collapse>
+
         <div class="px-4 mt-4">
           <van-button type="primary" block round @click="submitDeposit">
             {{ $t("page.profile.submit") }}
