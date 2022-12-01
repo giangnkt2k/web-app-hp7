@@ -25,7 +25,7 @@ const logout = () => {
       <div class="flex">
         <img
           class="rounded-full"
-          src="img/default_avatar.jpg"
+          src="/img/default_avatar.jpg"
           width="80"
           height="80"
           alt=""
