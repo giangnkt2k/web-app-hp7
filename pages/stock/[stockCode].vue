@@ -96,6 +96,7 @@ const getStockKline = async () => {
   const response = await stockKlineDataService(stockCode.value, selectedTimeRange.value === 'line' ? '5M' : selectedTimeRange.value)
   if (response.data) {
     stockKlineData.value = response.data
+    stockKlineData.value.sort(({ Tick: TickA }, { Tick: TickB }) => TickA - TickB)
   }
 }
 
