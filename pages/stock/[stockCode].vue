@@ -10,7 +10,7 @@ definePageMeta({
   pageTitle: 'page.stock-details.title'
 })
 
-const { $dayjs } = useNuxtApp()
+const { $dayjs, $toast, $t } = useNuxtApp()
 const { stockDetailsService, stockKlineDataService, buyingStockLimitService, sellStockLimitService } = useApiServices()
 
 const route = useRoute()
@@ -122,7 +122,15 @@ const buyStock = async () => {
     dieting: floorPrice.value,
     type: 'B'
   }
-  await buyingStockLimitService(param)
+  await buyingStockLimitService(param).catch(() => {
+    $toast.fail({
+      message: $t('stock-details.bought.fail')
+    })
+  })
+
+  $toast.success({
+    message: $t('stock-details.bought.success')
+  })
 
   isBuying.value = false
   isShowPopUpBuy.value = false
@@ -140,7 +148,15 @@ const sellStock = async () => {
     dieting: floorPrice.value,
     type: 'S'
   }
-  await sellStockLimitService(paramSell)
+  await sellStockLimitService(paramSell).catch(() => {
+    $toast.fail({
+      message: $t('stock-details.sell.fail')
+    })
+  })
+
+  $toast.success({
+    message: $t('stock-details.sell.success')
+  })
 
   isSelling.value = false
   isShowPopUpSell.value = false

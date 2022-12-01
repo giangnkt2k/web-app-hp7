@@ -208,7 +208,7 @@
     "wl.btn.add": "添加股票",
     "wl.popup.title": "添加股票",
     "please.input": "请输入{fieldName}",
-    "message":{
+    "message": {
         "success": {
             "changePassword": "修改密码成功",
             "register": "注册账号成功"
@@ -218,5 +218,9 @@
             "register": "账号注册失败"
         }
     },
-    "list.empty": "没有更多了"
+    "list.empty": "没有更多了",
+    "stock-details.bought.success": "股票已买",
+    "stock-details.bought.failed": "买股票失败",
+    "stock-details.sell.fail": "卖股票失败",
+    "stock-details.sell.success": "库存已售出"
 }
