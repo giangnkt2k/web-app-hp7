@@ -203,5 +203,15 @@
     },
     "wl.title": "自选股",
     "wl.btn.add": "添加股票",
-    "wl.popup.title": "添加股票"
+    "wl.popup.title": "添加股票",
+    "please.input": "请输入{fieldName}",
+    "message":{
+        "success": {
+            "changePassword": "修改密码成功"
+        },
+        "fail": {
+            "changePassword": "密码更新失败"
+        }
+    },
+    "list.empty": "没有更多了"
 }

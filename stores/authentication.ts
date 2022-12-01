@@ -7,7 +7,10 @@ export const useAuthenticationStore = defineStore('authentication-store', () => 
 
   const getUserData = async () => {
     const response = await userInfoService()
-    setUserData(response.data.data)
+
+    if (response?.data) {
+      setUserData(response?.data)
+    }
   }
 
   const setUserData = (data: IUserInfo) => {

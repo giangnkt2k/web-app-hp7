@@ -1,25 +1,57 @@
 <script lang="ts" setup>
+import { MarketPageTabs } from '~~/types/market'
+
 const { t } = useUtility()
+const { $routesList } = useNuxtApp()
 
 const quickAccessItemsFirstPage = computed(() => [
-  { icon: 'Global-Network', name: t('quick-access.items.global-indexes') },
-  { icon: 'business_growth', name: t('quick-access.items.big-deal') },
-  { icon: 'global-data', name: t('quick-access.items.market') },
-  { icon: 'IPOfuck', name: t('quick-access.items.ipo') },
-  { icon: 'caiwuFinance1', name: t('quick-access.items.main-ranking') },
-  { icon: 'data', name: t('quick-access.items.north-fund') },
-  { icon: 'bookmark-add', name: t('quick-access.items.watch-list') },
-  { icon: 'Pound-Rise', name: t('quick-access.items.gain-list') },
-  { icon: 'Dollar-Fall', name: t('quick-access.items.drop-list') },
-  { icon: 'shuju', name: t('quick-access.items.economic-data') }
+  { icon: 'global-data', name: t('quick-access.items.market'), route: { name: $routesList.market } },
+  {
+    icon: 'bookmark-add',
+    name: t('quick-access.items.watch-list'),
+    route: { name: $routesList.watchList }
+  },
+  {
+    icon: 'Pound-Rise',
+    name: t('quick-access.items.gain-list'),
+    route: {
+      name: $routesList.market,
+      query: {
+        tab: MarketPageTabs.UP
+      }
+    }
+  },
+  {
+    icon: 'Dollar-Fall',
+    name: t('quick-access.items.drop-list'),
+    route: {
+      name: $routesList.market,
+      query: {
+        tab: MarketPageTabs.DOWN
+      }
+    }
+  },
+  {
+    icon: 'exchange',
+    name: t('quick-access.items.turnover-rate'),
+    route: {
+      name: $routesList.market,
+      query: {
+        tab: MarketPageTabs.TURNOVER
+      }
+    }
+  },
+  {
+    icon: 'heartbeat',
+    name: t('quick-access.items.amplitude-list'),
+    route: {
+      name: $routesList.market,
+      query: {
+        tab: MarketPageTabs.AMPLITUDE
+      }
+    }
+  }
 ])
-
-const quickAccessItemsSecondPage = computed(() =>
-  [
-    { icon: 'exchange', name: t('quick-access.items.turnover-rate') },
-    { icon: 'heartbeat', name: t('quick-access.items.amplitude-list') }
-  ]
-)
 </script>
 
 <template>
@@ -37,12 +69,8 @@ const quickAccessItemsSecondPage = computed(() =>
           icon-prefix="vicon"
           :icon="item.icon"
           :text="item.name"
+          :to="item.route"
         />
-      </van-grid>
-    </van-swipe-item>
-    <van-swipe-item>
-      <van-grid :column-num="5" :border="false" :icon-size="24" clickable>
-        <van-grid-item v-for="(item, index) in quickAccessItemsSecondPage" :key="index" icon-prefix="vicon" :icon="item.icon" :text="item.name" />
       </van-grid>
     </van-swipe-item>
   </van-swipe>

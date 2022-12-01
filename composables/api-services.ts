@@ -4,8 +4,8 @@ import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
-import { IStock, IStockDetailsResponse, IStockKlineData, IBuyStockReqBody, IStockSearch } from '~~/types/stock'
-import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePasswordRequestBody } from '~~/types/user'
+import { IStock, IStockKlineData, IBuyStockReqBody, IStockSearch, IStockDetailsResponse } from '~~/types/stock'
+import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePasswordRequestBody, IUserWithdrawal } from '~~/types/user'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
@@ -14,7 +14,7 @@ export const useApiServices = () => {
   //   Request intercept
   $api.interceptors.request.use((config) => {
     config.headers = {
-      authorization: accessToken.value || 'undefined',
+      authorization: `Bearer ${accessToken.value}` || 'undefined',
       ...config.headers
     }
 
@@ -22,18 +22,19 @@ export const useApiServices = () => {
   })
 
   const loginService = (username: string, password: string) => {
-    return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { loginname: username, password })
+    return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { username, password })
   }
 
   const userInfoService = () => {
-    return $api.post<IBaseResponse<IUserInfo>>(ApiRoutes.USER_INFORMATION)
+    return $api.get<IUserInfo>(ApiRoutes.USER_INFORMATION)
   }
 
-  const searchStockService = (keyword: string, page = 1) => {
+  const searchStockService = (keyword?: string, page = 1, ps = 20) => {
     return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.SEARCH_STOCK, {
       params: {
-        keyword,
-        page
+        where: keyword,
+        page,
+        ps
       }
     })
   }
@@ -86,11 +87,15 @@ export const useApiServices = () => {
   }
 
   const stockDetailsService = (stockCode: string) => {
-    return $api.get<IStockDetailsResponse>(ApiRoutes.STOCK_DETAILS, { params: { keyword: stockCode } })
+    return $api.get<IStockDetailsResponse>(`${ApiRoutes.STOCK_DETAILS}/${stockCode}`)
   }
 
-  const depositDetailService = (page = 1) => {
-    return $api.get <IBaseResponse<IPaginatedData<IUserDeposit[]>>>(ApiRoutes.DEPOSIT_LIST, { params: { page } })
+  const depositListService = () => {
+    return $api.get<IUserDeposit[]>(ApiRoutes.DEPOSIT_LIST)
+  }
+
+  const depositDetailService2 = (id: number) => {
+    return $api.get<IUserDeposit>(`${ApiRoutes.DEPOSIT_LIST}/${id}`)
   }
 
   const stockKlineDataService = (stockCode: string, period: string) => {
@@ -106,7 +111,7 @@ export const useApiServices = () => {
   }
 
   const withdrawMoneyService = (amount: number, withdrawPassword: string) => {
-    return $api.post<IBaseResponse<undefined>>(ApiRoutes.WITHDRAW_MONEY, { params: { amount, withdraw_password: withdrawPassword } })
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.WITHDRAW_MONEY, { amount, withdraw_password: withdrawPassword })
   }
 
   // ------MARKET PAGE------
@@ -179,7 +184,7 @@ export const useApiServices = () => {
     })
   }
 
-  const addOneToWishListService = (stock: IStockSearch) => {
+  const addOneToWishListService = (stock: IStock) => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.ADD_OPTION, stock)
   }
 
@@ -187,13 +192,27 @@ export const useApiServices = () => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.DELETE_OPTION, { fullcode: stockCode })
   }
 
-  const searchOptionalStockService = (keyword: string, page = 1) => {
-    return $api.get<IBaseResponse<IStockSearch[]>>(ApiRoutes.SEARCH_OPTIONAL_STOCK, {
-      params: {
-        keyword,
-        page
+  const addNewDeposit = (amount: number, id: number) => {
+    return $api.post(ApiRoutes.ADD_DEPOSIT, {
+      amount,
+      deposit_account_id: id
+    })
+  }
+
+  const kycService = (param: object) => {
+    return $api.patch<IUserInfo>(ApiRoutes.KYC, param)
+  }
+
+  const uploadImageService = (formData: FormData, type: 0 | 1) => {
+    return $api.post(`${ApiRoutes.UPLOAD_IMAGE}?type=${type}`, formData, {
+      headers: {
+        'content-type': 'multipart/form-data'
       }
     })
+  }
+
+  const withdrawalHistoryService = () => {
+    return $api.get<IUserWithdrawal[]>(ApiRoutes.WITHDRAW_LIST)
   }
 
   return {
@@ -212,7 +231,7 @@ export const useApiServices = () => {
     buyingStockLimitService,
     userInfoService,
     withdrawMoneyService,
-    depositDetailService,
+    depositListService,
     hotIndustryService,
     hotConceptService,
     hotSpotService,
@@ -227,6 +246,10 @@ export const useApiServices = () => {
     wishlistService,
     addOneToWishListService,
     deleteOneFromWishListService,
-    searchOptionalStockService
+    addNewDeposit,
+    depositDetailService2,
+    kycService,
+    uploadImageService,
+    withdrawalHistoryService
   }
 }

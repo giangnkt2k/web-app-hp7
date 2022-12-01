@@ -2,8 +2,8 @@
 import { KLineData } from 'klinecharts'
 import { storeToRefs } from 'pinia'
 import { ChartType } from '~~/types/chart'
-import { IPosition } from '~~/types/position'
-import { IStock, IStockKlineData } from '~~/types/stock'
+import { UserHolding } from '~~/types/position'
+import { IBuyStockReqBody, IStock, IStockKlineData } from '~~/types/stock'
 import { useAuthenticationStore } from '~~/stores/authentication'
 
 definePageMeta({
@@ -24,7 +24,7 @@ const { userInformation } = storeToRefs(userStore)
 getUserData()
 
 const stockDetails = ref<IStock>()
-const userHold = ref<IPosition | null>(null)
+const userHold = ref<UserHolding | null>(null)
 const stockKlineData = ref<IStockKlineData[]>([])
 const isShowPopUpBuy = ref(false)
 const buyQuantity = ref(100)
@@ -38,7 +38,7 @@ const isBuying = ref(false)
 const isSelling = ref(false)
 
 const stockCode = computed(() => route.params.stockCode.toString())
-const canSell = computed(() => !!userHold.value && (Number(userHold.value.count || 0) - Number(userHold.value.count_today || 0)) > 0)
+const canSell = computed(() => !!userHold.value && (Number(userHold.value.total_count || 0) - Number(userHold.value.today_count || 0)) > 0)
 const isDown = computed(() => (stockDetails.value?.ZF || 0) < 0)
 const klineData = computed<KLineData[]>(() => [...stockKlineData.value.map(data => ({
   close: data.C,
@@ -53,10 +53,10 @@ const chartType = computed(() =>
   selectedTimeRange.value === 'line' ? ChartType.AREA : ChartType.CANDLE_SOLID
 )
 const ceilingPrice = computed(() =>
-  toMoneyFormat((stockDetails.value?.YC || 0 + (stockDetails.value?.YC || 0 * 0.1)) || 0, '0,0')
+  toMoneyFormat(stockDetails.value?.ZT || (stockDetails.value?.YC || 0) + ((stockDetails.value?.YC || 0) * 0.1), '0,0')
 )
 const floorPrice = computed(() =>
-  toMoneyFormat((stockDetails.value?.YC || 0 - (stockDetails.value?.YC || 0 * 0.1)) || 0, '0,0')
+  toMoneyFormat(stockDetails.value?.DT || (stockDetails.value?.YC || 0) - ((stockDetails.value?.YC || 0) * 0.1), '0,0')
 )
 
 watch(
@@ -84,10 +84,10 @@ watch(
 const getStockDetails = async () => {
   const response = await stockDetailsService(stockCode.value)
 
-  if (response.data?.data) {
-    stockDetails.value = response.data.data
+  if (response?.data) {
+    stockDetails.value = response.data.stock_data
     currentPrice.value = stockDetails.value.P
-    userHold.value = response.data.hold
+    userHold.value = response.data.user_holding
   }
 }
 
@@ -107,19 +107,20 @@ const openPopupBuyStock = () => {
 
 const openPopupSellStock = () => {
   isShowPopUpSell.value = true
-  availableToSell.value = Number(userHold.value?.count || 0) - Number(userHold.value?.count_today || 0)
+  availableToSell.value = Number(userHold.value?.total_count || 0) - Number(userHold.value?.today_count || 0)
 }
 
 const buyStock = async () => {
   isBuying.value = true
-  const param = {
-    amount: buyQuantity.value,
-    market: stockDetails.value?.M || '',
-    name: stockDetails.value?.N || '',
-    code: stockDetails.value?.C || '',
-    price: currentPrice.value,
+  const param: IBuyStockReqBody = {
+    quantity: buyQuantity.value,
+    stock_market: stockDetails.value?.M || '',
+    stock_name: stockDetails.value?.N || '',
+    stock_code: stockDetails.value?.FS || '',
+    price: currentPrice.value.toString(),
     zhangting: ceilingPrice.value,
-    dieting: floorPrice.value
+    dieting: floorPrice.value,
+    type: 'B'
   }
   await buyingStockLimitService(param)
 
@@ -129,14 +130,15 @@ const buyStock = async () => {
 
 const sellStock = async () => {
   isSelling.value = true
-  const paramSell = {
-    amount: sellQuantity.value,
-    market: stockDetails.value?.M || '',
-    name: stockDetails.value?.N || '',
-    code: stockDetails.value?.C || '',
-    price: currentPrice.value,
+  const paramSell: IBuyStockReqBody = {
+    quantity: buyQuantity.value,
+    stock_market: stockDetails.value?.M || '',
+    stock_name: stockDetails.value?.N || '',
+    stock_code: stockDetails.value?.FS || '',
+    price: currentPrice.value.toString(),
     zhangting: ceilingPrice.value,
-    dieting: floorPrice.value
+    dieting: floorPrice.value,
+    type: 'S'
   }
   await sellStockLimitService(paramSell)
 
@@ -308,7 +310,13 @@ onUnmounted(() => {
             <span class="font-light">{{ stockDetails?.C }}</span>
           </div>
           <div class="text-xs">
-            {{ $t('stock-details.buy.ceilingPrice') }}：{{ ceilingPrice }} {{ $t('stock-details.buy.floorPrice') }}：{{ floorPrice }}
+            <span>
+              {{ $t('stock-details.buy.ceilingPrice') }}: {{ ceilingPrice }}
+            </span>
+            &nbsp;&nbsp;
+            <span>
+              {{ $t('stock-details.buy.floorPrice') }}: {{ floorPrice }}
+            </span>
           </div>
         </div>
         <div>
@@ -410,9 +418,6 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
-:deep(.van-popup--bottom) {
-  height: 70%;
-}
 :deep(.van-popup) {
   background-color: #f7f8fa;
 }

@@ -50,8 +50,8 @@
 <script lang="ts" setup>
 import { useVuelidate } from '@vuelidate/core'
 
-const { $toast } = useNuxtApp()
-const { changePasswordService } = useApiServices()
+const { $toast, $t } = useNuxtApp()
+const { kycService } = useApiServices()
 const { required, sameAs } = useValidators()
 
 const form = reactive({
@@ -79,14 +79,13 @@ const onSubmit = async () => {
   if ($v.value.$error) {
     return
   }
-  const res = await changePasswordService({
-    oldpassword: form.oldPassword,
+  const res = await kycService({
     password: form.newPassword
   })
-  if (res.data.code === 1) {
-    $toast.fail(res.data.msg)
+  if (res.status !== 200) {
+    $toast.fail($t('message.success.changePassword'))
   } else {
-    $toast.success(res.data.msg)
+    $toast.success($t('message.fail.changePassword'))
   }
 }
 

@@ -6,37 +6,52 @@ definePageMeta({
   pageTitle: 'page.home.title'
 })
 
-const { carouselsService, chinaIndexesService, watchListService } = useApiServices()
+const { searchStockService } = useApiServices()
 
-const slides = ref<ISlideItem[]>([])
+const slides = ref<ISlideItem[]>([
+  {
+    id: 1,
+    uri: '//ll1011.oss-cn-hongkong.aliyuncs.com/carousel/202211/img_20221115153259.png',
+    order: 0
+  },
+  {
+    id: 2,
+    uri: '//ll1011.oss-cn-hongkong.aliyuncs.com/carousel/202211/img_20221115153313.png',
+    order: 0
+  },
+  {
+    id: 3,
+    uri: '//ll1011.oss-cn-hongkong.aliyuncs.com/carousel/202211/img_20221115153323.png',
+    order: 0
+  },
+  {
+    id: 4,
+    uri: '//ll1011.oss-cn-hongkong.aliyuncs.com/carousel/202211/img_20221115153501.png',
+    order: 0
+  },
+  {
+    id: 5,
+    uri: '//ll1011.oss-cn-hongkong.aliyuncs.com/carousel/202211/img_20221115153525.jpg',
+    order: 0
+  }
+])
 const chinaIndexes = ref<IStock[]>([])
 const watchList = ref<IStock[]>([])
 
-const getCarousels = async () => {
-  const response = await carouselsService()
-
-  if (response.data && response.data.data.data) {
-    slides.value = response.data.data.data
-  }
-}
-
 const getChinaIndexes = async () => {
-  const response = await chinaIndexesService()
-
-  if (response.data && response.data.data) {
+  const response = await searchStockService(undefined, undefined, 3)
+  if (response?.data.data) {
     chinaIndexes.value = response.data.data
   }
 }
 
 const getWatchList = async () => {
-  const response = await watchListService()
-
-  if (response.data && response.data.data) {
-    watchList.value = response.data.data.slice(0, 5)
+  const response = await searchStockService()
+  if (response?.data.data) {
+    watchList.value = response.data.data
   }
 }
 
-getCarousels()
 getChinaIndexes()
 getWatchList()
 </script>

@@ -41,8 +41,8 @@
 import { useVuelidate } from '@vuelidate/core'
 const { required, sameAs } = useValidators()
 
-const { $toast } = useNuxtApp()
-const { changeWithdrawalPasswordService } = useApiServices()
+const { $toast, $t } = useNuxtApp()
+const { kycService } = useApiServices()
 
 const form = reactive({
   newPassword: '',
@@ -64,14 +64,13 @@ const onSubmit = async () => {
   if ($v.value.$error) {
     return
   }
-  const res = await changeWithdrawalPasswordService({
-    withdraw_password: form.newPassword,
-    rewithdraw_password: form.repeatNewPassword
+  const res = await kycService({
+    withdraw_password: form.newPassword
   })
-  if (res.data.code === 1) {
-    $toast.fail(res.data.msg)
+  if (res.status !== 200) {
+    $toast.fail($t('message.success.changePassword'))
   } else {
-    $toast.success(res.data.msg)
+    $toast.success($t('message.fail.changePassword'))
   }
 }
 

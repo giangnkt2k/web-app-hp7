@@ -17,3 +17,12 @@ export interface Amplitude {
     price: number;
     scode: string;
 }
+
+export enum MarketPageTabs {
+    INDEX_QUOTES = 'index-quotes',
+    CHINA_STOCKS = 'cn-stock',
+    AMPLITUDE = 'amplitude',
+    TURNOVER = 'turnover',
+    UP = 'up',
+    DOWN = 'down'
+}

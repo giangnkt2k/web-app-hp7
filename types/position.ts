@@ -26,3 +26,8 @@ export type IPositionRestocks = Record<string, IStock>
 export interface IPositionResponse extends IBaseResponse<IPaginatedData<IPosition[]>> {
   reStocks: IPositionRestocks
 }
+
+export type UserHolding = {
+  total_count: number;
+  today_count: number
+}
