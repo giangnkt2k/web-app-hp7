@@ -16,7 +16,7 @@
             :error="$v.username.$error"
             :error-message="$v.username.$errors[0]?.$message.toString()"
             :label="$t('login.title.username')"
-            @blur="$v.password.$touch"
+            @blur="$v.username.$touch"
           />
           <van-field
             v-model="form.password"
