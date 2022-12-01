@@ -50,7 +50,7 @@ getDepositDetail()
       </div>
       <van-cell-group class="mb-8" inset>
         <div v-for="(item, index) in depositList" :key="index" @click="goToDetail(item.id)">
-          <van-cell :title="item.amount" :value="item.is_reviewed ? '已审核' : '拒审'" :label="item.created_at" />
+          <van-cell :title="item.amount" :value="item.is_reviewed ? '已审核' : '拒审'" :label="$dayjs(item.created_at).format('HH:mm DD-MM-YYYY')" />
         </div>
       </van-cell-group>
     </div>
