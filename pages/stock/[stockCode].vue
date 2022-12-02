@@ -342,7 +342,6 @@ onUnmounted(() => {
         </div>
         <div>
           <van-cell-group inset>
-            <van-field v-model="buyQuantity" type="digit" :label="$t('stock-details.buy.quantity')" />
             <van-field v-model="currentPrice" type="text" readonly :label="$t('stock-details.buy.currentPrice')" />
             <div class="van-cell van-field">
               <span class="van-cell__title van-field__label">{{ $t('stock-details.buy.fast') }}</span>

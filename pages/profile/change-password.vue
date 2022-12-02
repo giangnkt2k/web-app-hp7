@@ -8,16 +8,6 @@
       <div>
         <van-cell-group>
           <van-field
-            v-model="form.oldPassword"
-            type="password"
-            name="currentPassword"
-            :label="$t('profile.change-password.currentPassword')"
-            :placeholder="$t('profile.change-password.currentPassword.ph')"
-            :error="$v.oldPassword.$error"
-            :error-message="$v.oldPassword.$errors[0]?.$message.toString()"
-            @blur="$v.oldPassword.$touch"
-          />
-          <van-field
             v-model="form.newPassword"
             type="password"
             name="newPassword"
@@ -62,16 +52,12 @@ const { kycService } = useApiServices()
 const { required, sameAs } = useValidators()
 
 const form = reactive({
-  oldPassword: '',
   newPassword: '',
   repeatNewPassword: ''
 })
 
 const isLoading = ref(false)
 const rules = computed(() => ({
-  oldPassword: {
-    required
-  },
   newPassword: {
     required
   },
