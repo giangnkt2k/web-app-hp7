@@ -1,10 +1,11 @@
-import dayjs, { extend } from 'dayjs'
+/* eslint-disable import/no-named-as-default-member */
+import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
 
 export default defineNuxtPlugin(() => {
-  extend(utc)
-  extend(timezone)
+  dayjs.extend(utc)
+  dayjs.extend(timezone)
 
   return {
     provide: {
