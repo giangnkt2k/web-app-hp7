@@ -67,7 +67,9 @@ getWatchList()
       {{ $t('home.watch-list') }}
     </v-title>
     <van-cell-group>
-      <StockListItem v-for="(item, index) in watchList" :key="index" :stock="item" />
+      <van-skeleton :row="100" :loading="!watchList.length">
+        <StockListItem v-for="(item, index) in watchList" :key="index" :stock="item" />
+      </van-skeleton>
     </van-cell-group>
 
     <v-title>

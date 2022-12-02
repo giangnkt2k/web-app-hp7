@@ -87,15 +87,12 @@ const logout = () => {
 
       <div class="mt-5 mb-5 bg-light-50 rounded-md">
         <van-cell-group>
-          <van-cell icon="records" :title="$t('profile.transaction-history.tab')" is-link to="" />
-          <van-cell icon="thumb-circle-o" :title="$t('profile.my-subscription.tab')" is-link to="" />
-          <van-cell icon="orders-o" :title="$t('profile.breakdown-of-funds.tab')" is-link to="" />
-          <van-cell icon="peer-pay" :title="$t('profile.cell.silverCertificateTransferOut')" is-link to="profile/withdraw-money" />
-          <van-cell icon="description" :title="$t('profile.deposit.tab')" is-link to="profile/deposit" />
-          <van-cell icon="cash-on-deliver" :title="$t('profile.list-of-withdrawals.tab')" is-link to="profile/withdrawal-list" />
+          <van-cell icon="peer-pay" :title="$t('profile.cell.silverCertificateTransferOut')" is-link :to="{name: $routesList.profileWithdrawMoney}" />
+          <van-cell icon="description" :title="$t('profile.deposit.tab')" is-link :to="{name: $routesList.profileDeposit}" />
+          <van-cell icon="cash-on-deliver" :title="$t('profile.list-of-withdrawals.tab')" is-link :to="{name: $routesList.profileWithdrawalList}" />
           <van-cell icon="contact" :title="$t('profile.kyc.tab')" is-link to="profile/kyc" />
-          <van-cell icon="browsing-history-o" :title="$t('profile.change-password.tab')" is-link to="profile/change-password" />
-          <van-cell icon="browsing-history" :title="$t('profile.change-withdrawal-password.tab')" is-link to="profile/change-withdrawal-password" />
+          <van-cell icon="browsing-history-o" :title="$t('profile.change-password.tab')" is-link :to="{name: $routesList.profileChangePassword}" />
+          <van-cell icon="browsing-history" :title="$t('profile.change-withdrawal-password.tab')" is-link :to="{name: $routesList.profileChangeWithdrawalPassword}" />
         </van-cell-group>
       </div>
       <div class=" mb-20">
