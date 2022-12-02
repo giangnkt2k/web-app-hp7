@@ -49,7 +49,14 @@
           />
         </van-cell-group>
         <div class="m-16px">
-          <van-button round block type="primary" native-type="submit" :disabled="$v.$invalid">
+          <van-button
+            :loading="isRegistering"
+            round
+            block
+            type="primary"
+            native-type="submit"
+            :disabled="$v.$invalid"
+          >
             {{ $t("register") }}
           </van-button>
         </div>
@@ -71,7 +78,7 @@
 import { useVuelidate } from '@vuelidate/core'
 const { required, sameAs } = useValidators()
 const { registerService } = useApiServices()
-const { $toast, $t, $routesList } = useNuxtApp()
+const { $toast, $t, $routesList, $typedRouter } = useNuxtApp()
 
 const form = reactive({
   username: '',
@@ -79,6 +86,8 @@ const form = reactive({
   repeatNewPassword: '',
   institutionCode: ''
 })
+
+const isRegistering = ref(false)
 
 const rules = computed(() => ({
   username: {
@@ -99,13 +108,18 @@ const rules = computed(() => ({
 const $v = useVuelidate(rules, form)
 
 const onSubmit = async () => {
-  const res = await registerService(form.username, form.password, form.institutionCode)
-  if (res.status !== 201) {
+  isRegistering.value = true
+  const res = await registerService(form.username, form.password, form.institutionCode).catch(() => {
+    $toast.fail($t('message.fail.register'))
+  })
+  if (res?.status !== 201) {
     $toast.fail($t('message.fail.register'))
   } else {
     $toast.success($t('message.success.register'))
-    return navigateTo({ name: $routesList.login })
+    $typedRouter.push({ name: $routesList.login })
   }
+
+  isRegistering.value = false
 }
 </script>
 <style lang="scss" scoped>
