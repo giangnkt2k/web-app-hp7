@@ -8,7 +8,7 @@ export enum ApiRoutes {
   ARTICLE_DETAILS = '/api/financenews/read',
   CHECK_TOKEN = '/api/checkToken',
   WATCH_LIST = '/api/optionals/index',
-  POSITIONS = '/api/orders',
+  POSITIONS = '/app/positions',
   USER_NEW_SHARES = '/api/newshares/getMemberNewshareList',
   STOCK_DETAILS = '/stock',
   STOCK_KLINE_DATA = '/stock/timeline',
@@ -34,7 +34,8 @@ export enum ApiRoutes {
   SEARCH_OPTIONAL_STOCK = '/stock',
   ADD_DEPOSIT = '/deposit/app',
   KYC = '/app',
-  UPLOAD_IMAGE = '/app/upload'
+  UPLOAD_IMAGE = '/app/upload',
+  SELLABLE_POSITION = '/app/positions/sellable'
 }
 
 export interface IBaseResponse<DataType> {

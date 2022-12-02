@@ -82,8 +82,8 @@ export const useApiServices = () => {
     return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.WATCH_LIST, { params: { page } })
   }
 
-  const positionsService = (page = 1) => {
-    return $api.get<IPositionResponse>(ApiRoutes.POSITIONS, { params: { page } })
+  const positionsService = (page = 1, ps = 20) => {
+    return $api.get<IPositionResponse>(ApiRoutes.POSITIONS, { params: { page, ps } })
   }
 
   const userNewSharesService = (page = 1) => {
@@ -110,8 +110,8 @@ export const useApiServices = () => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.BUY_LIMIT, param)
   }
 
-  const sellStockLimitService = (param : IBuyStockReqBody) => {
-    return $api.post<IBaseResponse<undefined>>(ApiRoutes.SELL, param)
+  const sellStockLimitService = (positionId: number) => {
+    return $api.post<IBaseResponse<undefined>>(`${ApiRoutes.SELL}/${positionId}`)
   }
 
   const withdrawMoneyService = (amount: number, withdrawPassword: string) => {
@@ -219,6 +219,10 @@ export const useApiServices = () => {
     return $api.get<IUserWithdrawal[]>(ApiRoutes.WITHDRAW_LIST)
   }
 
+  const sellablePositionsService = (stockCode: string) => {
+    return $api.get<IPositionResponse>(ApiRoutes.SELLABLE_POSITION, { params: { stock_code: stockCode } })
+  }
+
   return {
     loginService,
     searchStockService,
@@ -255,6 +259,7 @@ export const useApiServices = () => {
     kycService,
     uploadImageService,
     withdrawalHistoryService,
-    registerService
+    registerService,
+    sellablePositionsService
   }
 }

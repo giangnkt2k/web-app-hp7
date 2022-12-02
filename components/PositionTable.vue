@@ -1,18 +1,28 @@
 <script lang="ts" setup>
-import { IPosition, IPositionRestocks } from '~~/types/position'
+import { IPosition } from '~~/types/position'
+import { IStock } from '~~/types/stock'
 
 type Props = {
   offsetTop?: number
+  isSellable?: boolean
+  stockCode?: string
 }
 
-defineProps<Props>()
+type Emits = {
+  (event: 'reload'): void
+}
 
-const { positionsService } = useApiServices()
+type IPositionStock = Record<string, IStock>
+
+const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
+
+const { positionsService, sellablePositionsService } = useApiServices()
 
 const isLoading = ref(false)
 const isFinished = ref(false)
 const positions = ref<IPosition[]>([])
-const restocks = ref<IPositionRestocks>({})
+const restocks = ref<IPositionStock>({})
 const currentPage = ref(1)
 
 const getPositions = async (page?: number) => {
@@ -20,22 +30,28 @@ const getPositions = async (page?: number) => {
   isLoading.value = true
   currentPage.value = page ?? currentPage.value
 
-  const response = await positionsService(currentPage.value)
+  const response = await (props.isSellable && props.stockCode ? sellablePositionsService(props.stockCode) : positionsService(currentPage.value))
 
-  // Set restocks
-  if (response.data?.reStocks) {
+  if (response?.data) {
+    // Set new positions
+    positions.value.push(...response.data.positions)
+
+    const newStocksData = response.data.stocks.reduce((positionStocks: IPositionStock, stock) => {
+      positionStocks[stock.FS] = {
+        ...positionStocks[stock.FS],
+        ...stock
+      }
+      return positionStocks
+    }, {})
+    // Set restocks
     restocks.value = {
       ...restocks.value,
-      ...response.data.reStocks
+      ...newStocksData
     }
-  }
 
-  // Set new positions
-  if (response.data?.data?.data) {
-    positions.value.push(...response.data.data.data)
-
+    isFinished.value = !!props.isSellable
     // If the result is smaller than 20. It means there's no more data
-    if (response.data.data.data.length < 20) {
+    if (response.data.positions.length < 20) {
       isFinished.value = true
     }
 
@@ -44,6 +60,11 @@ const getPositions = async (page?: number) => {
   } else {
     isFinished.value = true
   }
+}
+
+const removeItem = (index: number) => {
+  positions.value.splice(index, 1)
+  emit('reload')
 }
 </script>
 
@@ -54,13 +75,10 @@ const getPositions = async (page?: number) => {
         <van-col span="6">
           {{ $t("position-list.headers.name") }}
         </van-col>
-        <van-col span="6" class="text-center">
-          {{ $t("position-list.headers.open-available") }}
-        </van-col>
-        <van-col span="6" class="text-center">
+        <van-col span="9" class="text-center">
           {{ $t("position-list.headers.cost-price") }}
         </van-col>
-        <van-col span="6" class="text-right">
+        <van-col :span="isSellable ? 5 : 9" class="text-right pr-2">
           {{ $t("position-list.headers.profit-lost") }}
         </van-col>
       </van-row>
@@ -72,7 +90,14 @@ const getPositions = async (page?: number) => {
       :loading-text="$t('position-table.loading-text')"
       @load="getPositions"
     >
-      <PositionTableItem v-for="(position, index) in positions" :key="index" :position="position" :stock="restocks[position.p_code]" />
+      <PositionTableItem
+        v-for="(position, index) in positions"
+        :key="index"
+        :position="position"
+        :stock="restocks[position.stock_code]"
+        :is-sellable="isSellable"
+        @sold="removeItem(index)"
+      />
     </van-list>
   </div>
 </template>

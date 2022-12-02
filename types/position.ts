@@ -1,30 +1,20 @@
-import { IBaseResponse, IPaginatedData } from './api'
 import { IStock } from './stock'
 
 export interface IPosition {
+  created_at: string;
+  updated_at: string;
   id: number;
-  mid: number;
-  agent_id: number;
-  parent_id: number;
-  market: string;
-  p_name: string;
-  p_code: string;
+  user_id: string;
+  stock_code: string;
+  quantity: string;
+  price: number;
+  amount: number;
   status: number;
-  price: string;
-  count: string;
-  is_dailylimit: number;
-  count_dailylimit_sub: string;
-  status_dailylimit: number;
-  fee: string;
-  created_at: number;
-  count_today: string | null;
-  count_today_dailylimit: string | null;
 }
 
-export type IPositionRestocks = Record<string, IStock>
-
-export interface IPositionResponse extends IBaseResponse<IPaginatedData<IPosition[]>> {
-  reStocks: IPositionRestocks
+export interface IPositionResponse {
+  positions: IPosition[],
+  stocks: IStock[]
 }
 
 export type UserHolding = {

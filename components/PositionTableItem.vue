@@ -3,48 +3,54 @@ import { IPosition } from '~~/types/position'
 import { IStock } from '~~/types/stock'
 
 type Props = {
-  position: IPosition,
-  stock: IStock
+  position: IPosition;
+  stock: IStock;
+  isSellable?: boolean;
+}
+
+type Emits = {
+  (event: 'sold'): void
 }
 
 const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
 
-const { toMoneyFormat } = useUtility()
+const { toMoneyFormat, showApiError, t } = useUtility()
+const { $toast } = useNuxtApp()
+const { sellStockLimitService } = useApiServices()
 
-const pl = computed(() => props.stock.P * Number(props.position.count) - Number(props.position.price) * Number(props.position.count))
-const plPercent = computed(() => toMoneyFormat(pl.value / (Number(props.position.price) * Number(props.position.count)) * 100))
+const isSelling = ref(false)
+
+const pl = computed(() => props.stock.P * Number(props.position.quantity) - Number(props.position.price) * Number(props.position.quantity))
+const plPercent = computed(() => toMoneyFormat(pl.value / (Number(props.position.price) * Number(props.position.quantity)) * 100))
 const isLost = computed(() => pl.value < 0)
+
+const sellStock = async () => {
+  isSelling.value = true
+  await sellStockLimitService(props.position.id).catch(() => {
+    showApiError(t('stock-details.sell.fail'))
+  })
+
+  $toast.success(t('stock-details.sell.success'))
+  isSelling.value = false
+  emit('sold')
+}
 </script>
 
 <template>
-  <van-cell clickable :to="{name: $routesList.stockStockCode, params: {stockCode: stock.FS}}">
+  <van-cell :clickable="!isSellable" :to="{name: $routesList.stockStockCode, params: {stockCode: stock.FS}}">
     <van-row class="items-center">
       <van-col span="6">
         <div>
-          {{ position.p_name }}
-          <van-tag v-if="!!position.is_dailylimit && !!Number(position.count)" plain class="!text-10px !p-2px !text-black !border-gray-300 ml-0.5">
-            {{ $t('position-table-item.is-limited') }}
-          </van-tag>
+          {{ stock.N }}
         </div>
         <div class="text-xs text-gray-400 mt-1">
           {{ stock.FS }}
         </div>
       </van-col>
 
-      <van-col span="6" class="text-center">
-        <template v-if="Number(position.count)">
-          <div>{{ Number(position.count) - (Number(position.count_today) || 0) }}</div>
-          <div>{{ Number(position.count) - (Number(position.count_today_dailylimit) || 0) }}</div>
-        </template>
-
-        <template v-else>
-          <div>{{ $t('position-table-item.subscription-amount') }}</div>
-          <div>{{ Number(position.count_dailylimit_sub) }}</div>
-        </template>
-      </van-col>
-
-      <van-col span="6" class="text-center">
-        <template v-if="Number(position.count)">
+      <van-col span="9" class="text-center">
+        <template v-if="Number(position.quantity)">
           <div>{{ position.price }}</div>
           <div>{{ stock.P }}</div>
         </template>
@@ -53,8 +59,8 @@ const isLost = computed(() => pl.value < 0)
           <div>{{ position.price }}</div>
         </template>
       </van-col>
-      <van-col span="6" class="text-right">
-        <template v-if="Number(position.count)">
+      <van-col :span="isSellable ? 5 : 9" class="text-right pr-2">
+        <template v-if="Number(position.quantity)">
           <div class="text-success" :class="{'text-danger': isLost}">
             <div>{{ toMoneyFormat(pl) }}</div>
             <div>{{ plPercent }}%</div>
@@ -63,6 +69,11 @@ const isLost = computed(() => pl.value < 0)
         <template v-else>
           {{ $t('position-table-item.daily-limit-subscription-in-progress') }}
         </template>
+      </van-col>
+      <van-col v-if="isSellable" span="4">
+        <van-button :loading="isSelling" class="w-full !bg-danger !text-white" @click.stop="sellStock">
+          {{ $t('stock-details.button.sell') }}
+        </van-button>
       </van-col>
     </van-row>
   </van-cell>
