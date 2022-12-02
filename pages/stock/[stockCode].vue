@@ -21,7 +21,6 @@ const userStore = useAuthenticationStore()
 const { getUserData } = userStore
 
 const { userInformation } = storeToRefs(userStore)
-getUserData()
 
 const stockDetails = ref<IStock>()
 const userHold = ref<UserHolding | null>(null)
@@ -129,6 +128,8 @@ const buyStock = async () => {
     })
   })
 
+  init()
+
   $toast.success({
     message: $t('stock-details.bought.success')
   })
@@ -155,6 +156,8 @@ const sellStock = async () => {
     })
   })
 
+  init()
+
   $toast.success({
     message: $t('stock-details.sell.success')
   })
@@ -164,6 +167,7 @@ const sellStock = async () => {
 }
 
 const init = () => {
+  getUserData()
   getStockDetails()
   getStockKline()
 }
