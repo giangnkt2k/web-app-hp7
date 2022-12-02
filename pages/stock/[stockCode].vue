@@ -53,10 +53,10 @@ const chartType = computed(() =>
   selectedTimeRange.value === 'line' ? ChartType.AREA : ChartType.CANDLE_SOLID
 )
 const ceilingPrice = computed(() =>
-  toMoneyFormat(stockDetails.value?.ZT || (stockDetails.value?.YC || 0) + ((stockDetails.value?.YC || 0) * 0.1), '0,0')
+  toMoneyFormat(stockDetails.value?.ZT || ((stockDetails.value?.YC || 0) + ((stockDetails.value?.YC || 0) * 0.1)))
 )
 const floorPrice = computed(() =>
-  toMoneyFormat(stockDetails.value?.DT || (stockDetails.value?.YC || 0) - ((stockDetails.value?.YC || 0) * 0.1), '0,0')
+  toMoneyFormat(stockDetails.value?.DT || ((stockDetails.value?.YC || 0) - ((stockDetails.value?.YC || 0) * 0.1)))
 )
 
 watch(

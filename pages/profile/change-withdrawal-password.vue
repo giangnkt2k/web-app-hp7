@@ -29,7 +29,14 @@
           />
         </van-cell-group>
         <div class="pt-5">
-          <van-button round block type="primary" @click="onSubmit">
+          <van-button
+            :loading="isLoading"
+            round
+            block
+            type="primary"
+            :disabled="$v.$invalid"
+            @click="onSubmit"
+          >
             {{ $t('page.profile.submit') }}
           </van-button>
         </div>
@@ -49,6 +56,8 @@ const form = reactive({
   repeatNewPassword: ''
 })
 
+const isLoading = ref(false)
+
 const rules = computed(() => ({
   newPassword: {
     required
@@ -61,17 +70,19 @@ const rules = computed(() => ({
 const $v = useVuelidate(rules, form)
 
 const onSubmit = async () => {
-  if ($v.value.$error) {
-    return
-  }
+  isLoading.value = true
   const res = await kycService({
     withdraw_password: form.newPassword
+  }).catch(() => {
+    $toast.fail($t('message.fail.changePassword'))
   })
-  if (res.status !== 200) {
-    $toast.fail($t('message.success.changePassword'))
+  if (res?.status !== 200) {
+    $toast.fail($t('message.fail.changePassword'))
   } else {
-    $toast.success($t('message.fail.changePassword'))
+    $toast.success($t('message.success.changePassword'))
   }
+
+  isLoading.value = false
 }
 
 </script>

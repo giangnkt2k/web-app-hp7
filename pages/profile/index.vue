@@ -47,12 +47,14 @@ const logout = () => {
         <div class="flex">
           <div>
             {{ $t('profile.available') }}
-            <span v-if="isHiddenBalance">  {{ userInformation?.balance_avail || '' }} </span>
+            <span v-if="isHiddenBalance">  {{ userInformation?.balance_avail || 0 }} </span>
+            &nbsp;
             <span v-else>******</span>
           </div>
           <div class="pl-6">
             {{ $t('profile.freeze') }}
             <span v-if="isHiddenBalance"> {{ userInformation?.balance_frozen || 0 }} </span>
+            &nbsp;
             <span v-else>******</span>
           </div>
         </div>
@@ -65,7 +67,7 @@ const logout = () => {
               {{ $t('profile.totalMarketCapitalization') }}
             </div>
             <div class="text-xl font-bold">
-              <span v-if="isHiddenBalance">{{ userInformation?.hold_value || '' }}</span>
+              <span v-if="isHiddenBalance">{{ userInformation?.hold_value || 0 }}</span>
               <span v-else>******</span>
             </div>
           </div>
@@ -76,7 +78,7 @@ const logout = () => {
               {{ $t('profile.profitAndLoss') }}
             </div>
             <div class="text-xl font-bold">
-              <span v-if="isHiddenBalance">{{ userInformation?.profit || '' }} </span>
+              <span v-if="isHiddenBalance">{{ userInformation?.profit || 0 }} </span>
               <span v-else>******</span>
             </div>
           </div>

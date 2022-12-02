@@ -7,9 +7,7 @@ export const useUtility = () => {
     $toast.fail(message)
   }
 
-  const toMoneyFormat = (amount: number | string, format = '0.00') => {
-    return numeral(amount).format(format)
-  }
+  const toMoneyFormat = (amount: number | string, format = '0,0.00') => numeral(amount).format(format)
 
   const dateFormatter = (date: string | number | Date, format = 'DD/MM/YYYY') => {
     return $dayjs(date).format(format)
