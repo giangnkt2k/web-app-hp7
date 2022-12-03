@@ -55,9 +55,9 @@ const { $typedRouter, $routesList } = useNuxtApp()
 const { loginService } = useApiServices()
 const accessToken = useAccessToken()
 
-const username = ref('')
-const password = ref('')
-const isLoggingIn = ref(false)
+const username = useState(() => '')
+const password = useState(() => '')
+const isLoggingIn = useState(() => false)
 
 const onSubmit = async () => {
   isLoggingIn.value = true

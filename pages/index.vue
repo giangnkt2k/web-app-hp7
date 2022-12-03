@@ -35,8 +35,8 @@ const slides = ref<ISlideItem[]>([
     order: 0
   }
 ])
-const chinaIndexes = ref<IStock[]>([])
-const watchList = ref<IStock[]>([])
+const chinaIndexes = useState<IStock[]>(() => [])
+const watchList = useState<IStock[]>(() => [])
 
 const getChinaIndexes = async () => {
   const response = await searchStockService(undefined, undefined, 3)
@@ -52,8 +52,12 @@ const getWatchList = async () => {
   }
 }
 
-getChinaIndexes()
-getWatchList()
+await useAsyncData(() => {
+  return Promise.all([
+    getChinaIndexes(),
+    getWatchList()
+  ])
+})
 </script>
 
 <template>

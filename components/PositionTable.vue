@@ -19,15 +19,13 @@ const emit = defineEmits<Emits>()
 
 const { positionsService, sellablePositionsService } = useApiServices()
 
-const isLoading = ref(false)
-const isFinished = ref(false)
-const positions = ref<IPosition[]>([])
-const restocks = ref<IPositionStock>({})
-const currentPage = ref(1)
+const isFinished = useState(() => false)
+const positions = useState<IPosition[]>(() => [])
+const restocks = useState<IPositionStock>(() => ({}))
+const currentPage = useState(() => 1)
 
 const getPositions = async (page?: number) => {
   isFinished.value = false
-  isLoading.value = true
   currentPage.value = page ?? currentPage.value
 
   const response = await (props.isSellable && props.stockCode ? sellablePositionsService(props.stockCode) : positionsService(currentPage.value))
@@ -55,10 +53,14 @@ const getPositions = async (page?: number) => {
       isFinished.value = true
     }
 
-    isLoading.value = false
     currentPage.value++
   } else {
     isFinished.value = true
+  }
+
+  return {
+    restocks: restocks.value,
+    positions: positions.value
   }
 }
 
@@ -66,6 +68,8 @@ const removeItem = (index: number) => {
   positions.value.splice(index, 1)
   emit('reload')
 }
+
+const { pending, refresh } = await useAsyncData(() => getPositions())
 </script>
 
 <template>
@@ -84,11 +88,11 @@ const removeItem = (index: number) => {
       </van-row>
     </van-sticky>
     <van-list
-      v-model:loading="isLoading"
+      v-model:loading="pending"
       :finished="isFinished"
       :finished-text="$t('position-table.finished-text')"
       :loading-text="$t('position-table.loading-text')"
-      @load="getPositions"
+      @load="refresh"
     >
       <PositionTableItem
         v-for="(position, index) in positions"
