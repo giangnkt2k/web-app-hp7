@@ -2,9 +2,9 @@
   <div>
     <TheHeader :title="$t('page.market')" />
     <SearchBar />
-    <van-tabs v-model:active="activeName" color="#ffe100" lazy-render>
+    <van-tabs v-model:active="activeName" color="#ffe100">
       <van-tab :title="$t('page.market.indexMarket')" :name="MarketPageTabs.INDEX_QUOTES">
-        <IndexQuotes />
+        <IndexQuotesList :indexes="chinaIndexes" />
       </van-tab>
       <van-tab :title="$t('page.market.shanghaiAndShenzhen')" :name="MarketPageTabs.CHINA_STOCKS">
         <CnQuotation />
@@ -28,10 +28,25 @@
 </template>
 <script lang="ts" setup>
 import { MarketPageTabs } from '~~/types/market'
+import { IStock } from '~~/types/stock'
 
+const { searchStockService } = useApiServices()
 const route = useRoute()
-const activeName = ref(route.query.tab?.toString() || MarketPageTabs.INDEX_QUOTES)
 
+const chinaIndexes = useState<IStock[]>(() => [])
+const activeName = useState(() => route.query.tab?.toString() || MarketPageTabs.INDEX_QUOTES)
+
+const getChinaIndexes = async () => {
+  const response = await searchStockService(undefined, undefined, 3)
+
+  if (response?.data && response.data.data) {
+    chinaIndexes.value = response.data.data
+  }
+
+  return response.data.data
+}
+
+await useAsyncData(getChinaIndexes)
 </script>
 <style lang="scss" scoped>
 </style>
