@@ -62,7 +62,7 @@ const isLoggingIn = useState(() => false)
 const onSubmit = async () => {
   isLoggingIn.value = true
   const response = await loginService(username.value, password.value)
-  accessToken.value = response.data.token
+  accessToken.value = response.data.access_token
   await $typedRouter.push({ name: $routesList.index })
   isLoggingIn.value = false
 }

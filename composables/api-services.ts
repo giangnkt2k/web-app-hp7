@@ -33,12 +33,12 @@ export const useApiServices = () => {
     return $api.get<IUserInfo>(ApiRoutes.USER_INFORMATION)
   }
 
-  const searchStockService = (keyword?: string, page = 1, ps = 20) => {
-    return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.SEARCH_STOCK, {
+  const searchStockService = (searchKey?: string, page = 1, pageSize = 20) => {
+    return $api.get<IStock[]>(ApiRoutes.SEARCH_STOCK, {
       params: {
-        where: keyword,
+        searchKey,
         page,
-        ps
+        pageSize
       }
     })
   }

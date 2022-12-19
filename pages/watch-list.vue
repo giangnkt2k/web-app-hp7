@@ -40,10 +40,10 @@ const onSearch = async (page?: number) => {
   currentSearchPage.value = page ?? currentSearchPage.value
   const response = await searchStockService(searchKey.value, currentSearchPage.value)
 
-  if (response.data.data) {
-    stocksSearched.value.push(...response.data.data)
+  if (response.data) {
+    stocksSearched.value.push(...response.data)
 
-    if (response.data.data.length < 20) {
+    if (response.data.length < 20) {
       isSearchFinished.value = true
     }
     isSearchLoading.value = false

@@ -40,15 +40,15 @@ const watchList = useState<IStock[]>(() => [])
 
 const getChinaIndexes = async () => {
   const response = await searchStockService(undefined, undefined, 3)
-  if (response?.data.data) {
-    chinaIndexes.value = response.data.data
+  if (response?.data) {
+    chinaIndexes.value = response.data
   }
 }
 
 const getWatchList = async () => {
   const response = await searchStockService()
-  if (response?.data.data) {
-    watchList.value = response.data.data
+  if (response?.data) {
+    watchList.value = response.data
   }
 }
 

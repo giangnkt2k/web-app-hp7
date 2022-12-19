@@ -39,11 +39,11 @@ const activeName = useState(() => route.query.tab?.toString() || MarketPageTabs.
 const getChinaIndexes = async () => {
   const response = await searchStockService(undefined, undefined, 3)
 
-  if (response?.data && response.data.data) {
-    chinaIndexes.value = response.data.data
+  if (response?.data) {
+    chinaIndexes.value = response.data
   }
 
-  return response.data.data
+  return response.data
 }
 
 await useAsyncData(getChinaIndexes)

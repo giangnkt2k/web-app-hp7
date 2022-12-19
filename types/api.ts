@@ -1,7 +1,7 @@
 export enum ApiRoutes {
-  LOGIN = '/auth/login/app',
+  LOGIN = '/app/auth',
   REGISTER = '/auth/signup/app',
-  SEARCH_STOCK = '/stock',
+  SEARCH_STOCK = '/app/stocks',
   CAROUSELS = '/carousels',
   CHINA_INDEXES = '/api/stocks/getCnIndexes',
   NEWS = '/api/financenews',
@@ -12,7 +12,7 @@ export enum ApiRoutes {
   USER_NEW_SHARES = '/api/newshares/getMemberNewshareList',
   STOCK_DETAILS = '/stock',
   STOCK_KLINE_DATA = '/stock/timeline',
-  USER_INFORMATION ='/auth/get-app',
+  USER_INFORMATION ='/app/auth',
   BUY_LIMIT = '/app/buy',
   WITHDRAW_MONEY = '/withdrawals/app',
   WITHDRAW_LIST = '/withdrawals',
@@ -71,7 +71,7 @@ export interface IUserData {
 }
 
 export interface ILoginResponse extends IBaseResponse<IUserData> {
-  token: string
+  access_token: string
 }
 
 export interface UserInfo<DataType> {

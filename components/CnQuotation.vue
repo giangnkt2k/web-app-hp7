@@ -15,10 +15,10 @@ const search = async (page?: number) => {
 
   const response = await searchStockService(undefined, currentPage.value)
 
-  if (response.data.data) {
-    stocks.value.push(...response.data.data)
+  if (response.data) {
+    stocks.value.push(...response.data)
 
-    if (response.data.data.length < 20) {
+    if (response.data.length < 20) {
       isFinished.value = true
     }
     isLoading.value = false
