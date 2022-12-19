@@ -2,10 +2,11 @@
 import { storeToRefs } from 'pinia'
 import { useAuthenticationStore } from '~~/stores/authentication'
 
+const { $typedRouter, $routesList } = useNuxtApp()
 const userStore = useAuthenticationStore()
-const { userInformation } = storeToRefs(userStore)
-const router = useRouter()
+const { userInformation, balance } = storeToRefs(userStore)
 const accessToken = useAccessToken()
+const isAuthorized = useIsAuthorized()
 
 const isHiddenBalance = ref(false)
 
@@ -15,7 +16,8 @@ const hiddenBalance = () => {
 
 const logout = () => {
   accessToken.value = ''
-  router.push('login')
+  isAuthorized.value = false
+  $typedRouter.push({ name: $routesList.login })
 }
 </script>
 
@@ -41,7 +43,7 @@ const logout = () => {
           <van-icon :name="isHiddenBalance ? 'eye-o': 'closed-eye'" color="black" size="18" class="ml-3" @click="hiddenBalance" />
         </div>
         <div class="my-3 text-2xl font-bold">
-          <span v-if="isHiddenBalance">{{ userInformation?.balance || '' }}</span>
+          <span v-if="isHiddenBalance">{{ balance }}</span>
           <span v-else>******</span>
         </div>
         <div class="flex">
@@ -59,31 +61,6 @@ const logout = () => {
           </div>
         </div>
       </div>
-
-      <van-grid :column-num="2" class="mt-5 rounded-md ">
-        <van-grid-item>
-          <div class="p-2 text-center">
-            <div class="text-sm">
-              {{ $t('profile.totalMarketCapitalization') }}
-            </div>
-            <div class="text-xl font-bold">
-              <span v-if="isHiddenBalance">{{ userInformation?.hold_value || 0 }}</span>
-              <span v-else>******</span>
-            </div>
-          </div>
-        </van-grid-item>
-        <van-grid-item>
-          <div class="p-2 text-center">
-            <div class="text-sm">
-              {{ $t('profile.profitAndLoss') }}
-            </div>
-            <div class="text-xl font-bold">
-              <span v-if="isHiddenBalance">{{ userInformation?.profit || 0 }} </span>
-              <span v-else>******</span>
-            </div>
-          </div>
-        </van-grid-item>
-      </van-grid>
 
       <div class="mt-5 mb-5 bg-light-50 rounded-md">
         <van-cell-group>

@@ -24,13 +24,13 @@
             :rules="[{ required: true, message: $t('mess.required') }]"
           />
           <van-field
-            :model-value="userInformation?.balance"
+            :model-value="balance"
             name="available Balance"
             :label="$t('profile.silverCertificateTransferOut.availableBalance')"
             readonly
           />
           <van-field
-            :model-value="userInformation?.account_name || ''"
+            :model-value="userInformation?.account_holder || ''"
             name="asyncValidator"
             :label="$t('profile.silverCertificateTransferOut.accName')"
             readonly
@@ -78,7 +78,7 @@ import { useAuthenticationStore } from '~~/stores/authentication'
 
 const { $toast } = useNuxtApp()
 const userStore = useAuthenticationStore()
-const { userInformation } = storeToRefs(userStore)
+const { userInformation, balance } = storeToRefs(userStore)
 const { withdrawMoneyService } = useApiServices()
 
 const transferAmount = ref(0)

@@ -2,7 +2,7 @@
   <div>
     <TheHeader :back-to="{name: $routesList.profile}" />
     <div class="kyc__notice mx-5 my-5 text-xs font-bold">
-      {{ $t('page.profile.kyc.statusInformation') }}  {{ (userInformation?.is_verified) ? '验证' : '未经证实' }}
+      {{ $t('page.profile.kyc.statusInformation') }}  {{ (userInformation?.verification_status === APP_USER_VERIFY_STATUS.VERIFIED) ? '验证' : '未经证实' }}
     </div>
     <div class="font-bold text-xl mx-5 my-5">
       {{ $t("page.profile.kyc.realNameInfor") }}
@@ -71,6 +71,7 @@
 import { UploaderFileListItem } from 'vant'
 import { storeToRefs } from 'pinia'
 import { useAuthenticationStore } from '~~/stores/authentication'
+import { APP_USER_VERIFY_STATUS } from '~~/types/user'
 
 const userStore = useAuthenticationStore()
 const { userInformation } = storeToRefs(userStore)
