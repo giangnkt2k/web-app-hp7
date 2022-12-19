@@ -98,7 +98,7 @@ const { pending, refresh } = await useAsyncData(() => getPositions())
         v-for="(position, index) in positions"
         :key="index"
         :position="position"
-        :stock="restocks[position.stock_code]"
+        :stock="restocks[position.stock.FS]"
         :is-sellable="isSellable"
         @sold="removeItem(index)"
       />

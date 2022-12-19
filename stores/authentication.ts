@@ -5,7 +5,13 @@ export const useAuthenticationStore = defineStore('authentication-store', () => 
 
   const userInformation = ref<IUserInfo>()
 
-  const balance = computed(() => (userInformation.value?.balance_avail || 0) + (userInformation.value?.balance_frozen || 0))
+  const frozenBalance = computed(() => userInformation.value?.positions?.reduce((sum: number, position) => {
+    sum += (position.quantity * position.stock.P)
+
+    return sum
+  }, 0) || 0)
+
+  const balance = computed(() => (userInformation.value?.balance_avail || 0) + frozenBalance.value)
 
   const getUserData = async () => {
     const response = await userInfoService()
@@ -22,6 +28,7 @@ export const useAuthenticationStore = defineStore('authentication-store', () => 
   return {
     userInformation,
     balance,
+    frozenBalance,
 
     setUserData,
     getUserData

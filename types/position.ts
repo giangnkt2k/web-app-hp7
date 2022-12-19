@@ -1,15 +1,20 @@
 import { IStock } from './stock'
+import { IUserInfo } from './user'
+
+export enum POSITION_STATUS {
+  CLOSED,
+  OPEN,
+}
 
 export interface IPosition {
   created_at: string;
   updated_at: string;
   id: number;
-  user_id: string;
-  stock_code: string;
-  quantity: string;
+  stock: IStock;
+  app_user: IUserInfo;
+  quantity: number;
   price: number;
-  amount: number;
-  status: number;
+  status: POSITION_STATUS;
 }
 
 export interface IPositionResponse {

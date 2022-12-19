@@ -4,7 +4,7 @@ import { useAuthenticationStore } from '~~/stores/authentication'
 
 const { $typedRouter, $routesList } = useNuxtApp()
 const userStore = useAuthenticationStore()
-const { userInformation, balance } = storeToRefs(userStore)
+const { userInformation, balance, frozenBalance } = storeToRefs(userStore)
 const accessToken = useAccessToken()
 const isAuthorized = useIsAuthorized()
 
@@ -55,7 +55,7 @@ const logout = () => {
           </div>
           <div class="pl-6">
             {{ $t('profile.freeze') }}
-            <span v-if="isHiddenBalance"> {{ userInformation?.balance_frozen || 0 }} </span>
+            <span v-if="isHiddenBalance"> {{ frozenBalance || 0 }} </span>
             &nbsp;
             <span v-else>******</span>
           </div>
