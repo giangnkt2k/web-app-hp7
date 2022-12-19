@@ -106,8 +106,8 @@ export const useApiServices = () => {
     return $api.get<IStockKlineData[]>(ApiRoutes.STOCK_KLINE_DATA.replace(':id', stockCode), { params: { period, fromTick } })
   }
 
-  const buyingStockLimitService = (param : IBuyStockReqBody) => {
-    return $api.post<IBaseResponse<undefined>>(ApiRoutes.BUY_LIMIT, param)
+  const buyingStockLimitService = (payload : IBuyStockReqBody) => {
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.BUY_LIMIT, payload)
   }
 
   const sellStockLimitService = (positionId: number) => {

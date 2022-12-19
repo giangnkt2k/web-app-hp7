@@ -13,7 +13,7 @@ export enum ApiRoutes {
   STOCK_DETAILS = '/app/stocks',
   STOCK_KLINE_DATA = '/app/stocks/:id/k-line-data',
   USER_INFORMATION ='/app/auth',
-  BUY_LIMIT = '/app/buy',
+  BUY_LIMIT = '/app/positions',
   WITHDRAW_MONEY = '/withdrawals/app',
   WITHDRAW_LIST = '/withdrawals',
   DEPOSIT_LIST = '/deposit',

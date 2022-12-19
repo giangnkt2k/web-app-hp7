@@ -110,17 +110,11 @@ const openPopupSellStock = () => {
 
 const buyStock = async () => {
   isBuying.value = true
-  const param: IBuyStockReqBody = {
+  const payload: IBuyStockReqBody = {
     quantity: buyQuantity.value,
-    stock_market: stockDetails.value?.M || '',
-    stock_name: stockDetails.value?.N || '',
-    stock_code: stockDetails.value?.FS || '',
-    price: currentPrice.value.toString(),
-    zhangting: ceilingPrice.value,
-    dieting: floorPrice.value,
-    type: 'B'
+    stockCode: stockDetails.value?.FS || ''
   }
-  await buyingStockLimitService(param).catch(() => {
+  await buyingStockLimitService(payload).catch(() => {
     $toast.fail({
       message: $t('stock-details.bought.fail')
     })
