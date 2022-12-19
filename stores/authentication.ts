@@ -8,11 +8,15 @@ export const useAuthenticationStore = defineStore('authentication-store', () => 
 
   const userInformation = ref<IUserInfo>()
 
-  const frozenBalance = computed(() => userInformation.value?.positions?.reduce((sum: number, position) => {
-    sum += (position.quantity * position.stock.P)
+  const frozenBalance = computed(
+    () => Number(
+      (userInformation.value?.positions?.reduce((sum: number, position) => {
+        sum += (position.quantity * position.stock.P)
 
-    return sum
-  }, 0) || 0)
+        return sum
+      }, 0) || 0).toFixed(2)
+    )
+  )
 
   const balance = computed(() => (userInformation.value?.balance_avail || 0) + frozenBalance.value)
 
