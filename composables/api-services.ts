@@ -1,3 +1,4 @@
+import { useAuthenticationStore } from '~~/stores/authentication'
 import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
 import { ISlideItem } from '~~/types/hero-slide'
 import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
@@ -9,9 +10,13 @@ import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePass
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
+
+  const { logout } = useAuthenticationStore()
+
   const accessToken = useAccessToken()
 
   //   Request intercept
+  $api.interceptors.request.clear()
   $api.interceptors.request.use((config) => {
     config.headers = {
       authorization: `Bearer ${accessToken.value}` || 'undefined',
@@ -19,6 +24,15 @@ export const useApiServices = () => {
     }
 
     return config
+  })
+
+  //   Response intercept
+  $api.interceptors.response.clear()
+  $api.interceptors.response.use((response) => {
+    if (response.status === 401) {
+      logout()
+    }
+    return response
   })
 
   const loginService = (username: string, password: string) => {

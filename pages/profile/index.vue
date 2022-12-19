@@ -1,23 +1,14 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 import { useAuthenticationStore } from '~~/stores/authentication'
-
-const { $typedRouter, $routesList } = useNuxtApp()
 const userStore = useAuthenticationStore()
+const { logout } = userStore
 const { userInformation, balance, frozenBalance } = storeToRefs(userStore)
-const accessToken = useAccessToken()
-const isAuthorized = useIsAuthorized()
 
 const isHiddenBalance = ref(false)
 
 const hiddenBalance = () => {
   isHiddenBalance.value = !isHiddenBalance.value
-}
-
-const logout = () => {
-  accessToken.value = ''
-  isAuthorized.value = false
-  $typedRouter.push({ name: $routesList.login })
 }
 </script>
 

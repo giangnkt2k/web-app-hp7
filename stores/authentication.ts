@@ -1,7 +1,10 @@
 import { defineStore } from 'pinia'
 import { IUserInfo } from '~~/types/user'
 export const useAuthenticationStore = defineStore('authentication-store', () => {
+  const { $typedRouter, $routesList } = useNuxtApp()
   const { userInfoService } = useApiServices()
+  const accessToken = useAccessToken()
+  const isAuthorized = useIsAuthorized()
 
   const userInformation = ref<IUserInfo>()
 
@@ -25,11 +28,17 @@ export const useAuthenticationStore = defineStore('authentication-store', () => 
     userInformation.value = data
   }
 
+  const logout = () => {
+    accessToken.value = ''
+    isAuthorized.value = false
+    $typedRouter.push({ name: $routesList.login })
+  }
   return {
     userInformation,
     balance,
     frozenBalance,
 
+    logout,
     setUserData,
     getUserData
   }
