@@ -96,8 +96,8 @@ export const useApiServices = () => {
     return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.WATCH_LIST, { params: { page } })
   }
 
-  const positionsService = (page = 1, ps = 20) => {
-    return $api.get<IPositionResponse>(ApiRoutes.POSITIONS, { params: { page, ps } })
+  const positionsService = (page = 1, pageSize = 20) => {
+    return $api.get<IPositionResponse>(ApiRoutes.POSITIONS, { params: { page, pageSize } })
   }
 
   const userNewSharesService = (page = 1) => {
@@ -125,7 +125,7 @@ export const useApiServices = () => {
   }
 
   const sellStockLimitService = (positionId: number) => {
-    return $api.post<IBaseResponse<undefined>>(`${ApiRoutes.SELL}/${positionId}`)
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.SELL.replace(':id', positionId))
   }
 
   const withdrawMoneyService = (amount: number, withdrawPassword: string) => {
@@ -234,7 +234,7 @@ export const useApiServices = () => {
   }
 
   const sellablePositionsService = (stockCode: string) => {
-    return $api.get<IPositionResponse>(ApiRoutes.SELLABLE_POSITION, { params: { stock_code: stockCode } })
+    return $api.get<IPositionResponse>(ApiRoutes.SELLABLE_POSITION, { params: { stockCode } })
   }
 
   return {

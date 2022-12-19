@@ -25,7 +25,7 @@ export enum ApiRoutes {
   DROPLIST = '/api/stocks/getFallRank',
   AMPLITUDE_INDEX = '/api/stocks/getAmplitude',
   TURNOVER_INDEX='/api/stocks/getTurnover',
-  SELL = '/app/sell',
+  SELL = '/app/positions/:id/close',
   CHANGE_PASSWORD = '/app',
   CHANGE_WITHDRAWAL_PASSWORD = '/api/members/resetWithdrawPassword',
   OPTIONALS_INDEX = '/api/optionals/index',

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { IPosition } from '~~/types/position'
-import { IStock } from '~~/types/stock'
 
 type Props = {
   offsetTop?: number
@@ -12,8 +11,6 @@ type Emits = {
   (event: 'reload'): void
 }
 
-type IPositionStock = Record<string, IStock>
-
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
@@ -21,7 +18,6 @@ const { positionsService, sellablePositionsService } = useApiServices()
 
 const isFinished = useState(() => false)
 const positions = useState<IPosition[]>(() => [])
-const restocks = useState<IPositionStock>(() => ({}))
 const currentPage = useState(() => 1)
 
 const getPositions = async (page?: number) => {
@@ -32,24 +28,11 @@ const getPositions = async (page?: number) => {
 
   if (response?.data) {
     // Set new positions
-    positions.value.push(...response.data.positions)
-
-    const newStocksData = response.data.stocks.reduce((positionStocks: IPositionStock, stock) => {
-      positionStocks[stock.FS] = {
-        ...positionStocks[stock.FS],
-        ...stock
-      }
-      return positionStocks
-    }, {})
-    // Set restocks
-    restocks.value = {
-      ...restocks.value,
-      ...newStocksData
-    }
+    positions.value.push(...response.data.data)
 
     isFinished.value = !!props.isSellable
     // If the result is smaller than 20. It means there's no more data
-    if (response.data.positions.length < 20) {
+    if (response.data.data.length < 20) {
       isFinished.value = true
     }
 
@@ -59,7 +42,6 @@ const getPositions = async (page?: number) => {
   }
 
   return {
-    restocks: restocks.value,
     positions: positions.value
   }
 }
@@ -70,6 +52,12 @@ const removeItem = (index: number) => {
 }
 
 const { pending, refresh } = await useAsyncData(() => getPositions())
+
+onUnmounted(() => {
+  isFinished.value = false
+  positions.value = []
+  currentPage.value = 1
+})
 </script>
 
 <template>
@@ -98,7 +86,7 @@ const { pending, refresh } = await useAsyncData(() => getPositions())
         v-for="(position, index) in positions"
         :key="index"
         :position="position"
-        :stock="restocks[position.stock.FS]"
+        :stock="position.stock"
         :is-sellable="isSellable"
         @sold="removeItem(index)"
       />

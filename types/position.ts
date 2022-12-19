@@ -18,8 +18,8 @@ export interface IPosition {
 }
 
 export interface IPositionResponse {
-  positions: IPosition[],
-  stocks: IStock[]
+  data: IPosition[],
+  count: number
 }
 
 export type UserHolding = {
