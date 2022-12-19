@@ -1,6 +1,7 @@
 import { UserHolding } from './position'
 
 export interface IStock {
+  id: number;
   N: string;
   M: string;
   S: string;

@@ -5,8 +5,9 @@ import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
-import { IStock, IStockKlineData, IBuyStockReqBody, IStockSearch, IStockDetailsResponse } from '~~/types/stock'
+import { IStock, IStockKlineData, IBuyStockReqBody, IStockDetailsResponse } from '~~/types/stock'
 import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePasswordRequestBody, IUserWithdrawal } from '~~/types/user'
+import { WatchListItem } from '~~/types/watch-list'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
@@ -194,20 +195,16 @@ export const useApiServices = () => {
     return $api.post<IBaseResponse<undefined>>(ApiRoutes.CHANGE_WITHDRAWAL_PASSWORD, param)
   }
   // ------WISHLIST PAGE------
-  const wishlistService = (page = 1) => {
-    return $api.get<IBaseResponse<IStockSearch[]>>(ApiRoutes.OPTIONALS_INDEX, {
-      params: {
-        page
-      }
-    })
+  const wishlistService = () => {
+    return $api.get<WatchListItem[]>(ApiRoutes.OPTIONALS_INDEX)
   }
 
   const addOneToWishListService = (stock: IStock) => {
-    return $api.post<IBaseResponse<undefined>>(ApiRoutes.ADD_OPTION, stock)
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.ADD_OPTION, { stockId: stock.id })
   }
 
-  const deleteOneFromWishListService = (stockCode: string) => {
-    return $api.post<IBaseResponse<undefined>>(ApiRoutes.DELETE_OPTION, { fullcode: stockCode })
+  const deleteOneFromWishListService = (id: number) => {
+    return $api.delete<IBaseResponse<undefined>>(`${ApiRoutes.DELETE_OPTION}/${id}`)
   }
 
   const addNewDeposit = (amount: number, id: number) => {

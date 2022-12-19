@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { IStock, IStockSearch } from '~~/types/stock'
+import { IStock } from '~~/types/stock'
+import { WatchListItem } from '~~/types/watch-list'
 
 const { wishlistService, searchStockService, addOneToWishListService, deleteOneFromWishListService } = useApiServices()
 
@@ -7,25 +8,25 @@ const currentPage = ref(1)
 const currentSearchPage = ref(1)
 const isLoading = ref(false)
 const isFinished = ref(false)
-const stocks = ref<IStockSearch[]>([])
+const watchList = ref<WatchListItem[]>([])
 const isSearchLoading = ref(false)
 const isSearchFinished = ref(false)
 const stocksSearched = ref<IStock[]>([])
 const isPopupSearchStockOpen = ref(false)
 const { searchKey } = useSearch()
 
+const stocks = computed(() => watchList.value.map(({ stock }) => stock))
+
 const getData = async (page?: number) => {
   isFinished.value = false
   isLoading.value = true
   currentPage.value = page ?? currentPage.value
-  const response = await wishlistService(currentPage.value)
+  const response = await wishlistService()
 
-  if (response.data.data) {
-    stocks.value.push(...response.data.data)
+  if (response.data) {
+    watchList.value = response.data
 
-    if (response.data.data.length < 20) {
-      isFinished.value = true
-    }
+    isFinished.value = true
     isLoading.value = false
     currentPage.value++
   } else {
@@ -63,19 +64,26 @@ const addStockToWishList = async (stock: IStock) => {
   onSearch(1)
 }
 
-const deleteStockFromWishList = async (code : string) => {
-  await deleteOneFromWishListService(code)
-  getData(1)
-  onSearch(1)
+const deleteStockFromWishList = async (stock: IStock) => {
+  const itemId = watchList.value.find(({ stock: { FS } }) => FS === stock.FS)?.id
+  if (itemId) {
+    await deleteOneFromWishListService(itemId)
+    getData(1)
+    onSearch(1)
+  }
 }
 
 const handleWishlist = (stock: IStock) => {
-  const existed = !!stocks.value.find(({ C }) => C === stock.C)
+  const existed = !!watchList.value.find(({ stock: { FS } }) => FS === stock.FS)
   if (!existed) {
     addStockToWishList(stock)
   } else {
-    deleteStockFromWishList(stock.FS)
+    deleteStockFromWishList(stock)
   }
+}
+
+const isSelected = (compareData: IStock) => {
+  return watchList.value.some(({ stock: { FS } }) => compareData.FS === FS)
 }
 
 watch(
@@ -154,8 +162,8 @@ watch(
                     {{ stock.FS }}
                   </div>
                 </van-col>
-                <van-col span="12" class="text-right">
-                  <van-icon class="!text-2xl" color="#f03957" :name="'like-o'" @click="handleWishlist(stock)" />
+                <van-col span="12" class="text-right pr-4">
+                  <van-icon class="!text-2xl" color="#f03957" :name="isSelected(stock) ?'like' : 'like-o'" @click="handleWishlist(stock)" />
                 </van-col>
               </van-row>
             </van-cell>
