@@ -102,8 +102,8 @@ export const useApiServices = () => {
     return $api.get<IUserDeposit>(`${ApiRoutes.DEPOSIT_LIST}/${id}`)
   }
 
-  const stockKlineDataService = (stockCode: string, period: string, fromtick = 1) => {
-    return $api.get<IStockKlineData[]>(ApiRoutes.STOCK_KLINE_DATA, { params: { symbol: stockCode, period, fromtick } })
+  const stockKlineDataService = (stockCode: string, period: string, fromTick = 1) => {
+    return $api.get<IStockKlineData[]>(ApiRoutes.STOCK_KLINE_DATA.replace(':id', stockCode), { params: { period, fromTick } })
   }
 
   const buyingStockLimitService = (param : IBuyStockReqBody) => {
