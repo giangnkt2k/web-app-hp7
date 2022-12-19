@@ -13,6 +13,9 @@ const active = computed(() => route.name?.toString())
       <van-tabbar-item name="market" icon="chart-trending-o">
         {{ $t('bottom-bar.market') }}
       </van-tabbar-item>
+      <van-tabbar-item name="watch-list" icon-prefix="vicon" icon="bookmark-add">
+        {{ $t('bottom-bar.watch-list') }}
+      </van-tabbar-item>
       <van-tabbar-item :name="$routesList.position" icon="cluster-o">
         {{ $t('bottom-bar.position') }}
       </van-tabbar-item>
