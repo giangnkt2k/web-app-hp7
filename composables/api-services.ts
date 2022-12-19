@@ -125,7 +125,7 @@ export const useApiServices = () => {
   }
 
   const sellStockLimitService = (positionId: number) => {
-    return $api.post<IBaseResponse<undefined>>(ApiRoutes.SELL.replace(':id', positionId))
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.SELL.replace(':id', positionId.toString()))
   }
 
   const withdrawMoneyService = (amount: number, withdrawPassword: string) => {
