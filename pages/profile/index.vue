@@ -55,10 +55,10 @@ const hiddenBalance = () => {
 
       <div class="mt-5 mb-5 bg-light-50 rounded-md">
         <van-cell-group>
-          <van-cell icon="peer-pay" :title="$t('profile.cell.silverCertificateTransferOut')" is-link :to="{name: $routesList.profileWithdrawMoney}" />
+          <van-cell icon="peer-pay" :title="$t('profile.cell.silverCertificateTransferOut')" is-link :to="{name: userInformation?.has_withdraw_password ? $routesList.profileWithdrawMoney : $routesList.profileSetWithdrawalPassword}" />
           <van-cell icon="description" :title="$t('profile.deposit.tab')" is-link :to="{name: $routesList.profileDeposit}" />
           <van-cell icon="cash-on-deliver" :title="$t('profile.list-of-withdrawals.tab')" is-link :to="{name: userInformation?.has_withdraw_password ? $routesList.profileWithdrawalList : $routesList.profileSetWithdrawalPassword}" />
-          <van-cell icon="contact" :title="$t('profile.kyc.tab')" is-link to="profile/kyc" />
+          <van-cell icon="contact" :title="$t('profile.kyc.tab')" is-link :to="{name: $routesList.profileKyc}" />
           <van-cell icon="browsing-history-o" :title="$t('profile.change-password.tab')" is-link :to="{name: $routesList.profileChangePassword}" />
           <van-cell icon="browsing-history" :title="$t('profile.change-withdrawal-password.tab')" is-link :to="{name: userInformation?.has_withdraw_password ? $routesList.profileChangeWithdrawalPassword : $routesList.profileSetWithdrawalPassword}" />
         </van-cell-group>
