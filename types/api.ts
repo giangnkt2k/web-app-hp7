@@ -26,8 +26,8 @@ export enum ApiRoutes {
   AMPLITUDE_INDEX = '/api/stocks/getAmplitude',
   TURNOVER_INDEX='/api/stocks/getTurnover',
   SELL = '/app/positions/:id/close',
-  CHANGE_PASSWORD = '/app',
-  CHANGE_WITHDRAWAL_PASSWORD = '/api/members/resetWithdrawPassword',
+  CHANGE_PASSWORD = '/app/auth/reset-password',
+  CHANGE_WITHDRAWAL_PASSWORD = '/app/auth/reset-withdraw-password',
   OPTIONALS_INDEX = '/app/watch-list',
   ADD_OPTION = '/app/watch-list',
   DELETE_OPTION = '/app/watch-list',
@@ -35,7 +35,8 @@ export enum ApiRoutes {
   ADD_DEPOSIT = '/deposit/app',
   KYC = '/app',
   UPLOAD_IMAGE = '/app/upload',
-  SELLABLE_POSITION = '/app/positions/sellable'
+  SELLABLE_POSITION = '/app/positions/sellable',
+  SET_WITHDRAW_PASSWORD = '/app/auth/set-withdraw-password'
 }
 
 export interface IBaseResponse<DataType> {

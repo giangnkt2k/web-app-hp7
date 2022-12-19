@@ -187,12 +187,16 @@ export const useApiServices = () => {
   }
 
   // ------Profile------
-  const changePasswordService = (param: IUserChangePasswordRequestBody) => {
-    return $api.post<IBaseResponse<undefined>>(ApiRoutes.CHANGE_PASSWORD, param)
+  const changePasswordService = (payload: IUserChangePasswordRequestBody) => {
+    return $api.post(ApiRoutes.CHANGE_PASSWORD, payload)
   }
 
-  const changeWithdrawalPasswordService = (param: IUserChangeWithdrawalPassword) => {
-    return $api.post<IBaseResponse<undefined>>(ApiRoutes.CHANGE_WITHDRAWAL_PASSWORD, param)
+  const changeWithdrawalPasswordService = (payload: IUserChangeWithdrawalPassword) => {
+    return $api.post(ApiRoutes.CHANGE_WITHDRAWAL_PASSWORD, payload)
+  }
+
+  const setWithdrawalPasswordService = (password: string) => {
+    return $api.post(ApiRoutes.SET_WITHDRAW_PASSWORD, { password })
   }
   // ------WISHLIST PAGE------
   const wishlistService = () => {
@@ -271,6 +275,7 @@ export const useApiServices = () => {
     uploadImageService,
     withdrawalHistoryService,
     registerService,
-    sellablePositionsService
+    sellablePositionsService,
+    setWithdrawalPasswordService
   }
 }

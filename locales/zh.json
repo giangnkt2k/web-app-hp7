@@ -222,5 +222,6 @@
     "stock-details.bought.success": "股票已买",
     "stock-details.bought.failed": "买股票失败",
     "stock-details.sell.fail": "卖股票失败",
-    "stock-details.sell.success": "库存已售出"
+    "stock-details.sell.success": "库存已售出",
+    "profile.set-withdrawal-password.title": ""
 }

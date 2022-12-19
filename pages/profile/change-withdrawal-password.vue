@@ -8,6 +8,16 @@
       <div>
         <van-cell-group>
           <van-field
+            v-model="form.password"
+            type="password"
+            name="password"
+            :label="$t('profile.change-withdrawal-password.currentPassword')"
+            :placeholder="$t('profile.change-withdrawal-password.currentPassword.ph')"
+            :error="$v.password.$error"
+            :error-message="$v.password.$errors[0]?.$message.toString()"
+            @blur="$v.password.$touch"
+          />
+          <van-field
             v-model="form.newPassword"
             type="password"
             name="currentPassword"
@@ -49,9 +59,10 @@ import { useVuelidate } from '@vuelidate/core'
 const { required, sameAs } = useValidators()
 
 const { $toast, $t } = useNuxtApp()
-const { kycService } = useApiServices()
+const { changeWithdrawalPasswordService } = useApiServices()
 
 const form = reactive({
+  password: '',
   newPassword: '',
   repeatNewPassword: ''
 })
@@ -59,6 +70,9 @@ const form = reactive({
 const isLoading = ref(false)
 
 const rules = computed(() => ({
+  password: {
+    required
+  },
   newPassword: {
     required
   },
@@ -71,16 +85,14 @@ const $v = useVuelidate(rules, form)
 
 const onSubmit = async () => {
   isLoading.value = true
-  const res = await kycService({
-    withdraw_password: form.newPassword
+  await changeWithdrawalPasswordService({
+    password: form.password,
+    newPassword: form.newPassword
   }).catch(() => {
     $toast.fail($t('message.fail.changePassword'))
   })
-  if (res?.status !== 200) {
-    $toast.fail($t('message.fail.changePassword'))
-  } else {
-    $toast.success($t('message.success.changePassword'))
-  }
+
+  $toast.success($t('message.success.changePassword'))
 
   isLoading.value = false
 }
