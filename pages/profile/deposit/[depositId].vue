@@ -26,8 +26,11 @@ const status = ref<DEPOSIT_STATUS>(DEPOSIT_STATUS.PENDING)
 const readableStatus = computed(() => status.value === DEPOSIT_STATUS.APPROVED ? '已审核' : '拒审')
 const getDepositDetail = async () => {
   const res = await depositDetailService(Number(route.params.depositId.toString()))
-  money.value = res.data.amount
-  status.value = res.data.status
+
+  if (res?.data) {
+    money.value = res.data.amount
+    status.value = res.data.status
+  }
 }
 getDepositDetail()
 </script>

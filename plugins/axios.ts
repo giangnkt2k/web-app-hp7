@@ -27,10 +27,13 @@ export default defineNuxtPlugin(() => {
 
   //   Response intercept
   api.interceptors.response.use((response) => {
-    if (response.status === 401) {
-      logout()
-    }
     return response
+  }, (error) => {
+    if (error.response) {
+      if (error.response.status === 401) {
+        logout()
+      }
+    }
   })
 
   return {

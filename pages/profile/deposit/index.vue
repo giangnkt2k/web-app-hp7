@@ -26,7 +26,7 @@ const computedDepositAccount = computed(() => depositAccounts.value.find(({ id }
 const getDepositList = async () => {
   const res = await depositListService(page.value, pageSize.value)
 
-  if (res.data) {
+  if (res?.data) {
     depositList.value.push(...res.data.data)
 
     if (res.data.data.length < pageSize.value) {
