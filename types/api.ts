@@ -17,6 +17,7 @@ export enum ApiRoutes {
   WITHDRAW_MONEY = '/withdrawals/app',
   WITHDRAW_LIST = '/withdrawals',
   DEPOSIT_LIST = '/app/deposits',
+  DEPOSIT_DETAILS = '/app/deposits',
   HOT_MARKET= '/api/stocks/getHotIndustry',
   HOT_CONCEPT = '/api/stocks/getHotConcept',
   HOT_SPOT = '/api/stocks/getHotspot',

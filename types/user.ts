@@ -1,5 +1,12 @@
+import { DEPOSIT_STATUS } from './deposit'
 import { IDepositAccount } from './deposit-account'
 import { IPosition } from './position'
+
+export enum APP_USER_VERIFY_STATUS {
+  PENDING,
+  NOT_VERIFIED,
+  VERIFIED,
+}
 
 export interface IUserInfo {
   created_at: string;
@@ -21,15 +28,9 @@ export interface IUserInfo {
   is_playing_board: boolean;
   is_active: boolean;
   is_freeze: boolean;
-  verification_status: number;
+  verification_status: APP_USER_VERIFY_STATUS;
   positions: IPosition[] | null;
   has_withdraw_password: boolean
-}
-
-export enum APP_USER_VERIFY_STATUS {
-  PENDING,
-  NOT_VERIFIED,
-  VERIFIED,
 }
 
 export interface IUserDeposit {
@@ -37,7 +38,7 @@ export interface IUserDeposit {
   updated_at: string;
   id: number;
   amount: number;
-  status: number;
+  status: DEPOSIT_STATUS;
   comments: null;
   remarks: null;
   approved_by: null;

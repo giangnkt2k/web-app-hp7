@@ -119,8 +119,8 @@ export const useApiServices = () => {
     })
   }
 
-  const depositDetailService2 = (id: number) => {
-    return $api.get<IUserDeposit[]>(`${ApiRoutes.DEPOSIT_LIST}/${id}`)
+  const depositDetailService = (id: number) => {
+    return $api.get<IUserDeposit>(`${ApiRoutes.DEPOSIT_LIST}/${id}`)
   }
 
   const stockKlineDataService = (stockCode: string, period: string, fromTick = 1) => {
@@ -280,7 +280,7 @@ export const useApiServices = () => {
     addOneToWishListService,
     deleteOneFromWishListService,
     addNewDepositService,
-    depositDetailService2,
+    depositDetailService,
     kycService,
     uploadImageService,
     withdrawalHistoryService,
