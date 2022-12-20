@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { IUserDeposit } from '~~/types/user'
-import { IDepositAccount } from '~~/types/deposit-acctoun'
+import { IDepositAccount } from '~~/types/deposit-account'
 import { DEPOSIT_STATUS } from '~~/types/deposit'
 
 const { $routesList, $typedRouter } = useNuxtApp()

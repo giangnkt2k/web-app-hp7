@@ -1,6 +1,6 @@
 import { useAuthenticationStore } from '~~/stores/authentication'
 import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
-import { IDepositAccount } from '~~/types/deposit-acctoun'
+import { IDepositAccount } from '~~/types/deposit-account'
 import { ISlideItem } from '~~/types/hero-slide'
 import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'

@@ -1,4 +1,4 @@
-import { IDepositAccount } from './deposit-acctoun'
+import { IDepositAccount } from './deposit-account'
 import { IPosition } from './position'
 
 export interface IUserInfo {
