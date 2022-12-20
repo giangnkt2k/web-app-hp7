@@ -1,4 +1,3 @@
-import { useAuthenticationStore } from '~~/stores/authentication'
 import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
 import { IDepositAccount } from '~~/types/deposit-account'
 import { ISlideItem } from '~~/types/hero-slide'
@@ -12,30 +11,6 @@ import { WatchListItem } from '~~/types/watch-list'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
-
-  const { logout } = useAuthenticationStore()
-
-  const accessToken = useAccessToken()
-
-  //   Request intercept
-  $api.interceptors.request.clear()
-  $api.interceptors.request.use((config) => {
-    config.headers = {
-      authorization: `Bearer ${accessToken.value}` || 'undefined',
-      ...config.headers
-    }
-
-    return config
-  })
-
-  //   Response intercept
-  $api.interceptors.response.clear()
-  $api.interceptors.response.use((response) => {
-    if (response.status === 401) {
-      logout()
-    }
-    return response
-  })
 
   const loginService = (username: string, password: string) => {
     return $api.post<ILoginResponse>(ApiRoutes.LOGIN, { username, password })

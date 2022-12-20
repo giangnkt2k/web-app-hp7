@@ -23,6 +23,9 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
       setUserData(response?.data)
     } catch (error) {
+      if (process.dev) {
+        console.log({ error })
+      }
       return navigateTo({ name: $routesList.login })
     }
   }
