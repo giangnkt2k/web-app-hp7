@@ -48,9 +48,12 @@ const getDepositAccounts = async () => {
 }
 
 const submitDeposit = async () => {
-  await addNewDepositService(Number(deposit.value), Number(depositAccount.value))
-  isDepositPopupVisible.value = false
-  getDepositList()
+  const response = await addNewDepositService(Number(deposit.value), Number(depositAccount.value))
+
+  if (response?.data) {
+    isDepositPopupVisible.value = false
+    $typedRouter.push({ name: $routesList.profileDepositDepositId, params: { depositId: response.data.id } })
+  }
 }
 const addDeposit = () => {
   isDepositPopupVisible.value = true
@@ -81,9 +84,15 @@ getDepositAccounts()
         :loading-text="$t('page.profile.deposit.loading-text')"
         @load="getDepositList"
       >
-        <div v-for="(item, index) in depositList" :key="index" @click="goToDetail(item.id)">
-          <van-cell :title="item.amount" :value="item.status === DEPOSIT_STATUS.APPROVED ? '已审核' : '拒审'" :label="$dayjs(item.created_at).format('HH:mm DD-MM-YYYY')" />
-        </div>
+        <van-cell
+          v-for="(item, index) in depositList"
+          :key="index"
+          :title="item.amount"
+          :value="item.status === DEPOSIT_STATUS.APPROVED ? '已审核' : '拒审'"
+          :label="$dayjs(item.created_at).format('HH:mm DD-MM-YYYY')"
+          clickable
+          @click="goToDetail(item.id)"
+        />
       </van-list>
     </div>
 

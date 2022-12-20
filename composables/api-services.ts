@@ -218,7 +218,7 @@ export const useApiServices = () => {
   }
 
   const addNewDepositService = (amount: number, id: number) => {
-    return $api.post(ApiRoutes.ADD_DEPOSIT, {
+    return $api.post<IUserDeposit>(ApiRoutes.ADD_DEPOSIT, {
       amount,
       depositAccountId: id
     })
