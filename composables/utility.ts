@@ -1,7 +1,10 @@
 import numeral from 'numeral'
+import { buildUrl } from 'build-url-ts'
+import { ApiRoutes } from '~~/types/api'
 
 export const useUtility = () => {
   const { $toast, $dayjs, $t } = useNuxtApp()
+  const config = useRuntimeConfig()
 
   const showApiError = (message: string) => {
     $toast.fail(message)
@@ -13,10 +16,17 @@ export const useUtility = () => {
     return $dayjs(date).format(format)
   }
 
+  const getFileUrl = (id: number) => {
+    return buildUrl(config.public.API_ENDPOINT, {
+      path: `${ApiRoutes.READ_FILES}/${id}`
+    })
+  }
+
   return {
     showApiError,
     toMoneyFormat,
     dateFormatter,
+    getFileUrl,
     t: $t
   }
 }

@@ -1,12 +1,13 @@
 import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
 import { IDepositAccount } from '~~/types/deposit-account'
 import { ISlideItem } from '~~/types/hero-slide'
+import { ILocalFile } from '~~/types/local-files'
 import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
 import { IStock, IStockKlineData, IBuyStockReqBody, IStockDetailsResponse } from '~~/types/stock'
-import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePasswordRequestBody, IUserWithdrawal } from '~~/types/user'
+import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePasswordRequestBody, IUserWithdrawal, KycSubmitDto } from '~~/types/user'
 import { WatchListItem } from '~~/types/watch-list'
 
 export const useApiServices = () => {
@@ -199,12 +200,20 @@ export const useApiServices = () => {
     })
   }
 
-  const kycService = (param: object) => {
-    return $api.patch<IUserInfo>(ApiRoutes.KYC, param)
+  const kycService = (payload: KycSubmitDto) => {
+    return $api.post<IUserInfo>(ApiRoutes.KYC, payload)
   }
 
-  const uploadImageService = (formData: FormData, type: 0 | 1) => {
-    return $api.post(`${ApiRoutes.UPLOAD_IMAGE}?type=${type}`, formData, {
+  const uploadFrontIdService = (formData: FormData) => {
+    return $api.post<ILocalFile>(`${ApiRoutes.UPLOAD_FRONT_DOC}`, formData, {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    })
+  }
+
+  const uploadBackIdService = (formData: FormData) => {
+    return $api.post<ILocalFile>(`${ApiRoutes.UPLOAD_BACK_DOC}`, formData, {
       headers: {
         'content-type': 'multipart/form-data'
       }
@@ -257,7 +266,8 @@ export const useApiServices = () => {
     addNewDepositService,
     depositDetailService,
     kycService,
-    uploadImageService,
+    uploadFrontIdService,
+    uploadBackIdService,
     withdrawalHistoryService,
     registerService,
     sellablePositionsService,

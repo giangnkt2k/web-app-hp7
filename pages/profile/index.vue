@@ -65,7 +65,9 @@ const hiddenBalance = () => {
             icon="peer-pay"
             :title="$t('profile.cell.silverCertificateTransferOut')"
             is-link
-            :to="{name: userInformation?.has_withdraw_password ? $routesList.profileWithdrawMoney : $routesList.profileSetWithdrawalPassword}"
+            :to="{
+              name: userInformation?.has_withdraw_password ? $routesList.profileWithdrawMoney : $routesList.profileSetWithdrawalPassword
+            }"
           />
           <van-cell
             icon="description"

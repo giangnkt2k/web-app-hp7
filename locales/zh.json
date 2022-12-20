@@ -198,7 +198,16 @@
             "password": "请输入您的新密码",
             "repeatNewPassword": "请重新输入您的新密码",
             "username": "用户名需要填写",
-            "institutionCode": "公司代码输入"
+            "institutionCode": "公司代码输入",
+            "realName": "请输入您的真实姓名",
+            "phone": "请输入您的电话号码",
+            "identityNumber": "请输入您的身份证号码",
+            "affiliatedBank": "请输入您的银行名称",
+            "cardNumber": "请输入您的卡号",
+            "accountName": "请输入您的账户名",
+            "branch": "请输入您的银行分行",
+            "idFront": "请上传您的身份证正面",
+            "idBack": "请上传您的身份证背面"
         },
         "sameAs": {
             "repeatNewPassword": "请正确输入您的新密码"

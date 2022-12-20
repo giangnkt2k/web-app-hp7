@@ -1,5 +1,6 @@
 import { DEPOSIT_STATUS } from './deposit'
 import { IDepositAccount } from './deposit-account'
+import { ILocalFile } from './local-files'
 import { IPosition } from './position'
 
 export enum APP_USER_VERIFY_STATUS {
@@ -14,8 +15,8 @@ export interface IUserInfo {
   id: number;
   username: string;
   real_name: string;
-  id_front: null;
-  id_back: null;
+  id_front: ILocalFile;
+  id_back: ILocalFile;
   id_number: string;
   phone: string;
   bank_name: string;
@@ -72,3 +73,13 @@ export interface IUserWithdrawal
     reviewed_at: string;
     __entity: string;
 }
+
+export type KycSubmitDto = {
+  realName: string;
+  phone: string;
+  identityNumber: string;
+  affiliatedBank: string;
+  cardNumber: string;
+  accountName: string;
+  branch: string;
+};

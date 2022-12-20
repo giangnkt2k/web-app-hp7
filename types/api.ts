@@ -34,11 +34,13 @@ export enum ApiRoutes {
   DELETE_OPTION = '/app/watch-list',
   SEARCH_OPTIONAL_STOCK = '/stock',
   ADD_DEPOSIT = '/app/deposits',
-  KYC = '/app',
-  UPLOAD_IMAGE = '/app/upload',
+  KYC = '/app/auth/kyc',
+  UPLOAD_FRONT_DOC = '/app/auth/kyc/upload-document/front',
+  UPLOAD_BACK_DOC = '/app/auth/kyc/upload-document/back',
   SELLABLE_POSITION = '/app/positions/sellable',
   SET_WITHDRAW_PASSWORD = '/app/auth/set-withdraw-password',
-  GET_DEPOSIT_ACCOUNTS = '/app/deposit-accounts'
+  GET_DEPOSIT_ACCOUNTS = '/app/deposit-accounts',
+  READ_FILES ='/app/files'
 }
 
 export interface IBaseResponse<DataType> {

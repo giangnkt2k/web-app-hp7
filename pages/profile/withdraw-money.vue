@@ -27,7 +27,7 @@
             :rules="[{ required: true, message: $t('mess.required') }]"
           />
           <van-field
-            :model-value="balance"
+            :model-value="userInformation?.balance_avail"
             name="available Balance"
             :label="$t('profile.silverCertificateTransferOut.availableBalance')"
             readonly
@@ -84,10 +84,11 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 import { useAuthenticationStore } from '~~/stores/authentication'
+import { APP_USER_VERIFY_STATUS } from '~~/types/user'
 
-const { $toast } = useNuxtApp()
+const { $toast, $typedRouter, $routesList } = useNuxtApp()
 const userStore = useAuthenticationStore()
-const { userInformation, balance } = storeToRefs(userStore)
+const { userInformation } = storeToRefs(userStore)
 const { withdrawMoneyService } = useApiServices()
 
 const transferAmount = ref(0)
@@ -95,10 +96,14 @@ const withdrawPassword = ref('')
 
 const onSubmit = async () => {
   const res = await withdrawMoneyService(Number(transferAmount.value), withdrawPassword.value)
-  if (res.data.code === 1) {
+  if (res?.data.code === 1) {
     $toast.fail(res.data.msg)
   } else {
     $toast.success(res.data.msg)
   }
+}
+
+if (userInformation.value?.verification_status !== APP_USER_VERIFY_STATUS.VERIFIED) {
+  $typedRouter.push({ name: $routesList.profileKyc })
 }
 </script>
