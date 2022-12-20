@@ -18,8 +18,14 @@ defineProps<Props>()
           indicator-color="white"
           class="h-full w-full"
         >
-          <van-swipe-item v-for="image in slides" :key="image.id">
-            <van-image :src="image.uri" class="h-full w-full" />
+          <van-swipe-item
+            v-for="image in slides"
+            :key="image.id"
+          >
+            <van-image
+              :src="image.uri"
+              class="h-full w-full"
+            />
           </van-swipe-item>
         </van-swipe>
       </div>

@@ -28,8 +28,16 @@ const back = () => {
     :border="false"
     @click-left="back"
   >
-    <template v-if="!!backTo" #left>
-      <van-icon name="arrow-left" color="white" size="18" class="mr-1" />
+    <template
+      v-if="!!backTo"
+      #left
+    >
+      <van-icon
+        name="arrow-left"
+        color="white"
+        size="18"
+        class="mr-1"
+      />
       <span class="text-white">
         {{ $t('the-navbar.back') }}
       </span>

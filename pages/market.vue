@@ -2,23 +2,44 @@
   <div>
     <TheHeader :title="$t('page.market')" />
     <SearchBar />
-    <van-tabs v-model:active="activeName" color="#ffe100">
-      <van-tab :title="$t('page.market.indexMarket')" :name="MarketPageTabs.INDEX_QUOTES">
+    <van-tabs
+      v-model:active="activeName"
+      color="#ffe100"
+    >
+      <van-tab
+        :title="$t('page.market.indexMarket')"
+        :name="MarketPageTabs.INDEX_QUOTES"
+      >
         <IndexQuotesList :indexes="chinaIndexes" />
       </van-tab>
-      <van-tab :title="$t('page.market.shanghaiAndShenzhen')" :name="MarketPageTabs.CHINA_STOCKS">
+      <van-tab
+        :title="$t('page.market.shanghaiAndShenzhen')"
+        :name="MarketPageTabs.CHINA_STOCKS"
+      >
         <CnQuotation />
       </van-tab>
-      <van-tab :title="$t('page.market.amplitudeList')" :name="MarketPageTabs.AMPLITUDE">
+      <van-tab
+        :title="$t('page.market.amplitudeList')"
+        :name="MarketPageTabs.AMPLITUDE"
+      >
         <AmplitudeList />
       </van-tab>
-      <van-tab :title="$t('page.market.turnoverRate')" :name="MarketPageTabs.TURNOVER">
+      <van-tab
+        :title="$t('page.market.turnoverRate')"
+        :name="MarketPageTabs.TURNOVER"
+      >
         <TurnoverList />
       </van-tab>
-      <van-tab :title="$t('page.market.gainList')" :name="MarketPageTabs.UP">
+      <van-tab
+        :title="$t('page.market.gainList')"
+        :name="MarketPageTabs.UP"
+      >
         <GainList />
       </van-tab>
-      <van-tab :title="$t('page.market.dropList')" :name="MarketPageTabs.DOWN">
+      <van-tab
+        :title="$t('page.market.dropList')"
+        :name="MarketPageTabs.DOWN"
+      >
         <DropList />
       </van-tab>
     </van-tabs>

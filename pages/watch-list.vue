@@ -117,7 +117,11 @@ watch(
       />
       <!-- Button open search stock  -->
       <div class="text-center pt-5 pb-10">
-        <van-button icon="plus" type="default" @click="openPopupSearchStock">
+        <van-button
+          icon="plus"
+          type="default"
+          @click="openPopupSearchStock"
+        >
           {{ $t("wl.btn.add") }}
         </van-button>
       </div>
@@ -154,7 +158,10 @@ watch(
               class="!px-0"
             >
               <van-row class="items-center">
-                <van-col span="12" class="pl-4">
+                <van-col
+                  span="12"
+                  class="pl-4"
+                >
                   <div class="mb-1">
                     {{ stock.N }}
                   </div>
@@ -162,8 +169,16 @@ watch(
                     {{ stock.FS }}
                   </div>
                 </van-col>
-                <van-col span="12" class="text-right pr-4">
-                  <van-icon class="!text-2xl" color="#f03957" :name="isSelected(stock) ?'like' : 'like-o'" @click="handleWishlist(stock)" />
+                <van-col
+                  span="12"
+                  class="text-right pr-4"
+                >
+                  <van-icon
+                    class="!text-2xl"
+                    color="#f03957"
+                    :name="isSelected(stock) ?'like' : 'like-o'"
+                    @click="handleWishlist(stock)"
+                  />
                 </van-col>
               </van-row>
             </van-cell>

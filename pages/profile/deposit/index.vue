@@ -73,7 +73,13 @@ getDepositAccounts()
     <TheHeader :back-to="{name: $routesList.profile}" />
     <div class="my-7 mx-3">
       <div class="my-3 px-4">
-        <van-button round icon="plus" type="success" block @click="addDeposit">
+        <van-button
+          round
+          icon="plus"
+          type="success"
+          block
+          @click="addDeposit"
+        >
           {{ $t("page.profile.deposit.addNew") }}
         </van-button>
       </div>
@@ -122,7 +128,12 @@ getDepositAccounts()
         </van-cell-group>
 
         <div class="px-4 mt-4">
-          <van-button type="primary" block round @click="submitDeposit">
+          <van-button
+            type="primary"
+            block
+            round
+            @click="submitDeposit"
+          >
             {{ $t("page.profile.submit") }}
           </van-button>
         </div>

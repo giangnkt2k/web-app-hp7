@@ -24,6 +24,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
       setUserData(response?.data)
     } catch (error) {
       if (process.dev) {
+        // eslint-disable-next-line no-console
         console.log({ error })
       }
       return navigateTo({ name: $routesList.login })

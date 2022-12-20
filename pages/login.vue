@@ -1,13 +1,20 @@
 <template>
   <div class="login">
     <div class="logo">
-      <img width="100" height="100" src="/img/logo.jpg">
+      <img
+        width="100"
+        height="100"
+        src="/img/logo.jpg"
+      >
     </div>
     <div class="login__form">
       <h1 class="font-bold text-2xl">
         {{ $t("login") }}
       </h1>
-      <van-form :disabled="isLoggingIn" @submit="onSubmit">
+      <van-form
+        :disabled="isLoggingIn"
+        @submit="onSubmit"
+      >
         <van-cell-group inset>
           <van-field
             v-model="username"
@@ -33,14 +40,23 @@
           />
         </van-cell-group>
         <div class="m-16px">
-          <van-button round block type="primary" native-type="submit" :loading="isLoggingIn">
+          <van-button
+            round
+            block
+            type="primary"
+            native-type="submit"
+            :loading="isLoggingIn"
+          >
             {{ $t("login") }}
           </van-button>
         </div>
       </van-form>
       <van-row class="py-10px px-16px">
         <van-col span="12" />
-        <van-col span="12" class="text-xs text-right">
+        <van-col
+          span="12"
+          class="text-xs text-right"
+        >
           <nuxt-link :to="{name: $routesList.register}">
             {{ $t('login.register') }}
           </nuxt-link>

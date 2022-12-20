@@ -1,6 +1,9 @@
 <template>
   <div>
-    <TheHeader :back-to="'/profile'" :title="$t('profile.cell.silverCertificateTransferOut')" />
+    <TheHeader
+      :back-to="'/profile'"
+      :title="$t('profile.cell.silverCertificateTransferOut')"
+    />
     <div class=" px-3">
       <h3 class="font-bold text-md my-3">
         {{ $t('profile.cell.silverCertificateTransferOut.title') }}
@@ -56,7 +59,13 @@
           />
         </van-cell-group>
         <div class="m-4">
-          <van-button round block type="primary" native-type="submit" :disabled="transferAmount < 1">
+          <van-button
+            round
+            block
+            type="primary"
+            native-type="submit"
+            :disabled="transferAmount < 1"
+          >
             {{ $t("profile.silverCertificateTransferOut.submit") }}
           </van-button>
         </div>

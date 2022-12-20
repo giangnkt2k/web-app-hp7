@@ -38,7 +38,10 @@ const sellStock = async () => {
 </script>
 
 <template>
-  <van-cell :clickable="!isSellable" :to="{name: $routesList.stockStockCode, params: {stockCode: stock.FS}}">
+  <van-cell
+    :clickable="!isSellable"
+    :to="{name: $routesList.stockStockCode, params: {stockCode: stock.FS}}"
+  >
     <van-row class="items-center">
       <van-col span="6">
         <div>
@@ -49,7 +52,10 @@ const sellStock = async () => {
         </div>
       </van-col>
 
-      <van-col span="9" class="text-center">
+      <van-col
+        span="9"
+        class="text-center"
+      >
         <template v-if="Number(position.quantity)">
           <div>{{ position.price }}</div>
           <div>{{ stock.P }}</div>
@@ -59,9 +65,15 @@ const sellStock = async () => {
           <div>{{ position.price }}</div>
         </template>
       </van-col>
-      <van-col :span="isSellable ? 5 : 9" class="text-right pr-2">
+      <van-col
+        :span="isSellable ? 5 : 9"
+        class="text-right pr-2"
+      >
         <template v-if="Number(position.quantity)">
-          <div class="text-success" :class="{'text-danger': isLost}">
+          <div
+            class="text-success"
+            :class="{'text-danger': isLost}"
+          >
             <div>{{ toMoneyFormat(pl) }}</div>
             <div>{{ plPercent }}%</div>
           </div>
@@ -70,8 +82,15 @@ const sellStock = async () => {
           {{ $t('position-table-item.daily-limit-subscription-in-progress') }}
         </template>
       </van-col>
-      <van-col v-if="isSellable" span="4">
-        <van-button :loading="isSelling" class="w-full !bg-danger !text-white" @click.stop="sellStock">
+      <van-col
+        v-if="isSellable"
+        span="4"
+      >
+        <van-button
+          :loading="isSelling"
+          class="w-full !bg-danger !text-white"
+          @click.stop="sellStock"
+        >
           {{ $t('stock-details.button.sell') }}
         </van-button>
       </van-col>

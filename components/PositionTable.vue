@@ -67,10 +67,16 @@ onUnmounted(() => {
         <van-col span="6">
           {{ $t("position-list.headers.name") }}
         </van-col>
-        <van-col span="9" class="text-center">
+        <van-col
+          span="9"
+          class="text-center"
+        >
           {{ $t("position-list.headers.cost-price") }}
         </van-col>
-        <van-col :span="isSellable ? 5 : 9" class="text-right pr-2">
+        <van-col
+          :span="isSellable ? 5 : 9"
+          class="text-right pr-2"
+        >
           {{ $t("position-list.headers.profit-lost") }}
         </van-col>
       </van-row>

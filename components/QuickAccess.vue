@@ -62,7 +62,12 @@ const quickAccessItemsFirstPage = computed(() => [
     :loop="false"
   >
     <van-swipe-item>
-      <van-grid :column-num="5" :border="false" :icon-size="24" clickable>
+      <van-grid
+        :column-num="5"
+        :border="false"
+        :icon-size="24"
+        clickable
+      >
         <van-grid-item
           v-for="(item, index) in quickAccessItemsFirstPage"
           :key="index"

@@ -14,8 +14,16 @@ defineProps<Props>()
     <h2 class="font-bold text-lg py-10px">
       {{ $t(title) }}
     </h2>
-    <van-row gutter="20" :wrap="true">
-      <van-col v-for="(item, index) in indexes" :key="index" span="8" class="mb-2">
+    <van-row
+      gutter="20"
+      :wrap="true"
+    >
+      <van-col
+        v-for="(item, index) in indexes"
+        :key="index"
+        span="8"
+        class="mb-2"
+      >
         <div class="bg-light-50 shadow-lg rounded-lg py-12px px-5px">
           <div class="font-bold text-left">
             {{ item.title }}

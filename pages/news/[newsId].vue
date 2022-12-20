@@ -28,8 +28,15 @@ getArticleDetails()
     <van-sticky>
       <TheHeader :back-to="{name: $routesList.index}" />
     </van-sticky>
-    <van-skeleton :loading="!articleDetails" row="6" :class="{'mt-3': !articleDetails}">
-      <div v-if="!!articleDetails" class="px-4 pb-50px">
+    <van-skeleton
+      :loading="!articleDetails"
+      row="6"
+      :class="{'mt-3': !articleDetails}"
+    >
+      <div
+        v-if="!!articleDetails"
+        class="px-4 pb-50px"
+      >
         <h1 class="text-lg font-bold my-3">
           {{ articleDetails.detail.title }}
         </h1>
@@ -37,7 +44,10 @@ getArticleDetails()
           {{ articleDetails.detail.category }} {{ articleDetails.detail.date }}
         </div>
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <div class="text-sm" v-html="articleDetails.content" />
+        <div
+          class="text-sm"
+          v-html="articleDetails.content"
+        />
       </div>
     </van-skeleton>
   </div>

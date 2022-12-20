@@ -42,7 +42,11 @@ const getNewShares = async (page?: number) => {
       class="pt-3"
       @load="getNewShares"
     >
-      <NewShareListItem v-for="(share, index) in newShares" :key="index" :share="share" />
+      <NewShareListItem
+        v-for="(share, index) in newShares"
+        :key="index"
+        :share="share"
+      />
     </van-list>
   </div>
 </template>

@@ -43,7 +43,10 @@ const status = computed(() => {
           <span class="text-base font-bold">{{ share.p_name }}</span>
           <span class="ml-2">{{ share.market }}{{ share.p_code }}</span>
         </van-col>
-        <van-col span="12" class="text-sm font-medium">
+        <van-col
+          span="12"
+          class="text-sm font-medium"
+        >
           {{ status }}
         </van-col>
 

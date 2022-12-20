@@ -1,6 +1,9 @@
 <template>
   <div>
-    <TheHeader :back-to="'/profile'" :title="$t('profile.change-withdrawal-password.title')" />
+    <TheHeader
+      :back-to="'/profile'"
+      :title="$t('profile.change-withdrawal-password.title')"
+    />
     <div class="px-3 py-3">
       <div class="pb-2">
         {{ $t('profile.change-withdrawal-password.title') }}

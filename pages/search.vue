@@ -61,7 +61,10 @@ onBeforeUnmount(() => {
       <SearchBar />
     </van-sticky>
 
-    <van-empty v-if="isFinished && !stocks.length" :description="$t('page.search.empty')" />
+    <van-empty
+      v-if="isFinished && !stocks.length"
+      :description="$t('page.search.empty')"
+    />
     <StockTable
       v-else
       v-model:is-loading="isLoading"

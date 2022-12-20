@@ -9,9 +9,23 @@
     </div>
     <div class="mx-5  bg-light-50 rounded-md">
       <van-cell-group inset>
-        <van-field v-model="realName" :label="$t('page.profile.kyc.realName')" :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.realName')})" />
-        <van-field v-model="tel" type="tel" :label="$t('page.profile.kyc.phone')" :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.phone')})" />
-        <van-field v-model="identityNumber" type="digit" :label="$t('page.profile.kyc.identityNumber')" :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.affiliatedBank')})" />
+        <van-field
+          v-model="realName"
+          :label="$t('page.profile.kyc.realName')"
+          :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.realName')})"
+        />
+        <van-field
+          v-model="tel"
+          type="tel"
+          :label="$t('page.profile.kyc.phone')"
+          :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.phone')})"
+        />
+        <van-field
+          v-model="identityNumber"
+          type="digit"
+          :label="$t('page.profile.kyc.identityNumber')"
+          :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.affiliatedBank')})"
+        />
       </van-cell-group>
     </div>
     <div class="font-bold text-xl mx-5 my-5">
@@ -23,7 +37,11 @@
           <div class="text-[#646566] pb-2 pl-3">
             {{ $t('page.profile.kyc.idCardFront') }}
           </div>
-          <van-uploader v-model="idCardFont" :disabled="idCardFont.length > 0" max-count="1">
+          <van-uploader
+            v-model="idCardFont"
+            :disabled="idCardFont.length > 0"
+            max-count="1"
+          >
             <template #preview-cover="{ file }">
               <div class="bg-[#0000004d] text-center text-12px text-white p-1 w-full absolute bottom-0 van-ellipsis van-ellipsis">
                 {{ file.name }}
@@ -37,7 +55,11 @@
         <div class="text-[#646566] pb-2 pl-3">
           {{ $t('page.profile.kyc.idCardBack') }}
         </div>
-        <van-uploader v-model="idCardBack" :disabled="idCardBack.length > 0" max-count="1">
+        <van-uploader
+          v-model="idCardBack"
+          :disabled="idCardBack.length > 0"
+          max-count="1"
+        >
           <template #preview-cover="{ file }">
             <div class="bg-[#0000004d] text-center text-12px text-white p-1 w-full absolute bottom-0 van-ellipsis">
               {{ file.name }}
@@ -51,14 +73,37 @@
     </div>
     <div class="mx-5  bg-light-50 rounded-md">
       <van-cell-group inset>
-        <van-field v-model="affiliatedBank" :label="$t('page.profile.kyc.affiliatedBank')" :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.affiliatedBank')})" />
-        <van-field v-model="cardNumber" type="digit" :label="$t('page.profile.kyc.cardNumber')" :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.cardNumber')})" />
-        <van-field v-model="accountName" type="text" :label="$t('page.profile.kyc.username')" :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.username')})" />
-        <van-field v-model="branch" type="digit" :label="$t('page.profile.kyc.branch')" :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.branch')})" />
+        <van-field
+          v-model="affiliatedBank"
+          :label="$t('page.profile.kyc.affiliatedBank')"
+          :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.affiliatedBank')})"
+        />
+        <van-field
+          v-model="cardNumber"
+          type="digit"
+          :label="$t('page.profile.kyc.cardNumber')"
+          :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.cardNumber')})"
+        />
+        <van-field
+          v-model="accountName"
+          type="text"
+          :label="$t('page.profile.kyc.username')"
+          :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.username')})"
+        />
+        <van-field
+          v-model="branch"
+          type="digit"
+          :label="$t('page.profile.kyc.branch')"
+          :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.branch')})"
+        />
       </van-cell-group>
     </div>
     <div class="mx-5 my-5">
-      <van-button type="primary" block @click="submitKyc">
+      <van-button
+        type="primary"
+        block
+        @click="submitKyc"
+      >
         {{ $t('page.profile.submit') }}
       </van-button>
     </div>

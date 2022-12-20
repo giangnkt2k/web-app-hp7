@@ -30,13 +30,22 @@ const isLoadingComputed = computed({
   <div>
     <van-sticky :offset-top="offsetTop">
       <van-row class="text-xs py-2.5 bg-gray-100">
-        <van-col span="12" class="pl-4">
+        <van-col
+          span="12"
+          class="pl-4"
+        >
           {{ $t("stock-list.headers.name") }}
         </van-col>
-        <van-col span="6" class="text-right">
+        <van-col
+          span="6"
+          class="text-right"
+        >
           {{ $t("stock-list.headers.price") }}
         </van-col>
-        <van-col span="6" class="text-right pr-4">
+        <van-col
+          span="6"
+          class="text-right pr-4"
+        >
           {{ $t("stock-list.headers.change") }}
         </van-col>
       </van-row>
@@ -49,7 +58,11 @@ const isLoadingComputed = computed({
       :loading-text="$t('stock-list.loading-text')"
       @load="$emit('load')"
     >
-      <StockTableItem v-for="stock in stocks" :key="stock.FS" :stock="stock" />
+      <StockTableItem
+        v-for="stock in stocks"
+        :key="stock.FS"
+        :stock="stock"
+      />
     </van-list>
   </div>
 </template>

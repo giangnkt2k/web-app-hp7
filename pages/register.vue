@@ -1,7 +1,11 @@
 <template>
   <div class="register">
     <div class="logo">
-      <img width="100" height="100" src="/img/logo.jpg">
+      <img
+        width="100"
+        height="100"
+        src="/img/logo.jpg"
+      >
     </div>
     <div class="register__form">
       <h1 class="font-bold text-2xl">
@@ -63,7 +67,10 @@
       </van-form>
       <van-row class="py-10px px-16px">
         <van-col span="12" />
-        <van-col span="12" class="text-xs text-right">
+        <van-col
+          span="12"
+          class="text-xs text-right"
+        >
           <nuxt-link :to="{ name: $routesList.login }">
             {{
               $t("register.mess.haveAcc")

@@ -37,7 +37,11 @@ const getNews = async (page?: number) => {
     :loading-text="$t('news-list.loading-text')"
     @load="getNews"
   >
-    <NewsListItem v-for="(news, index) in newsList" :key="index" :news="news" />
+    <NewsListItem
+      v-for="(news, index) in newsList"
+      :key="index"
+      :news="news"
+    />
   </van-list>
 </template>
 

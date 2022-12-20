@@ -11,7 +11,10 @@ const hasImage = computed(() => !!props.news.thumbnail_pic_s)
 </script>
 
 <template>
-  <van-cell clickable :to="{name: $routesList.newsNewsId, params: {newsId: news.uniquekey}}">
+  <van-cell
+    clickable
+    :to="{name: $routesList.newsNewsId, params: {newsId: news.uniquekey}}"
+  >
     <van-row gutter="16">
       <van-col :span="hasImage ? 18 : 24">
         <div>{{ news.title }}</div>
@@ -19,8 +22,15 @@ const hasImage = computed(() => !!props.news.thumbnail_pic_s)
           {{ news.date }}
         </div>
       </van-col>
-      <van-col v-if="hasImage" span="6">
-        <van-image :src="news.thumbnail_pic_s" class="h-full rounded-8px overflow-hidden" fit="cover" />
+      <van-col
+        v-if="hasImage"
+        span="6"
+      >
+        <van-image
+          :src="news.thumbnail_pic_s"
+          class="h-full rounded-8px overflow-hidden"
+          fit="cover"
+        />
       </van-col>
     </van-row>
   </van-cell>

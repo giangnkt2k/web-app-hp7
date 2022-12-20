@@ -7,8 +7,14 @@
         {{ $t("page.profile.deposit.infoDeposit") }}
       </h2>
       <van-cell-group>
-        <van-cell :title="$t('page.profile.deposit.money')" :value="money" />
-        <van-cell :title="$t('page.profile.deposit.status')" :value="readableStatus" />
+        <van-cell
+          :title="$t('page.profile.deposit.money')"
+          :value="money"
+        />
+        <van-cell
+          :title="$t('page.profile.deposit.status')"
+          :value="readableStatus"
+        />
       </van-cell-group>
     </div>
     <TheBottomNavigation />

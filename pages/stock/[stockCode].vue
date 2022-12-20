@@ -150,12 +150,23 @@ onUnmounted(() => {
     </van-sticky>
 
     <van-row class="p-3 text-xs">
-      <van-col span="24" class="text-28px font-bold text-success" :class="{'text-danger': isDown}">
+      <van-col
+        span="24"
+        class="text-28px font-bold text-success"
+        :class="{'text-danger': isDown}"
+      >
         {{ stockDetails?.P }}
       </van-col>
-      <van-col span="24" class="font-bold mt-2 text-success font-normal" :class="{'text-danger': isDown}">
+      <van-col
+        span="24"
+        class="font-bold mt-2 text-success font-normal"
+        :class="{'text-danger': isDown}"
+      >
         <div class="flex items-center">
-          <van-icon class-prefix="vicon" :name="isDown ? 'arrow-down' : 'arrow-up'" />
+          <van-icon
+            class-prefix="vicon"
+            :name="isDown ? 'arrow-down' : 'arrow-up'"
+          />
           <div>
             {{ toMoneyFormat((stockDetails?.P || 0) - (stockDetails?.YC || 0)) }} <span class="ml-3">[{{ toMoneyFormat(stockDetails?.ZF || '') }}%]</span>
           </div>
@@ -170,7 +181,10 @@ onUnmounted(() => {
         <div>{{ $t('page.stock-details.low') }}</div>
         <div>{{ toMoneyFormat(stockDetails?.L || 0, '0,0') }}</div>
       </van-col>
-      <van-col span="8" class="text-right mb-3">
+      <van-col
+        span="8"
+        class="text-right mb-3"
+      >
         <div>{{ $t('page.stock-details.volume') }}</div>
         <div>{{ toMoneyFormat(stockDetails?.V || 0, '0,0') }}</div>
       </van-col>
@@ -183,7 +197,10 @@ onUnmounted(() => {
         <div>{{ $t('page.stock-details.turnover-rate') }}</div>
         <div>{{ toMoneyFormat(stockDetails?.HS || 0, '0,0') }}</div>
       </van-col>
-      <van-col span="8" class="text-right mb-3">
+      <van-col
+        span="8"
+        class="text-right mb-3"
+      >
         <div>{{ $t('page.stock-details.total-market-cap') }}</div>
         <div>{{ toMoneyFormat(stockDetails?.ZS || 0, '0,0') }}</div>
       </van-col>
@@ -196,7 +213,10 @@ onUnmounted(() => {
         <div>{{ $t('page.stock-details.turnover') }}</div>
         <div>{{ toMoneyFormat(stockDetails?.A || 0, '0,0') }}</div>
       </van-col>
-      <van-col span="8" class="text-right mb-3">
+      <van-col
+        span="8"
+        class="text-right mb-3"
+      >
         <div>{{ $t('page.stock-details.circulation-market-cap') }}</div>
         <div>{{ toMoneyFormat(stockDetails?.LS || 0, '0,0') }}</div>
       </van-col>
@@ -206,7 +226,10 @@ onUnmounted(() => {
         <div>{{ toMoneyFormat(stockDetails?.SJ || 0, '0,0') }}%</div>
       </van-col>
       <van-col span="8" />
-      <van-col span="8" class="text-right mb-3">
+      <van-col
+        span="8"
+        class="text-right mb-3"
+      >
         <div>{{ $t('page.stock-details.total-share-capital') }}</div>
         <div>{{ toMoneyFormat(stockDetails?.Z || 0, '0,0') }}</div>
       </van-col>
@@ -216,48 +239,73 @@ onUnmounted(() => {
         <div>{{ stockDetails?.VF }}</div>
       </van-col>
       <van-col span="8" />
-      <van-col span="8" class="text-right mb-3">
+      <van-col
+        span="8"
+        class="text-right mb-3"
+      >
         <div>{{ $t('page.stock-details.outstanding-share-captial') }}</div>
         <div>{{ toMoneyFormat(stockDetails?.Z2 || 0, '0,0') }}</div>
       </van-col>
     </van-row>
 
     <van-row class="px-3">
-      <van-col span="24" class="!min-h-300px">
-        <KLineChart :data="klineData" :chart-type="chartType" @reload="getStockKline" />
+      <van-col
+        span="24"
+        class="!min-h-300px"
+      >
+        <KLineChart
+          :data="klineData"
+          :chart-type="chartType"
+          @reload="getStockKline"
+        />
       </van-col>
     </van-row>
 
     <van-row class="p-3">
-      <van-col span="12" class="mb-1">
+      <van-col
+        span="12"
+        class="mb-1"
+      >
         {{ $t('page.stock-details.buy-1') }}: {{ stockDetails?.B1 }}
       </van-col>
       <van-col span="12">
         {{ $t('page.stock-details.sell-1') }}: {{ stockDetails?.S1 }}
       </van-col>
 
-      <van-col span="12" class="mb-1">
+      <van-col
+        span="12"
+        class="mb-1"
+      >
         {{ $t('page.stock-details.buy-2') }}: {{ stockDetails?.B2 }}
       </van-col>
       <van-col span="12">
         {{ $t('page.stock-details.sell-2') }}: {{ stockDetails?.S2 }}
       </van-col>
 
-      <van-col span="12" class="mb-1">
+      <van-col
+        span="12"
+        class="mb-1"
+      >
         {{ $t('page.stock-details.buy-3') }}: {{ stockDetails?.B3 }}
       </van-col>
       <van-col span="12">
         {{ $t('page.stock-details.sell-3') }}: {{ stockDetails?.S3 }}
       </van-col>
 
-      <van-col span="12" class="mb-1">
+      <van-col
+        span="12"
+        class="mb-1"
+      >
         {{ $t('page.stock-details.buy-4') }}: {{ stockDetails?.B4 }}
       </van-col>
       <van-col span="12">
         {{ $t('page.stock-details.sell-4') }}: {{ stockDetails?.S4 }}
       </van-col>
 
-      <van-col span="12" class="mb-1">
+      <van-col
+        span="12"
+        class="mb-1"
+      >
         {{ $t('page.stock-details.buy-5') }}: {{ stockDetails?.B5 }}
       </van-col>
       <van-col span="12">
@@ -266,14 +314,30 @@ onUnmounted(() => {
     </van-row>
 
     <van-sticky position="bottom">
-      <van-row class="p-2 bg-white shadow-light-900" gutter="12">
+      <van-row
+        class="p-2 bg-white shadow-light-900"
+        gutter="12"
+      >
         <van-col :span="canSell ? 12 : 24">
-          <van-button block class="!bg-success !text-white !rounded-md" size="small" @click="openPopupBuyStock">
+          <van-button
+            block
+            class="!bg-success !text-white !rounded-md"
+            size="small"
+            @click="openPopupBuyStock"
+          >
             {{ $t('stock-details.button.buy') }}
           </van-button>
         </van-col>
-        <van-col v-if="canSell" span="12">
-          <van-button block class="!bg-danger !text-white !rounded-md" size="small" @click="openPopupSellStock">
+        <van-col
+          v-if="canSell"
+          span="12"
+        >
+          <van-button
+            block
+            class="!bg-danger !text-white !rounded-md"
+            size="small"
+            @click="openPopupSellStock"
+          >
             {{ $t('stock-details.button.sell') }}
           </van-button>
         </van-col>
@@ -306,13 +370,26 @@ onUnmounted(() => {
         </div>
         <div>
           <van-cell-group inset>
-            <van-field v-model="currentPrice" type="text" readonly :label="$t('stock-details.buy.currentPrice')" />
+            <van-field
+              v-model="currentPrice"
+              type="text"
+              readonly
+              :label="$t('stock-details.buy.currentPrice')"
+            />
             <div class="van-cell van-field">
               <span class="van-cell__title van-field__label">{{ $t('stock-details.buy.fast') }}</span>
-              <van-stepper v-model="buyQuantity" min="100" step="100" />
+              <van-stepper
+                v-model="buyQuantity"
+                min="100"
+                step="100"
+              />
             </div>
             <div class="van-cell van-field">
-              <van-radio-group v-model="checkedBuyQuantity" direction="horizontal" :max="1">
+              <van-radio-group
+                v-model="checkedBuyQuantity"
+                direction="horizontal"
+                :max="1"
+              >
                 <van-radio name="all">
                   {{ $t('stock-details.buy.fullPosition') }}
                 </van-radio>
@@ -361,7 +438,11 @@ onUnmounted(() => {
         </div>
 
         <div>
-          <PositionTable is-sellable :stock-code="stockCode" @reload="init" />
+          <PositionTable
+            is-sellable
+            :stock-code="stockCode"
+            @reload="init"
+          />
         </div>
       </van-popup>
     </van-sticky>

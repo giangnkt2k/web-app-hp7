@@ -10,8 +10,16 @@ defineProps<Props>()
 </script>
 
 <template>
-  <van-grid :column-num="3" :clickable="clickable">
-    <IndexListItem v-for="index in indexes" :key="index.C" :index="index" :to="clickable ? {name: $routesList.stockStockCode, params: {stockCode: index.FS}} : undefined" />
+  <van-grid
+    :column-num="3"
+    :clickable="clickable"
+  >
+    <IndexListItem
+      v-for="index in indexes"
+      :key="index.C"
+      :index="index"
+      :to="clickable ? {name: $routesList.stockStockCode, params: {stockCode: index.FS}} : undefined"
+    />
   </van-grid>
 </template>
 
