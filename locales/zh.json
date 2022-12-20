@@ -223,5 +223,8 @@
     "stock-details.bought.failed": "买股票失败",
     "stock-details.sell.fail": "卖股票失败",
     "stock-details.sell.success": "库存已售出",
-    "profile.set-withdrawal-password.title": ""
+    "profile.set-withdrawal-password.title": "设置提现密码",
+    "page.profile.deposit.deposit-account": "存款账户",
+    "page.profile.deposit.finished-text": "加载所有存款",
+    "page.profile.deposit.loading-text": "加载存款"
 }

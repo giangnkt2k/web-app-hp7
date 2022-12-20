@@ -1,31 +1,56 @@
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
 import { IUserDeposit } from '~~/types/user'
-import { useAuthenticationStore } from '~~/stores/authentication'
+import { IDepositAccount } from '~~/types/deposit-acctoun'
+import { DEPOSIT_STATUS } from '~~/types/deposit'
 
 const { $routesList, $typedRouter } = useNuxtApp()
-const { depositListService, addNewDeposit } = useApiServices()
+const { depositListService, addNewDepositService, getDepositAccountsService } = useApiServices()
 
-const deposit = ref()
+const deposit = ref<number>()
 const isDepositPopupVisible = ref(false)
+const isDepositAccountVisible = ref(false)
 const depositList = ref<IUserDeposit[]>([])
+const depositAccounts = ref<IDepositAccount[]>([])
+const depositAccount = ref<string>('')
+const isLoading = ref(false)
+const isFinished = ref(false)
+const page = ref(1)
+const pageSize = ref(20)
 
-const authStore = useAuthenticationStore()
-const { userInformation } = storeToRefs(authStore)
+const depositAccountOptions = computed(() => depositAccounts.value.map(account => ({
+  text: account.bank_name,
+  value: account.id
+})))
+const computedDepositAccount = computed(() => depositAccounts.value.find(({ id }) => id === Number(depositAccount.value)))
 
-const getDepositDetail = async () => {
-  const res = await depositListService()
+const getDepositList = async () => {
+  const res = await depositListService(page.value, pageSize.value)
 
-  if (res?.data) {
-    depositList.value = res.data
+  if (res.data) {
+    depositList.value.push(...res.data.data)
+
+    if (res.data.data.length < pageSize.value) {
+      isFinished.value = true
+    }
+    isLoading.value = false
+    page.value++
+  } else {
+    isFinished.value = true
+  }
+}
+
+const getDepositAccounts = async () => {
+  const response = await getDepositAccountsService()
+
+  if (response?.data) {
+    depositAccounts.value = response.data
   }
 }
 
 const submitDeposit = async () => {
-  const idUser = (userInformation.value?.id) ? userInformation.value?.id : 1
-  await addNewDeposit(Number(deposit.value), idUser)
+  await addNewDepositService(Number(deposit.value), Number(depositAccount.value))
   isDepositPopupVisible.value = false
-  getDepositDetail()
+  getDepositList()
 }
 const addDeposit = () => {
   isDepositPopupVisible.value = true
@@ -35,7 +60,8 @@ const goToDetail = (depositId : number) => {
   $typedRouter.push({ name: $routesList.profileDepositDepositId, params: { depositId } })
 }
 
-getDepositDetail()
+getDepositList()
+getDepositAccounts()
 
 </script>
 
@@ -48,12 +74,19 @@ getDepositDetail()
           {{ $t("page.profile.deposit.addNew") }}
         </van-button>
       </div>
-      <van-cell-group class="mb-8" inset>
+      <van-list
+        v-model:loading="isLoading"
+        :finished="isFinished"
+        :finished-text="$t('page.profile.deposit.finished-text')"
+        :loading-text="$t('page.profile.deposit.loading-text')"
+        @load="getDepositList"
+      >
         <div v-for="(item, index) in depositList" :key="index" @click="goToDetail(item.id)">
-          <van-cell :title="item.amount" :value="item.is_reviewed ? '已审核' : '拒审'" :label="$dayjs(item.created_at).format('HH:mm DD-MM-YYYY')" />
+          <van-cell :title="item.amount" :value="item.status === DEPOSIT_STATUS.APPROVED ? '已审核' : '拒审'" :label="$dayjs(item.created_at).format('HH:mm DD-MM-YYYY')" />
         </div>
-      </van-cell-group>
+      </van-list>
     </div>
+
     <van-popup
       v-model:show="isDepositPopupVisible"
       closeable
@@ -65,9 +98,17 @@ getDepositDetail()
           <van-field
             v-model="deposit"
             :label="$t('page.profile.deposit.money')"
-            placeholder=""
             input-align="right"
             type="number"
+          />
+
+          <van-field
+            :model-value="computedDepositAccount?.bank_name"
+            :label="$t('page.profile.deposit.deposit-account')"
+            input-align="right"
+            readonly
+            is-link
+            @click="isDepositAccountVisible = true"
           />
         </van-cell-group>
 
@@ -77,6 +118,21 @@ getDepositDetail()
           </van-button>
         </div>
       </div>
+    </van-popup>
+
+    <van-popup
+      v-model:show="isDepositAccountVisible"
+      closeable
+      close-icon="close"
+      position="bottom"
+    >
+      <van-cascader
+        v-model="depositAccount"
+        :title="$t('page.profile.deposit.deposit-account')"
+        :options="depositAccountOptions"
+        @close="isDepositAccountVisible = false"
+        @finish="isDepositAccountVisible = false"
+      />
     </van-popup>
 
     <TheBottomNavigation />

@@ -1,3 +1,4 @@
+import { IDepositAccount } from './deposit-acctoun'
 import { IPosition } from './position'
 
 export interface IUserInfo {
@@ -33,15 +34,15 @@ export enum APP_USER_VERIFY_STATUS {
 
 export interface IUserDeposit {
   created_at: string;
+  updated_at: string;
   id: number;
-  user_id: number;
   amount: number;
-  deposit_account_id: number;
-  is_reviewed: boolean;
-  is_virtual_deposit: boolean;
-  comments: string;
-  remark: string;
-  __entity: string;
+  status: number;
+  comments: null;
+  remarks: null;
+  approved_by: null;
+  deposit_account: IDepositAccount;
+  app_user: Pick<IUserInfo, 'username' | 'real_name'>;
 }
 
 export interface IUserChangePasswordRequestBody {

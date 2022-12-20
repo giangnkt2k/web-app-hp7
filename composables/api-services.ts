@@ -1,5 +1,6 @@
 import { useAuthenticationStore } from '~~/stores/authentication'
 import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
+import { IDepositAccount } from '~~/types/deposit-acctoun'
 import { ISlideItem } from '~~/types/hero-slide'
 import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'
@@ -109,12 +110,17 @@ export const useApiServices = () => {
     return $api.get<IStockDetailsResponse>(`${ApiRoutes.STOCK_DETAILS}/${stockCode}`)
   }
 
-  const depositListService = () => {
-    return $api.get<IUserDeposit[]>(ApiRoutes.DEPOSIT_LIST)
+  const depositListService = (page: number, pageSize: number) => {
+    return $api.get<IPaginatedData<IUserDeposit[]>>(ApiRoutes.DEPOSIT_LIST, {
+      params: {
+        page,
+        pageSize
+      }
+    })
   }
 
   const depositDetailService2 = (id: number) => {
-    return $api.get<IUserDeposit>(`${ApiRoutes.DEPOSIT_LIST}/${id}`)
+    return $api.get<IUserDeposit[]>(`${ApiRoutes.DEPOSIT_LIST}/${id}`)
   }
 
   const stockKlineDataService = (stockCode: string, period: string, fromTick = 1) => {
@@ -211,10 +217,10 @@ export const useApiServices = () => {
     return $api.delete<IBaseResponse<undefined>>(`${ApiRoutes.DELETE_OPTION}/${id}`)
   }
 
-  const addNewDeposit = (amount: number, id: number) => {
+  const addNewDepositService = (amount: number, id: number) => {
     return $api.post(ApiRoutes.ADD_DEPOSIT, {
       amount,
-      deposit_account_id: id
+      depositAccountId: id
     })
   }
 
@@ -236,6 +242,10 @@ export const useApiServices = () => {
 
   const sellablePositionsService = (stockCode: string) => {
     return $api.get<IPositionResponse>(ApiRoutes.SELLABLE_POSITION, { params: { stockCode } })
+  }
+
+  const getDepositAccountsService = () => {
+    return $api.get<IDepositAccount[]>(ApiRoutes.GET_DEPOSIT_ACCOUNTS)
   }
 
   return {
@@ -269,13 +279,14 @@ export const useApiServices = () => {
     wishlistService,
     addOneToWishListService,
     deleteOneFromWishListService,
-    addNewDeposit,
+    addNewDepositService,
     depositDetailService2,
     kycService,
     uploadImageService,
     withdrawalHistoryService,
     registerService,
     sellablePositionsService,
-    setWithdrawalPasswordService
+    setWithdrawalPasswordService,
+    getDepositAccountsService
   }
 }

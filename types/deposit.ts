@@ -1,0 +1,5 @@
+export enum DEPOSIT_STATUS {
+  PENDING,
+  APPROVED,
+  REJECTED,
+}
