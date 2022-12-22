@@ -25,6 +25,10 @@ export const useApiServices = () => {
     return $api.get<IUserInfo>(ApiRoutes.USER_INFORMATION)
   }
 
+  const getUserFrozenBalanceService = () => {
+    return $api.get<{amount: number}>(ApiRoutes.GET_USER_FROZEN_BALANCE)
+  }
+
   const searchStockService = (searchKey?: string, page = 1, pageSize = 20) => {
     return $api.get<IStock[]>(ApiRoutes.SEARCH_STOCK, {
       params: {
@@ -272,6 +276,7 @@ export const useApiServices = () => {
     registerService,
     sellablePositionsService,
     setWithdrawalPasswordService,
-    getDepositAccountsService
+    getDepositAccountsService,
+    getUserFrozenBalanceService
   }
 }

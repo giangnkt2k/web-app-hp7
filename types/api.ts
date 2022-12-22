@@ -40,7 +40,8 @@ export enum ApiRoutes {
   SELLABLE_POSITION = '/app/positions/sellable',
   SET_WITHDRAW_PASSWORD = '/app/auth/set-withdraw-password',
   GET_DEPOSIT_ACCOUNTS = '/app/deposit-accounts',
-  READ_FILES ='/app/files'
+  READ_FILES ='/app/files',
+  GET_USER_FROZEN_BALANCE ='/app/auth/frozen-balance'
 }
 
 export interface IBaseResponse<DataType> {
