@@ -58,6 +58,9 @@ export interface IStock {
   QJ: number;
   QR: string;
   MT: number;
+  created_at: string;
+  update_at: string;
+  user_id: number | null;
 }
 
 export interface IStockSearch extends IStock {

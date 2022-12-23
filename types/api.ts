@@ -1,7 +1,7 @@
 export enum ApiRoutes {
-  LOGIN = '/app/auth',
-  REGISTER = '/auth/signup/app',
-  SEARCH_STOCK = '/app/stocks',
+  LOGIN = '/user/signin',
+  REGISTER = '/user/signup',
+  SEARCH_STOCK = '/stock/list',
   CAROUSELS = '/carousels',
   CHINA_INDEXES = '/api/stocks/getCnIndexes',
   NEWS = '/api/financenews',
@@ -10,9 +10,9 @@ export enum ApiRoutes {
   WATCH_LIST = '/api/optionals/index',
   POSITIONS = '/app/positions',
   USER_NEW_SHARES = '/api/newshares/getMemberNewshareList',
-  STOCK_DETAILS = '/app/stocks',
+  STOCK_DETAILS = '/app/stock/list',
   STOCK_KLINE_DATA = '/app/stocks/:id/k-line-data',
-  USER_INFORMATION ='/app/auth',
+  USER_INFORMATION ='/user/detail',
   BUY_LIMIT = '/app/positions',
   WITHDRAW_MONEY = '/withdrawals/app',
   WITHDRAW_LIST = '/withdrawals',
@@ -41,7 +41,7 @@ export enum ApiRoutes {
   SET_WITHDRAW_PASSWORD = '/app/auth/set-withdraw-password',
   GET_DEPOSIT_ACCOUNTS = '/app/deposit-accounts',
   READ_FILES ='/app/files',
-  GET_USER_FROZEN_BALANCE ='/app/auth/frozen-balance'
+  GET_USER_FROZEN_BALANCE ='/account/get-balance-frozen'
 }
 
 export interface IBaseResponse<DataType> {
