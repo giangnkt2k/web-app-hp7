@@ -11,24 +11,24 @@
       <div>
         <van-cell-group>
           <van-field
-            v-model="form.password"
+            v-model="form.old_password"
             type="password"
             name="password"
             :label="$t('profile.change-withdrawal-password.currentPassword')"
             :placeholder="$t('profile.change-withdrawal-password.currentPassword.ph')"
-            :error="$v.password.$error"
-            :error-message="$v.password.$errors[0]?.$message.toString()"
-            @blur="$v.password.$touch"
+            :error="$v.old_password.$error"
+            :error-message="$v.old_password.$errors[0]?.$message.toString()"
+            @blur="$v.old_password.$touch"
           />
           <van-field
-            v-model="form.newPassword"
+            v-model="form.new_password"
             type="password"
             name="currentPassword"
             :label="$t('profile.change-withdrawal-password.currentPassword')"
             :placeholder="$t('profile.change-withdrawal-password.currentPassword.ph')"
-            :error="$v.newPassword.$error"
-            :error-message="$v.newPassword.$errors[0]?.$message.toString()"
-            @blur="$v.newPassword.$touch"
+            :error="$v.new_password.$error"
+            :error-message="$v.new_password.$errors[0]?.$message.toString()"
+            @blur="$v.new_password.$touch"
           />
           <van-field
             v-model="form.repeatNewPassword"
@@ -65,23 +65,23 @@ const { $toast, $t } = useNuxtApp()
 const { changeWithdrawalPasswordService } = useApiServices()
 
 const form = reactive({
-  password: '',
-  newPassword: '',
+  old_password: '',
+  new_password: '',
   repeatNewPassword: ''
 })
 
 const isLoading = ref(false)
 
 const rules = computed(() => ({
-  password: {
+  old_password: {
     required
   },
-  newPassword: {
+  new_password: {
     required
   },
   repeatNewPassword: {
     required,
-    sameAs: sameAs(form.newPassword)
+    sameAs: sameAs(form.new_password)
   }
 }))
 const $v = useVuelidate(rules, form)
@@ -89,14 +89,12 @@ const $v = useVuelidate(rules, form)
 const onSubmit = async () => {
   isLoading.value = true
   await changeWithdrawalPasswordService({
-    password: form.password,
-    newPassword: form.newPassword
+    old_password: form.old_password,
+    new_password: form.new_password
   }).catch(() => {
     $toast.fail($t('message.fail.changePassword'))
   })
-
   $toast.success($t('message.success.changePassword'))
-
   isLoading.value = false
 }
 

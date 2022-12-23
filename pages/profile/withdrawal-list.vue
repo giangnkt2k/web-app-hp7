@@ -33,7 +33,7 @@ const getWithdrawalHistory = async () => {
   const res = await withdrawalHistoryService()
 
   if (res?.data) {
-    withdrawalList.value = res.data
+    withdrawalList.value = res.data.data
   }
 }
 

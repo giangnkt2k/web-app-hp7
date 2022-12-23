@@ -25,6 +25,7 @@ const computedDepositAccount = computed(() => depositAccounts.value.find(({ id }
 
 const getDepositList = async () => {
   const res = await depositListService(page.value, pageSize.value)
+  depositList.value = []
 
   if (res?.data) {
     depositList.value.push(...res.data.data)
@@ -43,7 +44,7 @@ const getDepositAccounts = async () => {
   const response = await getDepositAccountsService()
 
   if (response?.data) {
-    depositAccounts.value = response.data
+    depositAccounts.value = response.data.data
   }
 }
 

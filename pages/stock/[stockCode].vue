@@ -112,19 +112,20 @@ const buyStock = async () => {
   isBuying.value = true
   const payload: IBuyStockReqBody = {
     quantity: buyQuantity.value,
-    stockCode: stockDetails.value?.FS || ''
+    stock_code: stockDetails.value?.FS || ''
   }
-  await buyingStockLimitService(payload).catch(() => {
+  const res = await buyingStockLimitService(payload)
+
+  if (res.status === 201) {
+    init()
+    $toast.success({
+      message: $t('stock-details.bought.success')
+    })
+  } else {
     $toast.fail({
       message: $t('stock-details.bought.fail')
     })
-  })
-
-  init()
-
-  $toast.success({
-    message: $t('stock-details.bought.success')
-  })
+  }
 
   isBuying.value = false
   isShowPopUpBuy.value = false

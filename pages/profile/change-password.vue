@@ -11,24 +11,24 @@
       <div>
         <van-cell-group>
           <van-field
-            v-model="form.password"
+            v-model="form.old_password"
             type="password"
             name="password"
             :label="$t('profile.change-password.currentPassword')"
             :placeholder="$t('profile.change-password.currentPassword.ph')"
-            :error="$v.password.$error"
-            :error-message="$v.password.$errors[0]?.$message.toString()"
-            @blur="$v.password.$touch"
+            :error="$v.old_password.$error"
+            :error-message="$v.old_password.$errors[0]?.$message.toString()"
+            @blur="$v.old_password.$touch"
           />
           <van-field
-            v-model="form.newPassword"
+            v-model="form.new_password"
             type="password"
             name="newPassword"
             :label="$t('profile.change-password.newPassword')"
             :placeholder="$t('profile.change-password.newPassword.ph')"
-            :error="$v.newPassword.$error"
-            :error-message="$v.newPassword.$errors[0]?.$message.toString()"
-            @blur="$v.newPassword.$touch"
+            :error="$v.new_password.$error"
+            :error-message="$v.new_password.$errors[0]?.$message.toString()"
+            @blur="$v.new_password.$touch"
           />
           <van-field
             v-model="form.repeatNewPassword"
@@ -65,22 +65,22 @@ const { changePasswordService } = useApiServices()
 const { required, sameAs } = useValidators()
 
 const form = reactive({
-  password: '',
-  newPassword: '',
+  old_password: '',
+  new_password: '',
   repeatNewPassword: ''
 })
 
 const isLoading = ref(false)
 const rules = computed(() => ({
-  password: {
+  old_password: {
     required
   },
-  newPassword: {
+  new_password: {
     required
   },
   repeatNewPassword: {
     required,
-    sameAs: sameAs(form.newPassword)
+    sameAs: sameAs(form.new_password)
   }
 }))
 
@@ -90,8 +90,8 @@ const onSubmit = async () => {
   isLoading.value = true
 
   await changePasswordService({
-    password: form.password,
-    newPassword: form.newPassword
+    old_password: form.old_password,
+    new_password: form.new_password
   }).catch(() => {
     $toast.fail($t('message.fail.changePassword'))
   })

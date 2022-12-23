@@ -2,25 +2,25 @@
   <div>
     <TheHeader :back-to="{name: $routesList.profile}" />
     <div class="kyc__notice mx-5 my-5 text-xs font-bold">
-      {{ $t('page.profile.kyc.statusInformation') }}  {{ (userInformation?.verification_status === APP_USER_VERIFY_STATUS.VERIFIED) ? '验证' : '未经证实' }}
+      {{ $t('page.profile.kyc.statusInformation') }}  {{ (userInformation?.is_verified) ? '验证' : '未经证实' }}
     </div>
     <div class="font-bold text-xl mx-5 my-5">
       {{ $t("page.profile.kyc.realNameInfor") }}
     </div>
     <van-form
-      :readonly="userInformation?.verification_status !== APP_USER_VERIFY_STATUS.NOT_VERIFIED"
+      :readonly="userInformation?.is_verified ? true : false"
       @submit="submitKycRequest"
     >
       <div class="mx-5  bg-light-50 rounded-md">
         <van-cell-group inset>
           <van-field
-            v-model="form.realName"
+            v-model="form.real_name"
             :label="$t('page.profile.kyc.realName')"
             :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.realName')})"
             name="real-name"
-            :error="$v.realName.$error"
-            :error-message="$v.realName.$errors[0]?.$message.toString()"
-            @blur="$v.realName.$touch"
+            :error="$v.real_name.$error"
+            :error-message="$v.real_name.$errors[0]?.$message.toString()"
+            @blur="$v.real_name.$touch"
           />
           <van-field
             v-model="form.phone"
@@ -33,14 +33,14 @@
             @blur="$v.phone.$touch"
           />
           <van-field
-            v-model="form.identityNumber"
+            v-model="form.id_number"
             type="digit"
             :label="$t('page.profile.kyc.identityNumber')"
             :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.affiliatedBank')})"
             name="identity-number"
-            :error="$v.identityNumber.$error"
-            :error-message="$v.identityNumber.$errors[0]?.$message.toString()"
-            @blur="$v.identityNumber.$touch"
+            :error="$v.id_number.$error"
+            :error-message="$v.id_number.$errors[0]?.$message.toString()"
+            @blur="$v.id_number.$touch"
           />
         </van-cell-group>
       </div>
@@ -92,47 +92,47 @@
       <div class="mx-5  bg-light-50 rounded-md">
         <van-cell-group inset>
           <van-field
-            v-model="form.affiliatedBank"
+            v-model="form.bank_name"
             :label="$t('page.profile.kyc.affiliatedBank')"
             :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.affiliatedBank')})"
             name="affiliatedBank"
-            :error="$v.affiliatedBank.$error"
-            :error-message="$v.affiliatedBank.$errors[0]?.$message.toString()"
-            @blur="$v.affiliatedBank.$touch"
+            :error="$v.bank_name.$error"
+            :error-message="$v.bank_name.$errors[0]?.$message.toString()"
+            @blur="$v.bank_name.$touch"
           />
           <van-field
-            v-model="form.cardNumber"
+            v-model="form.bank_number"
             type="digit"
             :label="$t('page.profile.kyc.cardNumber')"
             :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.cardNumber')})"
             name="cardNumber"
-            :error="$v.cardNumber.$error"
-            :error-message="$v.cardNumber.$errors[0]?.$message.toString()"
-            @blur="$v.cardNumber.$touch"
+            :error="$v.bank_number.$error"
+            :error-message="$v.bank_number.$errors[0]?.$message.toString()"
+            @blur="$v.bank_number.$touch"
           />
           <van-field
-            v-model="form.accountName"
+            v-model="form.account_holder"
             type="text"
             :label="$t('page.profile.kyc.username')"
             :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.username')})"
             name="accountName"
-            :error="$v.accountName.$error"
-            :error-message="$v.accountName.$errors[0]?.$message.toString()"
-            @blur="$v.accountName.$touch"
+            :error="$v.account_holder.$error"
+            :error-message="$v.account_holder.$errors[0]?.$message.toString()"
+            @blur="$v.account_holder.$touch"
           />
           <van-field
-            v-model="form.branch"
+            v-model="form.bank_branch"
             :label="$t('page.profile.kyc.branch')"
             :placeholder="$t('please.input',{fieldName:$t('page.profile.kyc.branch')})"
             name="branch"
-            :error="$v.branch.$error"
-            :error-message="$v.branch.$errors[0]?.$message.toString()"
-            @blur="$v.branch.$touch"
+            :error="$v.bank_branch.$error"
+            :error-message="$v.bank_branch.$errors[0]?.$message.toString()"
+            @blur="$v.bank_branch.$touch"
           />
         </van-cell-group>
       </div>
       <div
-        v-if="userInformation?.verification_status === APP_USER_VERIFY_STATUS.NOT_VERIFIED"
+        v-if="!userInformation?.is_verified"
         class="mx-5 my-5"
       >
         <van-button
@@ -157,7 +157,6 @@ import { storeToRefs } from 'pinia'
 import { useVuelidate } from '@vuelidate/core'
 import { UploaderAfterRead } from 'vant/lib/uploader/types'
 import { useAuthenticationStore } from '~~/stores/authentication'
-import { APP_USER_VERIFY_STATUS } from '~~/types/user'
 
 const userStore = useAuthenticationStore()
 const { setUserData } = userStore
@@ -167,48 +166,47 @@ const { required } = useValidators()
 const { uploadFrontIdService, uploadBackIdService, kycService, userInfoService } = useApiServices()
 const { getFileUrl } = useUtility()
 const isSubmitting = ref(false)
-
 const idCardFont = ref<UploaderFileListItem[]>([])
 const idCardBack = ref<UploaderFileListItem[]>([])
 
 const form = reactive({
-  realName: '',
+  real_name: '',
   phone: '',
-  identityNumber: '',
-  idFront: '',
-  idBack: '',
-  affiliatedBank: '',
-  cardNumber: '',
-  accountName: '',
-  branch: ''
+  id_number: '',
+  id_front: '',
+  id_back: '',
+  bank_name: '',
+  bank_number: '',
+  account_holder: '',
+  bank_branch: ''
 })
 
 const rules = computed(() => ({
-  realName: {
+  real_name: {
     required
   },
   phone: {
     required
   },
-  identityNumber: {
+  id_number: {
     required
   },
-  idFront: {
+  id_front: {
     required
   },
-  idBack: {
+  id_back: {
     required
   },
-  affiliatedBank: {
+  bank_name: {
     required
   },
-  cardNumber: {
+  bank_number: {
     required
   },
-  accountName: {
+  account_holder: {
     required
   },
-  branch: {
+  bank_branch: {
     required
   }
 }))
@@ -222,9 +220,8 @@ const uploadFrontDoc: UploaderAfterRead = async (data: {file: File, status: 'upl
   uploadData.append('file', data.file)
   data.status = 'uploading'
   const res = await uploadFrontIdService(uploadData)
-
   if (res?.data) {
-    form.idFront = res.data.filename
+    form.id_front = res.data
   }
 
   data.status = undefined
@@ -240,7 +237,7 @@ const uploadBackDoc: UploaderAfterRead = async (data: {file: File, status: 'uplo
   const res = await uploadBackIdService(uploadData)
 
   if (res?.data) {
-    form.idBack = res.data.filename
+    form.id_back = res.data
   }
 
   data.status = undefined
@@ -266,7 +263,7 @@ const submitKycRequest = async () => {
 onMounted(() => {
   if (userInformation.value) {
     if (userInformation.value.id_front) {
-      form.idFront = getFileUrl(userInformation.value.id_front.id)
+      form.id_front = getFileUrl(userInformation.value.id_front.id)
       idCardFont.value = [
         {
           isImage: true,
@@ -274,27 +271,27 @@ onMounted(() => {
         }
       ]
 
-      $v.value.idFront.$touch()
+      $v.value.id_front.$touch()
     }
 
     if (userInformation.value.id_back) {
-      form.idBack = getFileUrl(userInformation.value.id_back.id)
+      form.id_back = getFileUrl(userInformation.value.id_back.id)
       idCardBack.value = [
         {
           isImage: true,
           url: getFileUrl(userInformation.value.id_back.id)
         }
       ]
-      $v.value.idBack.$touch()
+      $v.value.id_back.$touch()
     }
 
-    form.accountName = userInformation.value.account_holder
-    form.affiliatedBank = userInformation.value.bank_name
-    form.branch = userInformation.value.bank_branch
-    form.cardNumber = userInformation.value.bank_number
-    form.identityNumber = userInformation.value.id_number
+    form.account_holder = userInformation.value.account_holder
+    form.bank_name = userInformation.value.bank_name
+    form.bank_branch = userInformation.value.bank_branch
+    form.bank_number = userInformation.value.bank_number
+    form.id_number = userInformation.value.id_number
     form.phone = userInformation.value.phone
-    form.realName = userInformation.value.real_name
+    form.real_name = userInformation.value.real_name
   }
 })
 </script>

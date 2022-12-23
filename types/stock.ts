@@ -84,6 +84,6 @@ export interface IStockKlineData {
 }
 
 export interface IBuyStockReqBody {
-  stockCode: string;
+  stock_code: string;
   quantity: number;
 }

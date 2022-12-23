@@ -194,7 +194,9 @@
     "validations": {
         "required": {
             "oldPassword": "请填写原密码",
+            "old_password": "请填写原密码",
             "newPassword": "请输入您的新密码",
+            "new_password": "请输入您的新密码",
             "password": "请输入您的新密码",
             "repeatNewPassword": "请重新输入您的新密码",
             "username": "用户名需要填写",

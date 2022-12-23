@@ -15,7 +15,6 @@ export const useAuthenticationStore = defineStore('authentication-store', () => 
   const getUserData = async () => {
     const response = await userInfoService()
     const frozenBalanceRes = await getUserFrozenBalanceService()
-
     if (response?.data && frozenBalanceRes?.data) {
       setUserData(response?.data)
       frozenBalance.value = frozenBalanceRes.data.amount

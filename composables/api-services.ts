@@ -1,7 +1,6 @@
 import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
 import { IDepositAccount } from '~~/types/deposit-account'
 import { ISlideItem } from '~~/types/hero-slide'
-import { ILocalFile } from '~~/types/local-files'
 import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
 import { INewShare } from '~~/types/new-share'
 import { IArticleDetails, INews } from '~~/types/news'
@@ -100,11 +99,11 @@ export const useApiServices = () => {
   }
 
   const depositDetailService = (id: number) => {
-    return $api.get<IUserDeposit>(`${ApiRoutes.DEPOSIT_LIST}/${id}`)
+    return $api.get<IUserDeposit>(`${ApiRoutes.DEPOSIT_DETAILS}/${id}`)
   }
 
   const stockKlineDataService = (stockCode: string, period: string, fromTick = 1) => {
-    return $api.get<IStockKlineData[]>(ApiRoutes.STOCK_KLINE_DATA.replace(':id', stockCode), { params: { period, fromTick } })
+    return $api.get<IStockKlineData[]>(ApiRoutes.STOCK_KLINE_DATA, { params: { period, fromtick: fromTick, symbol: stockCode, psize: 500 } })
   }
 
   const buyingStockLimitService = (payload : IBuyStockReqBody) => {
@@ -174,15 +173,17 @@ export const useApiServices = () => {
 
   // ------Profile------
   const changePasswordService = (payload: IUserChangePasswordRequestBody) => {
-    return $api.post(ApiRoutes.CHANGE_PASSWORD, payload)
+    return $api.patch(ApiRoutes.CHANGE_PASSWORD, payload)
   }
 
   const changeWithdrawalPasswordService = (payload: IUserChangeWithdrawalPassword) => {
-    return $api.post(ApiRoutes.CHANGE_WITHDRAWAL_PASSWORD, payload)
+    return $api.patch(ApiRoutes.CHANGE_WITHDRAWAL_PASSWORD, payload)
   }
 
-  const setWithdrawalPasswordService = (password: string) => {
-    return $api.post(ApiRoutes.SET_WITHDRAW_PASSWORD, { password })
+  // eslint-disable-next-line camelcase
+  const setWithdrawalPasswordService = (withdraw_password: string) => {
+  // eslint-disable-next-line camelcase
+    return $api.patch(ApiRoutes.SET_WITHDRAW_PASSWORD, { withdraw_password })
   }
   // ------WISHLIST PAGE------
   const wishlistService = () => {
@@ -190,26 +191,26 @@ export const useApiServices = () => {
   }
 
   const addOneToWishListService = (stock: IStock) => {
-    return $api.patch<IBaseResponse<undefined>>(`${ApiRoutes.ADD_OPTION}/${stock.id}`)
+    return $api.patch<IBaseResponse<undefined>>(`${ApiRoutes.ADD_OPTION}/${stock.FS}`)
   }
 
-  const deleteOneFromWishListService = (id: number) => {
-    return $api.patch<IBaseResponse<undefined>>(`${ApiRoutes.DELETE_OPTION}/${id}`)
+  const deleteOneFromWishListService = (stock: IStock) => {
+    return $api.patch<IBaseResponse<undefined>>(`${ApiRoutes.DELETE_OPTION}/${stock.FS}`)
   }
 
   const addNewDepositService = (amount: number, id: number) => {
     return $api.post<IUserDeposit>(ApiRoutes.ADD_DEPOSIT, {
       amount,
-      depositAccountId: id
+      deposit_account_id: id
     })
   }
 
   const kycService = (payload: KycSubmitDto) => {
-    return $api.post<IUserInfo>(ApiRoutes.KYC, payload)
+    return $api.patch<IUserInfo>(ApiRoutes.KYC, payload)
   }
 
   const uploadFrontIdService = (formData: FormData) => {
-    return $api.post<ILocalFile>(`${ApiRoutes.UPLOAD_FRONT_DOC}`, formData, {
+    return $api.post(`${ApiRoutes.UPLOAD_FRONT_DOC}?type=1`, formData, {
       headers: {
         'content-type': 'multipart/form-data'
       }
@@ -217,7 +218,7 @@ export const useApiServices = () => {
   }
 
   const uploadBackIdService = (formData: FormData) => {
-    return $api.post<ILocalFile>(`${ApiRoutes.UPLOAD_BACK_DOC}`, formData, {
+    return $api.post(`${ApiRoutes.UPLOAD_BACK_DOC}?type=0`, formData, {
       headers: {
         'content-type': 'multipart/form-data'
       }
@@ -225,15 +226,21 @@ export const useApiServices = () => {
   }
 
   const withdrawalHistoryService = () => {
-    return $api.get<IUserWithdrawal[]>(ApiRoutes.WITHDRAW_LIST)
+    return $api.get<IPaginatedData<IUserWithdrawal[]>>(ApiRoutes.WITHDRAW_LIST)
   }
 
-  const sellablePositionsService = (stockCode: string) => {
-    return $api.get<IPositionResponse>(ApiRoutes.SELLABLE_POSITION, { params: { stockCode } })
+  // eslint-disable-next-line camelcase
+  const sellablePositionsService = (stock_code: string) => {
+  // eslint-disable-next-line camelcase
+    return $api.get<IPositionResponse>(ApiRoutes.SELLABLE_POSITION, { params: { stock_code } })
   }
 
   const getDepositAccountsService = () => {
-    return $api.get<IDepositAccount[]>(ApiRoutes.GET_DEPOSIT_ACCOUNTS)
+    return $api.get<IPaginatedData<IDepositAccount[]>>(ApiRoutes.GET_DEPOSIT_ACCOUNTS)
+  }
+
+  const isHasWithdrawalPasswordService = () => {
+    return $api.get(ApiRoutes.IS_HAS_WITHDRAWAL_PASSWORD)
   }
 
   return {
@@ -277,6 +284,7 @@ export const useApiServices = () => {
     sellablePositionsService,
     setWithdrawalPasswordService,
     getDepositAccountsService,
-    getUserFrozenBalanceService
+    getUserFrozenBalanceService,
+    isHasWithdrawalPasswordService
   }
 }

@@ -84,10 +84,10 @@ const onSubmit = async () => {
 
   if (response?.data) {
     $toast.success($t('message.success.changePassword'))
-    await getUserData()
+    getUserData()
     $typedRouter.replace({ name: $routesList.profile })
+    isLoading.value = false
   }
-
   isLoading.value = false
 }
 

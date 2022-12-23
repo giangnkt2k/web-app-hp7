@@ -29,7 +29,7 @@ export interface IUserInfo {
   is_playing_board: boolean;
   is_active: boolean;
   is_freeze: boolean;
-  verification_status: APP_USER_VERIFY_STATUS;
+  is_verified: APP_USER_VERIFY_STATUS;
   positions: IPosition[] | null;
   has_withdraw_password: boolean
 }
@@ -48,38 +48,40 @@ export interface IUserDeposit {
 }
 
 export interface IUserChangePasswordRequestBody {
-    password: string;
-    newPassword: string;
+  old_password: string;
+  new_password: string;
 }
 
 export interface IUserChangeWithdrawalPassword {
-    password: string;
-    newPassword: string;
+  old_password: string;
+  new_password: string;
 }
 
 export interface IUserWithdrawal
 {
-    created_at: string;
-    updated_at: string;
-    id: number;
-    username: string;
-    amount: number;
-    before: number;
-    after: number;
-    is_approved: boolean;
-    comments: string;
-    remark: string;
-    reviewed_by: string;
-    reviewed_at: string;
-    __entity: string;
+  created_at: string;
+  updated_at: string;
+  id: number;
+  username: string;
+  amount: number;
+  before: number;
+  after: number;
+  is_approved: boolean;
+  comments: string;
+  remark: string;
+  reviewed_by: string;
+  reviewed_at: string;
+  __entity: string;
 }
 
 export type KycSubmitDto = {
-  realName: string;
+  real_name: string;
   phone: string;
-  identityNumber: string;
-  affiliatedBank: string;
-  cardNumber: string;
-  accountName: string;
-  branch: string;
+  id_number: string;
+  id_front: string;
+  id_back: string;
+  bank_name: string;
+  bank_number: string;
+  account_holder: string;
+  bank_branch: string
 };

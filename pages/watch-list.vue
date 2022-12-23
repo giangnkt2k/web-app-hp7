@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { IStock } from '~~/types/stock'
-import { WatchListItem } from '~~/types/watch-list'
+import { IStock, IStockSearch } from '~~/types/stock'
 
 const { wishlistService, searchStockService, addOneToWishListService, deleteOneFromWishListService } = useApiServices()
 
@@ -8,28 +7,38 @@ const currentPage = ref(1)
 const currentSearchPage = ref(1)
 const isLoading = ref(false)
 const isFinished = ref(false)
-const watchList = ref<WatchListItem[]>([])
+const stocks = ref<IStockSearch[]>([])
 const isSearchLoading = ref(false)
 const isSearchFinished = ref(false)
 const stocksSearched = ref<IStock[]>([])
 const isPopupSearchStockOpen = ref(false)
 const { searchKey } = useSearch()
 
-const stocks = computed(() => watchList.value.map(({ stock }) => stock))
-
 const getData = async (page?: number) => {
+  stocks.value = []
   isFinished.value = false
   isLoading.value = true
   currentPage.value = page ?? currentPage.value
-  const response = await wishlistService()
+  const response = await wishlistService(currentPage.value)
   if (response.data) {
-    watchList.value = response.data.data
+    console.log('response', response.data)
+    stocks.value.push(...response.data.data)
 
-    isFinished.value = true
+    if (response.data.data.length < 20) {
+      isFinished.value = true
+    }
     isLoading.value = false
     currentPage.value++
   } else {
     isFinished.value = true
+  }
+}
+
+const handleFavoriteStock = (code: string) => {
+  for (let i = 0; i < stocksSearched.value.length; i++) {
+    if (stocksSearched.value[i].FS === code) {
+      stocksSearched.value[i].user_id = stocksSearched.value[i].user_id ? 0 : 1
+    }
   }
 }
 
@@ -40,7 +49,7 @@ const onSearch = async (page?: number) => {
   currentSearchPage.value = page ?? currentSearchPage.value
   const response = await searchStockService(searchKey.value, currentSearchPage.value)
 
-  if (response.data) {
+  if (response.data.data) {
     stocksSearched.value.push(...response.data.data)
 
     if (response.data.data.length < 20) {
@@ -60,30 +69,22 @@ const openPopupSearchStock = () => {
 const addStockToWishList = async (stock: IStock) => {
   await addOneToWishListService(stock)
   getData(1)
-  onSearch(1)
+  handleFavoriteStock(stock.FS)
 }
 
 const deleteStockFromWishList = async (stock: IStock) => {
-  const itemId = watchList.value.find(({ stock: { FS } }) => FS === stock.FS)?.id
-  if (itemId) {
-    await deleteOneFromWishListService(itemId)
-    getData(1)
-    onSearch(1)
-  }
+  await deleteOneFromWishListService(stock)
+  getData(1)
+  handleFavoriteStock(stock.FS)
 }
 
 const handleWishlist = (stock: IStock) => {
-  const existed = !!watchList.value.find(({ stock: { FS } }) => FS === stock.FS)
+  const existed = !!stocks.value.find(({ C }) => C === stock.C)
   if (!existed) {
     addStockToWishList(stock)
   } else {
     deleteStockFromWishList(stock)
   }
-}
-
-const isSelected = (compareData: IStock) => {
-  // eslint-disable-next-line camelcase
-  return watchList.value.some(({ stock: { user_id } }) => compareData.user_id === user_id)
 }
 
 watch(
@@ -107,7 +108,7 @@ watch(
       </template>
     </van-nav-bar>
     <!-- Body  -->
-    <div class="bg-light-50">
+    <div class="bg-light-50 pb-10">
       <StockTable
         v-model:is-loading="isLoading"
         :stocks="stocks"
@@ -116,7 +117,7 @@ watch(
         @load="getData"
       />
       <!-- Button open search stock  -->
-      <div class="text-center pt-5 pb-10">
+      <div class="text-center pb-10">
         <van-button
           icon="plus"
           type="default"
@@ -171,12 +172,12 @@ watch(
                 </van-col>
                 <van-col
                   span="12"
-                  class="text-right pr-4"
+                  class="text-right"
                 >
                   <van-icon
                     class="!text-2xl"
                     color="#f03957"
-                    :name="isSelected(stock) ?'like' : 'like-o'"
+                    :name="(stock.user_id) ? 'like': 'like-o'"
                     @click="handleWishlist(stock)"
                   />
                 </van-col>

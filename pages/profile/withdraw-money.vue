@@ -84,7 +84,6 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 import { useAuthenticationStore } from '~~/stores/authentication'
-import { APP_USER_VERIFY_STATUS } from '~~/types/user'
 
 const { $toast, $typedRouter, $routesList } = useNuxtApp()
 const userStore = useAuthenticationStore()
@@ -103,7 +102,7 @@ const onSubmit = async () => {
   }
 }
 
-if (userInformation.value?.verification_status !== APP_USER_VERIFY_STATUS.VERIFIED) {
+if (!userInformation.value?.is_verified) {
   $typedRouter.push({ name: $routesList.profileKyc })
 }
 </script>

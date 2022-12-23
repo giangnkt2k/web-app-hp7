@@ -5,11 +5,19 @@ const userStore = useAuthenticationStore()
 const { logout } = userStore
 const { userInformation, balance, frozenBalance } = storeToRefs(userStore)
 
+const { isHasWithdrawalPasswordService } = useApiServices()
 const isHiddenBalance = ref(false)
-
+const isHasWithdrawalPassword = ref(false)
 const hiddenBalance = () => {
   isHiddenBalance.value = !isHiddenBalance.value
 }
+
+const hasWithdrawalPassword = async () => {
+  const res = await isHasWithdrawalPasswordService()
+  isHasWithdrawalPassword.value = res.data
+}
+
+hasWithdrawalPassword()
 </script>
 
 <template>
@@ -66,7 +74,7 @@ const hiddenBalance = () => {
             :title="$t('profile.cell.silverCertificateTransferOut')"
             is-link
             :to="{
-              name: userInformation?.has_withdraw_password ? $routesList.profileWithdrawMoney : $routesList.profileSetWithdrawalPassword
+              name: isHasWithdrawalPassword ? $routesList.profileWithdrawMoney : $routesList.profileSetWithdrawalPassword
             }"
           />
           <van-cell
@@ -79,7 +87,7 @@ const hiddenBalance = () => {
             icon="cash-on-deliver"
             :title="$t('profile.list-of-withdrawals.tab')"
             is-link
-            :to="{name: userInformation?.has_withdraw_password ? $routesList.profileWithdrawalList : $routesList.profileSetWithdrawalPassword}"
+            :to="{name: isHasWithdrawalPassword ? $routesList.profileWithdrawalList : $routesList.profileSetWithdrawalPassword}"
           />
           <van-cell
             icon="contact"
@@ -97,7 +105,7 @@ const hiddenBalance = () => {
             icon="browsing-history"
             :title="$t('profile.change-withdrawal-password.tab')"
             is-link
-            :to="{name: userInformation?.has_withdraw_password ? $routesList.profileChangeWithdrawalPassword : $routesList.profileSetWithdrawalPassword}"
+            :to="{name: isHasWithdrawalPassword ? $routesList.profileChangeWithdrawalPassword : $routesList.profileSetWithdrawalPassword}"
           />
         </van-cell-group>
       </div>
