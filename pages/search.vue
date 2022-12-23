@@ -25,9 +25,9 @@ const search = async (page?: number) => {
   const response = await searchStockService(searchKey.value, currentPage.value)
 
   if (response.data) {
-    stocks.value.push(...response.data)
+    stocks.value.push(...response.data.data)
 
-    if (response.data.length < 20) {
+    if (response.data.data.length < 20) {
       isFinished.value = true
     }
     isLoading.value = false

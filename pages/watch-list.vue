@@ -22,9 +22,8 @@ const getData = async (page?: number) => {
   isLoading.value = true
   currentPage.value = page ?? currentPage.value
   const response = await wishlistService()
-
   if (response.data) {
-    watchList.value = response.data
+    watchList.value = response.data.data
 
     isFinished.value = true
     isLoading.value = false
@@ -42,9 +41,9 @@ const onSearch = async (page?: number) => {
   const response = await searchStockService(searchKey.value, currentSearchPage.value)
 
   if (response.data) {
-    stocksSearched.value.push(...response.data)
+    stocksSearched.value.push(...response.data.data)
 
-    if (response.data.length < 20) {
+    if (response.data.data.length < 20) {
       isSearchFinished.value = true
     }
     isSearchLoading.value = false
@@ -83,7 +82,8 @@ const handleWishlist = (stock: IStock) => {
 }
 
 const isSelected = (compareData: IStock) => {
-  return watchList.value.some(({ stock: { FS } }) => compareData.FS === FS)
+  // eslint-disable-next-line camelcase
+  return watchList.value.some(({ stock: { user_id } }) => compareData.user_id === user_id)
 }
 
 watch(

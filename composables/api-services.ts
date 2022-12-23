@@ -30,7 +30,7 @@ export const useApiServices = () => {
   }
 
   const searchStockService = (searchKey?: string, page = 1, pageSize = 20) => {
-    return $api.get<IStock[]>(ApiRoutes.SEARCH_STOCK, {
+    return $api.get<IPaginatedData<IStock[]>>(ApiRoutes.SEARCH_STOCK, {
       params: {
         searchKey,
         page,
@@ -75,7 +75,7 @@ export const useApiServices = () => {
   }
 
   const watchListService = (page = 1) => {
-    return $api.get<IBaseResponse<IStock[]>>(ApiRoutes.WATCH_LIST, { params: { page } })
+    return $api.get<IPaginatedData<IStock[]>>(ApiRoutes.WATCH_LIST, { params: { page } })
   }
 
   const positionsService = (page = 1, pageSize = 20) => {
@@ -186,15 +186,15 @@ export const useApiServices = () => {
   }
   // ------WISHLIST PAGE------
   const wishlistService = () => {
-    return $api.get<WatchListItem[]>(ApiRoutes.OPTIONALS_INDEX)
+    return $api.get<IPaginatedData<WatchListItem[]>>(ApiRoutes.OPTIONALS_INDEX)
   }
 
   const addOneToWishListService = (stock: IStock) => {
-    return $api.post<IBaseResponse<undefined>>(ApiRoutes.ADD_OPTION, { stockId: stock.id })
+    return $api.patch<IBaseResponse<undefined>>(`${ApiRoutes.ADD_OPTION}/${stock.id}`)
   }
 
   const deleteOneFromWishListService = (id: number) => {
-    return $api.delete<IBaseResponse<undefined>>(`${ApiRoutes.DELETE_OPTION}/${id}`)
+    return $api.patch<IBaseResponse<undefined>>(`${ApiRoutes.DELETE_OPTION}/${id}`)
   }
 
   const addNewDepositService = (amount: number, id: number) => {

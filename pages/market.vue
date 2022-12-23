@@ -18,7 +18,7 @@
       >
         <CnQuotation />
       </van-tab>
-      <van-tab
+      <!-- <van-tab
         :title="$t('page.market.amplitudeList')"
         :name="MarketPageTabs.AMPLITUDE"
       >
@@ -41,7 +41,7 @@
         :name="MarketPageTabs.DOWN"
       >
         <DropList />
-      </van-tab>
+      </van-tab> -->
     </van-tabs>
 
     <TheBottomNavigation />
@@ -61,7 +61,7 @@ const getChinaIndexes = async () => {
   const response = await searchStockService(undefined, undefined, 3)
 
   if (response?.data) {
-    chinaIndexes.value = response.data
+    chinaIndexes.value = response.data.data
   }
 
   return response.data
