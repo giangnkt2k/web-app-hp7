@@ -43,6 +43,9 @@ export default defineNuxtConfig({
     ],
     ssr: {
       noExternal: ['vant']
+    },
+    server: {
+      port: 3003
     }
   },
 
@@ -50,8 +53,5 @@ export default defineNuxtConfig({
     public: {
       API_ENDPOINT: process.env.API_ENDPOINT
     }
-  },
-  server: {
-    port: 3003
   }
 })
