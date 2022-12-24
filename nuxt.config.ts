@@ -50,5 +50,8 @@ export default defineNuxtConfig({
     public: {
       API_ENDPOINT: process.env.API_ENDPOINT
     }
+  },
+  server: {
+    port: 3003
   }
 })
