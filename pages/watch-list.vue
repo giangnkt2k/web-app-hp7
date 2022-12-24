@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IStock, IStockSearch } from '~~/types/stock'
+import { IStock } from '~~/types/stock'
 
 const { wishlistService, searchStockService, addOneToWishListService, deleteOneFromWishListService } = useApiServices()
 
@@ -7,21 +7,21 @@ const currentPage = ref(1)
 const currentSearchPage = ref(1)
 const isLoading = ref(false)
 const isFinished = ref(false)
-const stocks = ref<IStockSearch[]>([])
+const stocks = ref<IStock[]>([])
 const isSearchLoading = ref(false)
 const isSearchFinished = ref(false)
 const stocksSearched = ref<IStock[]>([])
 const isPopupSearchStockOpen = ref(false)
 const { searchKey } = useSearch()
+const pageSize = ref(20)
 
 const getData = async (page?: number) => {
   stocks.value = []
   isFinished.value = false
   isLoading.value = true
   currentPage.value = page ?? currentPage.value
-  const response = await wishlistService(currentPage.value)
+  const response = await wishlistService(currentPage.value, pageSize.value)
   if (response.data) {
-    console.log('response', response.data)
     stocks.value.push(...response.data.data)
 
     if (response.data.data.length < 20) {

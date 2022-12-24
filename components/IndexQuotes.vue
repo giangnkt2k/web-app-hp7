@@ -8,7 +8,7 @@ const getChinaIndexes = async () => {
   const response = await searchStockService(undefined, undefined, 3)
 
   if (response?.data) {
-    chinaIndexes.value = response.data
+    chinaIndexes.value = response.data.data
   }
 
   return response.data

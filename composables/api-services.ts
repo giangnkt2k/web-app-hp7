@@ -7,7 +7,7 @@ import { IArticleDetails, INews } from '~~/types/news'
 import { IPositionResponse } from '~~/types/position'
 import { IStock, IStockKlineData, IBuyStockReqBody, IStockDetailsResponse } from '~~/types/stock'
 import { IUserInfo, IUserDeposit, IUserChangeWithdrawalPassword, IUserChangePasswordRequestBody, IUserWithdrawal, KycSubmitDto } from '~~/types/user'
-import { WatchListItem } from '~~/types/watch-list'
+// import { WatchListItem } from '~~/types/watch-list'
 
 export const useApiServices = () => {
   const { $api } = useNuxtApp()
@@ -186,8 +186,13 @@ export const useApiServices = () => {
     return $api.patch(ApiRoutes.SET_WITHDRAW_PASSWORD, { withdraw_password })
   }
   // ------WISHLIST PAGE------
-  const wishlistService = () => {
-    return $api.get<IPaginatedData<WatchListItem[]>>(ApiRoutes.OPTIONALS_INDEX)
+  const wishlistService = (page: number, pageSize: number) => {
+    return $api.get<IPaginatedData<IStock[]>>(ApiRoutes.OPTIONALS_INDEX, {
+      params: {
+        page,
+        pageSize
+      }
+    })
   }
 
   const addOneToWishListService = (stock: IStock) => {
