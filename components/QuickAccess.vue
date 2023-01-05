@@ -12,6 +12,11 @@ const quickAccessItemsFirstPage = computed(() => [
     route: { name: $routesList.watchList }
   },
   {
+    icon: 'transaction',
+    name: t('quick-access.items.big-deal'),
+    route: { name: $routesList.blockDeal }
+  },
+  {
     icon: 'Pound-Rise',
     name: t('quick-access.items.gain-list'),
     route: {

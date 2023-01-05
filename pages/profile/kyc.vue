@@ -263,11 +263,11 @@ const submitKycRequest = async () => {
 onMounted(() => {
   if (userInformation.value) {
     if (userInformation.value.id_front) {
-      form.id_front = getFileUrl(userInformation.value.id_front.id)
+      form.id_front = getFileUrl(userInformation.value.id_front)
       idCardFont.value = [
         {
           isImage: true,
-          url: getFileUrl(userInformation.value.id_front.id)
+          url: getFileUrl(userInformation.value.id_front)
         }
       ]
 
@@ -275,11 +275,11 @@ onMounted(() => {
     }
 
     if (userInformation.value.id_back) {
-      form.id_back = getFileUrl(userInformation.value.id_back.id)
+      form.id_back = getFileUrl(userInformation.value.id_back)
       idCardBack.value = [
         {
           isImage: true,
-          url: getFileUrl(userInformation.value.id_back.id)
+          url: getFileUrl(userInformation.value.id_back)
         }
       ]
       $v.value.id_back.$touch()

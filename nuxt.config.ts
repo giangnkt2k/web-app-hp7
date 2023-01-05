@@ -43,15 +43,14 @@ export default defineNuxtConfig({
     ],
     ssr: {
       noExternal: ['vant']
-    },
-    server: {
-      port: 3003
     }
+
   },
 
   runtimeConfig: {
     public: {
-      API_ENDPOINT: process.env.API_ENDPOINT
+      API_ENDPOINT: process.env.API_ENDPOINT,
+      LINK_IMG: process.env.LINK_IMG
     }
   }
 })

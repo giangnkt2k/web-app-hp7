@@ -1,6 +1,5 @@
 import { DEPOSIT_STATUS } from './deposit'
 import { IDepositAccount } from './deposit-account'
-import { ILocalFile } from './local-files'
 import { IPosition } from './position'
 
 export enum APP_USER_VERIFY_STATUS {
@@ -15,8 +14,8 @@ export interface IUserInfo {
   id: number;
   username: string;
   real_name: string;
-  id_front: ILocalFile;
-  id_back: ILocalFile;
+  id_front: string;
+  id_back: string;
   id_number: string;
   phone: string;
   bank_name: string;

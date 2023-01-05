@@ -24,5 +24,6 @@ export enum MarketPageTabs {
     AMPLITUDE = 'amplitude',
     TURNOVER = 'turnover',
     UP = 'up',
-    DOWN = 'down'
+    DOWN = 'down',
+    BLOCK_DEAL= 'block-deal'
 }

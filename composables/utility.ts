@@ -16,9 +16,13 @@ export const useUtility = () => {
     return $dayjs(date).format(format)
   }
 
-  const getFileUrl = (id: number) => {
-    return buildUrl(config.public.API_ENDPOINT, {
-      path: `${ApiRoutes.READ_FILES}/${id}`
+  const convertTimeStampToDate = (time: number, format = 'DD/MM/YYYY HH:mm:ss') => {
+    return $dayjs.unix(time).format(format)
+  }
+
+  const getFileUrl = (name: string) => {
+    return buildUrl(config.public.LINK_IMG, {
+      path: `${ApiRoutes.READ_FILES}/${name}`
     })
   }
 
@@ -27,6 +31,7 @@ export const useUtility = () => {
     toMoneyFormat,
     dateFormatter,
     getFileUrl,
-    t: $t
+    t: $t,
+    convertTimeStampToDate
   }
 }

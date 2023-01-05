@@ -237,5 +237,7 @@
     "profile.set-withdrawal-password.title": "设置提现密码",
     "page.profile.deposit.deposit-account": "存款账户",
     "page.profile.deposit.finished-text": "加载所有存款",
-    "page.profile.deposit.loading-text": "加载存款"
+    "page.profile.deposit.loading-text": "加载存款",
+    "page.block-stock.start-time": "开始时间",
+    "page.block-stock.end-time": "结束"
 }

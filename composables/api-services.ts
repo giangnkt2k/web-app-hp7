@@ -1,4 +1,5 @@
 import { ApiRoutes, IBaseResponse, ILoginResponse, IPaginatedData } from '~~/types/api'
+import { IBlockDeal } from '~~/types/block-deal'
 import { IDepositAccount } from '~~/types/deposit-account'
 import { ISlideItem } from '~~/types/hero-slide'
 import { HotIndustry, HotSpot, Amplitude } from '~~/types/market'
@@ -248,6 +249,14 @@ export const useApiServices = () => {
     return $api.get(ApiRoutes.IS_HAS_WITHDRAWAL_PASSWORD)
   }
 
+  const getBlockDealService = () => {
+    return $api.get<IPaginatedData<IBlockDeal[]>>(ApiRoutes.BLOCK_DEAL_LIST)
+  }
+
+  const buyingBlockStockService = (payload : object) => {
+    return $api.post<IBaseResponse<undefined>>(ApiRoutes.BLOCK_DEAL_BUY, payload)
+  }
+
   return {
     loginService,
     searchStockService,
@@ -290,6 +299,8 @@ export const useApiServices = () => {
     setWithdrawalPasswordService,
     getDepositAccountsService,
     getUserFrozenBalanceService,
-    isHasWithdrawalPasswordService
+    isHasWithdrawalPasswordService,
+    getBlockDealService,
+    buyingBlockStockService
   }
 }
